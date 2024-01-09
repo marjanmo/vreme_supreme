@@ -16,9 +16,9 @@
                 <!-- Logo -->
                 <a class="navbar-brand" href="#">Vreme Supreme</a>
 
-                <button class="main-buttons btn btn-light active" onclick="showContent('analiza','content');showContent('analiza','controlBar');updateAnaliza();toggleActive(this)">Analiza</button>
-                <button class="main-buttons btn btn-light" onclick="showContent('napoved', 'content');showContent('napoved','controlBar');updateNapoved();toggleActive(this)">Napoved</button>
-                <button class="main-buttons btn btn-light" onclick="showContent('casovniPresek', 'content');showContent('casovniPresek','controlBar');updateProfiles();toggleActive(this)">Časovni presek</button>
+                <button class="main-buttons btn btn-light" onclick="showContent('analiza','content');showContent('analiza','controlBar');updateAnaliza();toggleActive(this, 'main-buttons')">Analiza</button>
+                <button class="main-buttons btn btn-light" onclick="showContent('napoved', 'content');showContent('napoved','controlBar');updateNapoved();toggleActive(this, 'main-buttons')">Napoved</button>
+                <button class="main-buttons btn btn-light" onclick="showContent('casovniPresek', 'content');showContent('casovniPresek','controlBar');updateProfiles('ratece');toggleActive(this, 'main-buttons')">Časovni presek</button>
 
                 <!-- Icon that triggers the elevated text field -->
                 <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
@@ -62,7 +62,7 @@
                     </div>
 
                     <div class="col controlBar" id="casovniPresek">
-                        <button class="presek-buttons btn-sm btn-secondary" onclick="updateProfiles('ratece');toggleActive(this, 'presek-buttons')">Gorenjska</button>
+                        <button class="presek-buttons btn-sm btn-light" onclick="updateProfiles('ratece');toggleActive(this, 'presek-buttons')">Gorenjska</button>
                         <button class="presek-buttons btn-sm btn-light" onclick="updateProfiles('ljubljana-bezigrad');toggleActive(this, 'presek-buttons')">Ljubljana</button>
                         <button class="presek-buttons btn-sm btn-light" onclick="updateProfiles('portoroz');toggleActive(this, 'presek-buttons')">Primorska</button>
                         <button class="presek-buttons btn-sm btn-light" onclick="updateProfiles('novo-mesto');toggleActive(this, 'presek-buttons')">Dolenjska</button>

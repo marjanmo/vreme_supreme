@@ -41,6 +41,7 @@ baseDatetime.setSeconds(0);
 // določi začetne vrednosti
 var currentDatetime = baseDatetime
 var currentDatetimeUtc = new Date(currentDatetime.getTime() - 1 * 60 * 60 * 1000)
+var currentDatetimeUtcRounded = new Date(currentDatetimeUtc.getTime())
 var lastAladinSimulationGuessUtc = roundToLast12Hours(new Date(currentDatetimeUtc.getTime() - 5 * 60 * 60 * 1000)) // predpostavljaš, da se 5 ur računa nov run
 
 const PROBASE_URL = 'https://meteo.arso.gov.si/uploads/probase/www/'
@@ -64,8 +65,8 @@ function showContent(contentId, class_name) {
 }
 
 
-function toggleActive(button) {
-    var navbarButtons = document.getElementsByClassName('main-buttons');
+function toggleActive(button, class_name) {
+    var navbarButtons = document.getElementsByClassName(class_name);
     for (var i = 0; i < navbarButtons.length; i++) {
         navbarButtons[i].classList.remove('active');
     }
@@ -79,7 +80,8 @@ function updateAnaliza() {
     // Calculate the new datetime based on the slider value (rounded to 10 minutes)
     currentDatetime = new Date(baseDatetime.getTime() + sliderValue * 10 * 60 * 1000);
     currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
-
+    currentDatetimeUtcRounded = new Date(currentDatetimeUtc.getTime());
+    currentDatetimeUtcRounded.setMinutes(0);
 
     // Update datum text
     var formattedDatetime = currentDatetime.toLocaleDateString('en-us', { weekday: "long", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })
@@ -90,10 +92,10 @@ function updateAnaliza() {
 
 
     //Update Satellite Image SLO
-    document.getElementById('satelliteImageSLO').src = PROBASE_URL + 'observ/satellite/msg_' + utcDateToCommonString(currentDatetimeUtc) + '_hrv_si.jpg';
+    document.getElementById('satelliteImageSLO').src = PROBASE_URL + 'observ/satellite/msg_' + utcDateToCommonString(currentDatetimeUtcRounded) + '_hrv_si.jpg';
 
     //Update Satellite Image EU
-    document.getElementById('satelliteImageEU').src = PROBASE_URL + 'observ/satellite/msg_' + utcDateToCommonString(currentDatetimeUtc) + '_ir_sateu.jpg';
+    document.getElementById('satelliteImageEU').src = PROBASE_URL + 'observ/satellite/msg_' + utcDateToCommonString(currentDatetimeUtcRounded) + '_ir_sateu.jpg';
 
 };
 

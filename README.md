@@ -48,4 +48,8 @@ https://meteo.arso.gov.si/uploads/probase/www/model/aladin/point/as_20240109-120
 # TODO
 
 Swiping support for smartphones
-
+Navbar na dno ko je na telefonu
+Fiksna velikost, ko ni slikce (ne spremeni velikosti)
+Lomljenje slik kot je treba - na telefonu samo ena,...
+Vizualno ločit glavni in pomožni bar
+Boljši tekst za datum (čez koliko ur), zlomit poleg sliderja
