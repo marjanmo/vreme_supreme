@@ -132,18 +132,30 @@ function updateNapoved() {
 
 function updateProfiles(place) {
     //update location variable
-    profileLocation = place;
+    console.log(place)
+    console.log(utcDateToCommonString(lastAladinSimulationGuessUtc))
+    //document.getElementById("locationDropdown").textContent = profileLocation;
 
-    document.getElementById("locationDropdown").textContent = profileLocation;
+    // Ti vzamejo ljubljana-bezigrad, murska-sobota,...
+    document.getElementById('rainProfile').src = PROBASE_URL + '/model/aladin/point/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_t-r_' + place + '.png'
+    
+    document.getElementById('windProfile').src = PROBASE_URL + '/model/aladin/point/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_vm-va_' + place + '.png'
 
+    var placeToJadralciCode = {
+        "ljubljana-bezigrad": "SILJU",
+        "murska-sobota": "SIMSO",
+        "portoroz": "SIPOR",
+        "novo-mesto": "SINMO",
+        "ratece": "SILES",
 
-    document.getElementById('cloudProfile').src = PROBASE_URL + 'model/aladin/point/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_rh-t_' + profileLocation + '.png';
+    }
+    document.getElementById('cloudProfile').src = PROBASE_URL + 'model/aladin/point/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_rh-t_' + placeToJadralciCode[place] + '.png';
 
     // Profil temperature
-    document.getElementById('temperatureProfile').src = PROBASE_URL + 'model/aladin/point/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_tgrad_' + profileLocation + '.png';
+    document.getElementById('temperatureProfile').src = PROBASE_URL + 'model/aladin/point/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_tgrad_' + placeToJadralciCode[place] + '.png';
 
     // Profil vlage
-    document.getElementById('humidityProfile').src = PROBASE_URL + 'model/aladin/point/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_rh-va_' + profileLocation + '.png';
+    document.getElementById('humidityProfile').src = PROBASE_URL + 'model/aladin/point/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_rh-va_' + placeToJadralciCode[place] + '.png';
 
 }
 

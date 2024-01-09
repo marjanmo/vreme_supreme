@@ -32,6 +32,19 @@ https://meteo.arso.gov.si/uploads/probase/www/model/aladin/field/as_20240109-000
 https://meteo.arso.gov.si/uploads/probase/www/model/aladin/field/ad_20240109-0000_vm-va10m_si_042.png
 
 
+#Lokacije: Gorenjska
+
+ljubljana-bezigrad
+murska-sobota
+novo-mesto
+portoroz
+ratece
+
+#Profil Aladin
+https://meteo.arso.gov.si/uploads/probase/www/model/aladin/point/as_20240109-1200_vm-va_ljubljana-bezigrad.png
+
+
+
 # TODO
 
 Swiping support for smartphones
