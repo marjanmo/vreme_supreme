@@ -3,8 +3,15 @@ img {
     height: auto;
 }
 
-body {
-    padding-top: 46px;
+nav {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    /* Adjust the values as needed */
+}
+
+controlBar
+
+.main {
+    top: 100px;
     /* Adjust the value based on your navbar height */
 }
 
@@ -13,7 +20,7 @@ h5 {
     font-size: 16px;
 }
 
-#image_grid {
+.content {
     padding: 10px;
 }
 
