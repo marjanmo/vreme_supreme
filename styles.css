@@ -1,0 +1,32 @@
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+body {
+    padding-top: 46px;
+    /* Adjust the value based on your navbar height */
+}
+
+h5 {
+    margin: 0px 0px 8px;
+    font-size: 16px;
+}
+
+#image_grid {
+    padding: 10px;
+}
+
+input {
+    width: 100%;
+}
+
+.dropdown-menu {
+    right: 0;
+    left: auto;}
+
+/* .col-lg-4 {
+    min-width: 200px;
+    min-height: 200px;
+    overflow: hidden;
+} */

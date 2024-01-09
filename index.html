@@ -1,0 +1,125 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src=script.js></script>
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Arso Supreme</title>
+</head>
+<body>
+    <!-- Toolbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
+
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">ARSO Vreme Supreme</a>
+
+        <!-- Icon that triggers the elevated text field -->
+        <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
+            &#9432; <!-- Unicode for an info icon -->
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <!-- <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tekstovna napoved</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div> -->
+                    <iframe src="https://meteo.arso.gov.si/uploads/probase/www/fproduct/text/sl/fcast_si_text.html" height="400" frameborder="0"></iframe>
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Časovni slider -->
+        <div class="col">
+            <label for="slider" <span id="currentDatetimeValue"> </span></label>
+            <input type="range" class="form-control-range" id="slider" min="-17" max="68" step="1" value="0"
+                oninput="updateContent()">
+        </div>
+
+        <!-- Izbirnik krajev -->
+        <div class="dropdown">
+            <!-- <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> -->
+            <button id=locationDropdown class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Select Option
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" onclick="updateProfiles('SILES')">Lesce</a></li>
+                <li><a class="dropdown-item" onclick="updateProfiles('SILJU')">Ljubljana</a></li>
+                <li><a class="dropdown-item" onclick="updateProfiles('SIBOV')">Bovec</a></li>
+            </ul>
+        </div>
+
+    </nav>
+
+    <div id="image_grid">
+        <div class="mt-3 container-fluid" >
+
+            <!-- Responsive Grid -->
+            <div class="row mt-3">
+
+                <!-- First Column -->
+                <div id=radar class="col-lg-4">
+                    <h5>Padavine<span id="radarText">Radarska slika</span></h5>
+                    <img id="radarImage" src="radar.jpg">
+
+                </div>
+
+                <!-- Second Column -->
+                <div class="col-lg-4">
+                    <h5>Satelitska slika</span></h5>
+                    <img id="satelliteImage" src="satellite.jpg">
+                </div>
+
+                <!-- Third Column -->
+                <div class="col-lg-4">
+                    <h5>Napoved vetra</span></h5>
+                    <img id="windImage" src="satellite.jpg">
+                </div>
+
+                <!-- Repeat for as many rows/columns as needed -->
+            </div>
+
+            <!-- Responsive Grid -->
+            <div class="row mt-3" >
+
+                <!-- First Column -->
+                <div id=radar class="col-lg-4">
+                    <h5>Profil oblačnosti</h5>
+                    <img id="cloudProfile" src="cloud.jpg">
+
+                </div>
+
+                <!-- Second Column -->
+                <div class="col-lg-4">
+                    <h5>Profil vlage</span></h5>
+                    <img id="humidityProfile" src="humidity.jpg">
+                </div>
+
+                <!-- Third Column -->
+                <div class="col-lg-4">
+                    <h5>Profil temperature</span></h5>
+                    <img id="temperatureProfile" src="temperature.jpg">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script> -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
