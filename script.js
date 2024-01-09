@@ -1,52 +1,11 @@
+function placeMainBelowNavbar() {
+    var navbarHeight = document.querySelector('nav').offsetHeight;
+    console.log(navbarHeight)
+    main = document.getElementById('main')
 
-document.addEventListener('DOMContentLoaded', function () {
+    main.style.marginTop = navbarHeight + 'px';
 
-
-    // Default je analiza
-    showContent("analiza", "content")
-    // Pokaži samo svoj filter
-    showContent("analiza", "controlBar")
-
-    updateAnaliza()
-
-    //focusOnRangeSlider()
-
-
-
- 
-
-
-
-});
-
-
-// Function to set focus on the range slider
-function focusOnRangeSlider() {
-    const slider = document.getElementById('slider');
-    slider.focus();
 }
-
-var profileLocation = "SILES";
-
-
-
-
-
-
-// Set a base datetime, rounded to last hour
-var baseDatetime = new Date();
-baseDatetime.setMinutes(0);
-baseDatetime.setSeconds(0);
-
-// določi začetne vrednosti
-var currentDatetime = baseDatetime
-var currentDatetimeUtc = new Date(currentDatetime.getTime() - 1 * 60 * 60 * 1000)
-var currentDatetimeUtcRounded = new Date(currentDatetimeUtc.getTime())
-var lastAladinSimulationGuessUtc = roundToLast12Hours(new Date(currentDatetimeUtc.getTime() - 5 * 60 * 60 * 1000)) // predpostavljaš, da se 5 ur računa nov run
-
-const PROBASE_URL = 'https://meteo.arso.gov.si/uploads/probase/www/'
-
-var profileLocation = "SILES";
 
 
 function showContent(contentId, class_name) {
@@ -62,8 +21,9 @@ function showContent(contentId, class_name) {
         }
     }
 
-}
+    placeMainBelowNavbar()
 
+}
 
 function toggleActive(button, class_name) {
     var navbarButtons = document.getElementsByClassName(class_name);
@@ -72,6 +32,20 @@ function toggleActive(button, class_name) {
     }
     button.classList.toggle('active');
 }
+
+// Set a base datetime, rounded to last hour
+var baseDatetime = new Date();
+baseDatetime.setMinutes(0);
+baseDatetime.setSeconds(0);
+
+// določi začetne vrednosti
+var currentDatetime = baseDatetime
+var currentDatetimeUtc = new Date(currentDatetime.getTime() - 1 * 60 * 60 * 1000)
+var currentDatetimeUtcRounded = new Date(currentDatetimeUtc.getTime())
+var lastAladinSimulationGuessUtc = roundToLast12Hours(new Date(currentDatetimeUtc.getTime() - 5 * 60 * 60 * 1000)) // predpostavljaš, da se 5 ur računa nov run
+
+const PROBASE_URL = 'https://meteo.arso.gov.si/uploads/probase/www/'
+
 
 function updateAnaliza() {
     const sliderValue = document.getElementById('analizaSlider').value;
@@ -84,7 +58,7 @@ function updateAnaliza() {
     currentDatetimeUtcRounded.setMinutes(0);
 
     // Update datum text
-    var formattedDatetime = currentDatetime.toLocaleDateString('en-us', { weekday: "long", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })
+    var formattedDatetime = currentDatetime.toLocaleDateString('si-SI', { weekday: "long", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })
     document.getElementById('currentDatetimeValueAnaliza').textContent = formattedDatetime;
 
     // Update radar image
@@ -108,7 +82,7 @@ function updateNapoved() {
     currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
 
     // Update datum text
-    var formattedDatetime = currentDatetime.toLocaleDateString('en-us', { weekday: "long", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })
+    var formattedDatetime = currentDatetime.toLocaleDateString('si-SI', { weekday: "long", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })
     document.getElementById('currentDatetimeValueNapoved').textContent = formattedDatetime;
 
 
@@ -125,7 +99,7 @@ function updateNapoved() {
     document.getElementById('AladinWind700Image').src = PROBASE_URL + 'model/aladin/field/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_vf925_si-neighbours_' + forecasting_hour + '.png';
     document.getElementById('AladinWind1500Image').src = PROBASE_URL + 'model/aladin/field/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_r-t-vf850_si-neighbours_' + forecasting_hour + '.png';
 
-   
+
     //Update wind text and image
     //document.getElementById('windImage').src = PROBASE_URL + 'www/model/aladin/field/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_va10m_si_' + forecasting_hour + '.png';
 
@@ -136,11 +110,10 @@ function updateProfiles(place) {
     //update location variable
     console.log(place)
     console.log(utcDateToCommonString(lastAladinSimulationGuessUtc))
-    //document.getElementById("locationDropdown").textContent = profileLocation;
 
     // Ti vzamejo ljubljana-bezigrad, murska-sobota,...
     document.getElementById('rainProfile').src = PROBASE_URL + '/model/aladin/point/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_t-r_' + place + '.png'
-    
+
     document.getElementById('windProfile').src = PROBASE_URL + '/model/aladin/point/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_vm-va_' + place + '.png'
 
     var placeToJadralciCode = {
@@ -181,49 +154,67 @@ function roundToLast12Hours(date) {
     return roundedDate;
 }
 
+document.addEventListener('DOMContentLoaded', function () {
 
 
+    // Default je analiza
+    showContent("analiza", "content")
+    // Pokaži samo svoj filter
+    showContent("analiza", "controlBar")
 
-// Text napoved
-//https://meteo.arso.gov.si/uploads/probase/www/fproduct/text/sl/fcast_si_text.html
+    updateAnaliza()
 
+    //focusOnRangeSlider()
 
-// Text napoved za letalce
-// https://meteo.arso.gov.si/uploads/probase/www/aviation/fproduct/text/sl/aviation.txt
+    placeMainBelowNavbar()
 
-// Radarska slika
-// https://meteo.arso.gov.si/uploads/probase/www/observ/radar/si0_20240107-2240_zm_si.jpg
-
-
-// Satelitska slika Evropa
-// https://meteo.arso.gov.si/uploads/probase/www/observ/satellite/msg_20240107-1000_ir_sateu.jpg
-
-// Satelitska slika Slovenija
-// https://meteo.arso.gov.si/uploads/probase/www/observ/satellite/msg_20240108-1000_hrv_si.jpg
-
-// Padavine Napoved SLO
-// https://meteo.arso.gov.si/uploads/probase/www/model/aladin/field/as_20240108-0000_tcc-rr_si-neighbours_069.png?1704712225313
-
-// Veter Napoved SLO
-// https://meteo.arso.gov.si/uploads/probase/www/model/aladin/field/as_20240108-0000_va10m_si_024.png?1704712293943
-
-//
-
-// Profil oblačnosti (SILESce, SIBOVec, SIPOStojna, SIPORtorož, SILJUbljana, SIPTUj, SISGRadec, SIMNOmesto, SIKOCevje, SIMSObota)
-// https://meteo.arso.gov.si/uploads/probase/www/model/aladin/point/as_20240108-0000_rh-t_SILES.png
-
-// Profil temperature
-// https://meteo.arso.gov.si/uploads/probase/www/model/aladin/point/as_20240108-0000_tgrad_SILES.png
-
-// Profil vlage
-// https://meteo.arso.gov.si/uploads/probase/www/model/aladin/point/as_20240108-0000_rh-va_SILES.png
-
-// Profil vetra
-// https://meteo.arso.gov.si/uploads/probase/www/model/aladin/point/as_20240108-0000_vm-va_SILES.png
+    window.addEventListener('resize', placeMainBelowNavbar());
 
 
 
 
+
+    // Text napoved
+    //https://meteo.arso.gov.si/uploads/probase/www/fproduct/text/sl/fcast_si_text.html
+
+
+    // Text napoved za letalce
+    // https://meteo.arso.gov.si/uploads/probase/www/aviation/fproduct/text/sl/aviation.txt
+
+    // Radarska slika
+    // https://meteo.arso.gov.si/uploads/probase/www/observ/radar/si0_20240107-2240_zm_si.jpg
+
+
+    // Satelitska slika Evropa
+    // https://meteo.arso.gov.si/uploads/probase/www/observ/satellite/msg_20240107-1000_ir_sateu.jpg
+
+    // Satelitska slika Slovenija
+    // https://meteo.arso.gov.si/uploads/probase/www/observ/satellite/msg_20240108-1000_hrv_si.jpg
+
+    // Padavine Napoved SLO
+    // https://meteo.arso.gov.si/uploads/probase/www/model/aladin/field/as_20240108-0000_tcc-rr_si-neighbours_069.png?1704712225313
+
+    // Veter Napoved SLO
+    // https://meteo.arso.gov.si/uploads/probase/www/model/aladin/field/as_20240108-0000_va10m_si_024.png?1704712293943
+
+    //
+
+    // Profil oblačnosti (SILESce, SIBOVec, SIPOStojna, SIPORtorož, SILJUbljana, SIPTUj, SISGRadec, SIMNOmesto, SIKOCevje, SIMSObota)
+    // https://meteo.arso.gov.si/uploads/probase/www/model/aladin/point/as_20240108-0000_rh-t_SILES.png
+
+    // Profil temperature
+    // https://meteo.arso.gov.si/uploads/probase/www/model/aladin/point/as_20240108-0000_tgrad_SILES.png
+
+    // Profil vlage
+    // https://meteo.arso.gov.si/uploads/probase/www/model/aladin/point/as_20240108-0000_rh-va_SILES.png
+
+    // Profil vetra
+    // https://meteo.arso.gov.si/uploads/probase/www/model/aladin/point/as_20240108-0000_vm-va_SILES.png
+
+
+
+
+});
 
 
 

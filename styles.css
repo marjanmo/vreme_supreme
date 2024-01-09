@@ -18,10 +18,16 @@ controlBar
 h5 {
     margin: 0px 0px 8px;
     font-size: 16px;
+    text-align: center;
 }
 
 .content {
-    padding: 10px;
+    padding: 5px;
+}
+
+/* turn dynamic content off by default */
+.content, .controlBar {
+    display: none
 }
 
 input {
@@ -36,4 +42,13 @@ input {
     min-width: 200px;
     min-height: 200px;
     overflow: hidden;
+} */
+
+.col-lg-4, col, col-lg-6 {
+    padding: 0px 5px;
+    height: 100%;
+}
+
+/* .currentDateTime {
+    color: white;
 } */

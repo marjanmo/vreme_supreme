@@ -3,75 +3,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src=script.js></script>
     <link rel="stylesheet" href="styles.css">
+    <script src=script.js></script>
 
-    <title>Arso Supreme</title>
+    <title>Čmarso Vreme </title>
 </head>
 <body>
     <nav class="navbar navbar-light bg-light fixed-top">
-        <div class="container-fluid">
-            <div class="row" id="navbar">
+        <div class="row" id="navbar">
+            <div class="col-md-4">
+                <a class="navbar-brand" href="#">Čmarso Vreme</a>
+            </div>
+            <div class="col-md-8">
+                <button class="main-buttons btn btn-light"
+                    onclick="showContent('analiza','content');showContent('analiza','controlBar');updateAnaliza();toggleActive(this, 'main-buttons')">Analiza</button>
+                <button class="main-buttons btn btn-light"
+                    onclick="showContent('napoved', 'content');showContent('napoved','controlBar');updateNapoved();toggleActive(this, 'main-buttons')">Napoved</button>
+                <button class="main-buttons btn btn-light"
+                    onclick="showContent('casovniPresek', 'content');showContent('casovniPresek','controlBar');updateProfiles('ratece');toggleActive(this, 'main-buttons')">Časovni
+                    presek</button>
+            </div>
 
-                <!-- Logo -->
-                <a class="navbar-brand" href="#">Vreme Supreme</a>
+        </div>
+        <div class="mt-3 row container-fluid bg-light"  id="toolbar">
+            <div class="col controlBar" id="analiza">
+                <div class="row">
+                    <div class="col-md-9">
+                        <input type="range" class="form-control-range" id="analizaSlider" min="-80" max="0" step="1" value="0"
+                            oninput="updateAnaliza()">
+                    </div>
+                    <div class="col-md-3">
+                        <p><span class="currentDatetime" id="currentDatetimeValueAnaliza"></p></span>
+                    </div>
+                </div>
+               
+            </div>
 
-                <button class="main-buttons btn btn-light" onclick="showContent('analiza','content');showContent('analiza','controlBar');updateAnaliza();toggleActive(this, 'main-buttons')">Analiza</button>
-                <button class="main-buttons btn btn-light" onclick="showContent('napoved', 'content');showContent('napoved','controlBar');updateNapoved();toggleActive(this, 'main-buttons')">Napoved</button>
-                <button class="main-buttons btn btn-light" onclick="showContent('casovniPresek', 'content');showContent('casovniPresek','controlBar');updateProfiles('ratece');toggleActive(this, 'main-buttons')">Časovni presek</button>
-
-                <!-- Icon that triggers the elevated text field -->
-                <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
-                    &#9432; <!-- Unicode for an info icon -->
-                </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <!-- <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Tekstovna napoved</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div> -->
-                            <iframe
-                                src="https://meteo.arso.gov.si/uploads/probase/www/fproduct/text/sl/fcast_si_text.html"
-                                height="400" frameborder="0"></iframe>
-                            <!-- <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div> -->
-                        </div>
+            <div class="col controlBar" id="napoved">
+                <div class="row">
+                    <div class="col-md-9">
+                        <input type="range" class="form-control-range" id="napovedSlider" min="0" max="72" step="3" value="0" oninput="updateNapoved()">
+                    </div>
+                    <div class="col-md-3">
+                        <p><span class="currentDatetime" id="currentDatetimeValueNapoved"></p></span>
                     </div>
                 </div>
 
-
             </div>
-                <div class="row container-fluid" id="toolbar">
-                    <div class="col controlBar" id="analiza">
-                        <p><span id="currentDatetimeValueAnaliza"></p></span>
-                        <input type="range" class="form-control-range" id="analizaSlider" min="-80" max="0" step="1"
-                            value="0" oninput="updateAnaliza()">
-                    </div>
 
-                    <div class="col controlBar" id="napoved">
-                        <p><span id="currentDatetimeValueNapoved"></p></span>
-                        <input type="range" class="form-control-range" id="napovedSlider" min="0" max="72" step="3" value="0"
-                            oninput="updateNapoved()">
-                    </div>
-
-                    <div class="col controlBar" id="casovniPresek">
-                        <button class="presek-buttons btn-sm btn-light" onclick="updateProfiles('ratece');toggleActive(this, 'presek-buttons')">Gorenjska</button>
-                        <button class="presek-buttons btn-sm btn-light" onclick="updateProfiles('ljubljana-bezigrad');toggleActive(this, 'presek-buttons')">Ljubljana</button>
-                        <button class="presek-buttons btn-sm btn-light" onclick="updateProfiles('portoroz');toggleActive(this, 'presek-buttons')">Primorska</button>
-                        <button class="presek-buttons btn-sm btn-light" onclick="updateProfiles('novo-mesto');toggleActive(this, 'presek-buttons')">Dolenjska</button>
-                        <button class="presek-buttons btn-sm btn-light" onclick="updateProfiles('murska-sobota');toggleActive(this, 'presek-buttons')">Pomurje</button>
-
-                    </div>
-
-                </div>
+            <div class="col controlBar" id="casovniPresek">
+                <button class="presek-buttons btn-sm btn-light" onclick="updateProfiles('ratece');toggleActive(this, 'presek-buttons')">Gorenjska</button>
+                <button class="presek-buttons btn-sm btn-light" onclick="updateProfiles('ljubljana-bezigrad');toggleActive(this, 'presek-buttons')">Ljubljana</button>
+                <button class="presek-buttons btn-sm btn-light" onclick="updateProfiles('portoroz');toggleActive(this, 'presek-buttons')">Primorska</button>
+                <button class="presek-buttons btn-sm btn-light" onclick="updateProfiles('novo-mesto');toggleActive(this, 'presek-buttons')">Dolenjska</button>
+                <button class="presek-buttons btn-sm btn-light" onclick="updateProfiles('murska-sobota');toggleActive(this, 'presek-buttons')">Pomurje</button>
             </div>
+
         </div>
     </nav>
 
@@ -111,12 +98,12 @@
 
                 <!-- Responsive Grid -->
                 <div class="row mt-3">
-                    <div class="col col-lg-4">
+                    <div class="col-sm-6">
                         <h5>Napoved padavin</h5>
                         <img id="AladinRainImage" src="dummy.jpg">
                     </div>
 
-                    <div class="col col-lg-4">
+                    <div class="col-sm-6">
                         <h5>Napoved temperature</span></h5>
                         <img id="AladinTempImage" src="dummy.jpg">
                     </div>
@@ -125,12 +112,12 @@
            
                 <div class="row mt-3">
             
-                    <div id=radar class="col col-lg-4">
+                    <div id=radar class="col-lg-4">
                         <h5>Veter pri tleh</h5>
                         <img id="AladinWind0Image" src="dummy.jpg">
                     </div>
             
-                    <div class="col col-lg-4">
+                    <div class="col-lg-4">
                         <h5>Veter na 700 m.n.v.</span></h5>
                         <img id="AladinWind700Image" src="dummy.jpg">
                     </div>
@@ -152,13 +139,13 @@
             
                 <div class="row mt-3">
 
-                    <div class="col-lg-4">
-                        <h5>Profil dežja</h5>
+                    <div class="col-lg-6">
+                        <h5>Vlaga in temperatura</h5>
                         <img id="rainProfile" src="dummy.jpg">
                     </div>
 
-                    <div class="col-lg-4">
-                        <h5>Profil vetra</span></h5>
+                    <div class="col-lg-6">
+                        <h5>Veter</h5>
                         <img id="windProfile" src="dummy.jpg">
                     </div>
 
@@ -168,20 +155,19 @@
             
                     <!-- First Column -->
                     <div class="col-lg-4">
-                        <h5>Profil oblačnosti</h5>
+                        <h5>Oblačnost</h5>
                         <img id="cloudProfile" src="dummy.jpg">
-            
                     </div>
             
                     <!-- Second Column -->
                     <div class="col-lg-4">
-                        <h5>Profil vlage</span></h5>
+                        <h5>Vlaga</span></h5>
                         <img id="humidityProfile" src="dummy.jpg">
                     </div>
             
                     <!-- Third Column -->
                     <div class="col-lg-4">
-                        <h5>Profil temperature</span></h5>
+                        <h5>Temperaturni gradient</span></h5>
                         <img id="temperatureProfile" src="dummy.jpg">
                     </div>
                 </div>
