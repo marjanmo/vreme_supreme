@@ -1,6 +1,5 @@
 function placeMainBelowNavbar() {
     var navbarHeight = document.querySelector('nav').offsetHeight;
-    console.log(navbarHeight)
     main = document.getElementById('main')
 
     main.style.marginTop = navbarHeight + 'px';
@@ -107,6 +106,7 @@ function updateNapoved() {
 
 
 function updateProfiles(place) {
+        
     //update location variable
     console.log(place)
     console.log(utcDateToCommonString(lastAladinSimulationGuessUtc))
@@ -169,6 +169,32 @@ document.addEventListener('DOMContentLoaded', function () {
     placeMainBelowNavbar()
 
     window.addEventListener('resize', placeMainBelowNavbar());
+
+
+ 
+    // document.addEventListener('keydown', function (event) {
+        
+    //     //find active slider
+    //     //najdi slider, ki je viden.
+
+    //     if (document.getElementById('analiza').display === 'block') {
+    //         var visibleSlider = document.getElementById("analizaSlider")
+    //     } else {
+    //         var visibleSlider = document.getElementById("napovedSlider")
+    //     }
+    //     console.log(visibleSlider)
+    //     if (event.key === 'ArrowLeft') {
+    //         // Move the slider left
+    //         visibleSlider.value = parseInt(visibleSlider.value, 10) - 1;
+    //     } else if (event.key === 'ArrowRight') {
+    //         // Move the slider right
+    //         visibleSlider.value = parseInt(visibleSlider.value, 10) + 1;
+    //     }
+
+    //     // Trigger the input event manually
+    //     const inputEvent = new Event('input', { bubbles: true });
+    //     visibleSlider.dispatchEvent(inputEvent);
+    // });
 
 
 
