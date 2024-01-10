@@ -1,36 +1,5 @@
-function placeMainBelowNavbar() {
-    var navbarHeight = document.querySelector('nav').offsetHeight;
-    main = document.getElementById('main')
+// import { handleOrientationChange, formatDatetime, roundToLast12Hours, utcDateToCommonString, showContent, toggleActive, placeMainBelowNavbar } from './utils.js';
 
-    main.style.marginTop = navbarHeight + 'px';
-
-}
-
-
-function showContent(contentId, class_name) {
-
-    //Funkcija skrije vse elemente z classom content in nato odmaskira samo tistega z željenim id
-
-    var contentDivs = document.getElementsByClassName(class_name);
-    for (var i = 0; i < contentDivs.length; i++) {
-        if (contentDivs[i].id === contentId) {
-            contentDivs[i].style.display = "block";
-        } else {
-            contentDivs[i].style.display = "none";
-        }
-    }
-
-    placeMainBelowNavbar()
-
-}
-
-function toggleActive(button, class_name) {
-    var navbarButtons = document.getElementsByClassName(class_name);
-    for (var i = 0; i < navbarButtons.length; i++) {
-        navbarButtons[i].classList.remove('active');
-    }
-    button.classList.toggle('active');
-}
 
 // Set a base datetime, rounded to last hour
 var baseDatetime = new Date();
@@ -57,8 +26,7 @@ function updateAnaliza() {
     currentDatetimeUtcRounded.setMinutes(0);
 
     // Update datum text
-    var formattedDatetime = currentDatetime.toLocaleDateString('si-SI', { weekday: "long", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })
-    document.getElementById('currentDatetimeValueAnaliza').textContent = formattedDatetime;
+    document.getElementById('currentDatetimeValueAnaliza').textContent = formatDatetime(currentDatetime);
 
     // Update radar image
     document.getElementById('radarImage').src = PROBASE_URL + 'observ/radar/si0_' + utcDateToCommonString(currentDatetimeUtc) + '_zm_si.jpg';
@@ -81,8 +49,7 @@ function updateNapoved() {
     currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
 
     // Update datum text
-    var formattedDatetime = currentDatetime.toLocaleDateString('si-SI', { weekday: "long", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })
-    document.getElementById('currentDatetimeValueNapoved').textContent = formattedDatetime;
+    document.getElementById('currentDatetimeValueNapoved').textContent = formatDatetime(currentDatetime);
 
 
     //pogruntaj, koliko ur je že od zadnje simulacije
@@ -134,25 +101,7 @@ function updateProfiles(place) {
 
 }
 
-function utcDateToCommonString(utcdate) {
-    const year = utcdate.getFullYear();
-    const month = String(utcdate.getMonth() + 1).padStart(2, '0');
-    const day = String(utcdate.getDate()).padStart(2, '0');
-    const hours = String(utcdate.getHours()).padStart(2, '0');
-    const minutes = String(utcdate.getMinutes()).padStart(2, '0');
 
-    return `${year}${month}${day}-${hours}${minutes}`
-}
-
-function roundToLast12Hours(date) {
-    const roundedDate = date;
-
-    const hours = date.getHours();
-    const roundedHours = (hours >= 12) ? 12 : 0; // Round to the last full 12:00 or 00:00
-
-    roundedDate.setHours(roundedHours, 0, 0, 0);
-    return roundedDate;
-}
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -169,6 +118,13 @@ document.addEventListener('DOMContentLoaded', function () {
     placeMainBelowNavbar()
 
     window.addEventListener('resize', placeMainBelowNavbar());
+
+
+    // Listen for orientation changes
+    window.addEventListener("orientationchange", handleOrientationChange);
+
+    // Initial setup to handle the current orientation
+    handleOrientationChange();
 
 
  

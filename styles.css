@@ -3,12 +3,34 @@ img {
     height: auto;
 }
 
+.logo {
+    max-height: 10px;
+}
+
 nav {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                     /* Adjust the values as needed */
 }
 
-controlBar
+a.navbar-brand  {
+    padding: 5px 0px, 10px, 0px;
+}
+
+button.main-buttons {
+    font-size: 15px;
+    margin: 0px;
+    border: 0px;
+    /* u l d r - kot gre ura*/
+    padding: 3px;
+}
+
+
+button.presek-buttons {
+    font-size: 10px;
+    margin: 0px;
+    border: 0px;
+    padding: 2px 4px;
+}
 
 .main {
     top: 100px;
@@ -52,3 +74,8 @@ input {
 /* .currentDateTime {
     color: white;
 } */
+
+/* Media query for extra-small screens */
+@media (max-width: 575.98px) {
+
+}
