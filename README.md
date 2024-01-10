@@ -50,8 +50,13 @@ https://meteo.arso.gov.si/uploads/probase/www/model/aladin/point/as_20240109-120
 Swiping support for smartphones
 Navbar na dno ko je na telefonu
 Fiksna velikost, ko ni slikce (ne spremeni velikosti)
-Vizualno ločit glavni in pomožni bar
 Natančna dolžina in pozicija sliderja!
 Support za tipke levo in desno
-Logo
 Slovenia / Alpe Jadran
+
+
+
+
+
+# Dome
+Umakni scroolbar

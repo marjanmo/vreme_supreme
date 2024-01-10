@@ -40,8 +40,13 @@ function updateAnaliza() {
 
 };
 
-function updateNapoved() {
+function updateNapoved(area) {
     const sliderValue = document.getElementById('napovedSlider').value;
+    
+    // V slajderju klices funkcijo brez imena, zato moraš pogruntat, kateri je aktiven gumb. Area se skriva v idju tega gumba
+    if (area == undefined) {
+        area = getActiveButtonId('area-buttons')
+    };
 
     //Updajtaj datume
     // Calculate the new datetime based on the slider value (rounded to 1 hour)
@@ -59,11 +64,19 @@ function updateNapoved() {
 
 
     //Update radar text and image
-    document.getElementById('AladinRainImage').src = PROBASE_URL + 'model/aladin/field/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_tcc-rr_si-neighbours_' + forecasting_hour + '.png';
-    document.getElementById('AladinTempImage').src = PROBASE_URL + 'model/aladin/field/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_t2m_si-neighbours_' + forecasting_hour + '.png';
-    document.getElementById('AladinWind0Image').src = PROBASE_URL + 'model/aladin/field/ad_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_vm-va10m_si_' + forecasting_hour + '.png';
-    document.getElementById('AladinWind700Image').src = PROBASE_URL + 'model/aladin/field/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_vf925_si-neighbours_' + forecasting_hour + '.png';
-    document.getElementById('AladinWind1500Image').src = PROBASE_URL + 'model/aladin/field/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_r-t-vf850_si-neighbours_' + forecasting_hour + '.png';
+    document.getElementById('AladinRainImage').src = PROBASE_URL + 'model/aladin/field/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_tcc-rr_' + area + '_' + forecasting_hour + '.png';
+    document.getElementById('AladinTempImage').src = PROBASE_URL + 'model/aladin/field/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_t2m_' + area + '_' + forecasting_hour + '.png';
+    document.getElementById('AladinWind700Image').src = PROBASE_URL + 'model/aladin/field/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_vf925_' + area + '_' + forecasting_hour + '.png';
+    document.getElementById('AladinWind1500Image').src = PROBASE_URL + 'model/aladin/field/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_r-t-vf850_' + area + '_' + forecasting_hour + '.png';
+
+    // Za veter ne obstjaa si-neigbour, ampak samo si
+    if (area === "si-neighbours") {
+        var wind_area = "si"
+    } else {
+        var wind_area = area
+    };
+    console.log(wind_area)
+    document.getElementById('AladinWind0Image').src = PROBASE_URL + 'model/aladin/field/ad_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_vm-va10m_' + wind_area + '_' + forecasting_hour + '.png';
 
 
     //Update wind text and image
@@ -89,8 +102,8 @@ function updateProfiles(place) {
         "portoroz": "SIPOR",
         "novo-mesto": "SINMO",
         "ratece": "SILES",
-
     }
+
     document.getElementById('cloudProfile').src = PROBASE_URL + 'model/aladin/point/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_rh-t_' + placeToJadralciCode[place] + '.png';
 
     // Profil temperature

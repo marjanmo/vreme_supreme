@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="cmarso.svg" type="image/x-icon">
+    <link rel="icon" href="cmarso.png" type="image/x-icon">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="./styles.css">
     <script src=./js/utils.js></script>
@@ -11,49 +11,58 @@
     <title>Čmarso Vreme </title>
 </head>
 <body>
-    <nav class="navbar navbar-light bg-light fixed-top">
+    <nav class="navbar navbar-light bg-light fixed-top ">
         <div class="row" id="navbar">
-            <div class="col-md-5">
+            <div class="col-md-5 ">
                 <a class="navbar-brand" href="#">
                     <img src="cmarso.png" width="30" height="30" class="d-inline-block align-top" alt="">
                     Čmarso Vreme
                     </a>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-7 d-flex align-items-center justify-content-center">
                 <button class="main-buttons btn btn-light"
                     onclick="showContent('analiza','content');showContent('analiza','controlBar');updateAnaliza();toggleActive(this, 'main-buttons')">Analiza</button>
                 <button class="main-buttons btn btn-light"
-                    onclick="showContent('napoved', 'content');showContent('napoved','controlBar');updateNapoved();toggleActive(this, 'main-buttons')">Napoved</button>
+                    onclick="showContent('napoved', 'content');showContent('napoved','controlBar');updateNapoved('si-neighbours');toggleActive(this, 'main-buttons')">Napoved</button>
                 <button class="main-buttons btn btn-light"
                     onclick="showContent('casovniPresek', 'content');showContent('casovniPresek','controlBar');updateProfiles('ratece');toggleActive(this, 'main-buttons')">Časovni
                     presek</button>
             </div>
 
         </div>
-        <div class="mt-3 row container-fluid bg-light"  id="toolbar">
-            <div class="col controlBar" id="analiza">
-                <div class="row">
-                    <div class="col-xs">
+        <div class="row container-fluid bg-light"  id="toolbar">
+            <div class="col controlBar " id="analiza">
+                <div class="row d-flex align-items-center justify-content-center">
+                    <div class="col-xs-2" style="visibility: hidden;">
+                        <!-- Just a placeholder for consistency with napoved toolbar -->
+                        <button class="area-buttons btn btn-sm btn-primary">Notvisibe 1</button>
+                        <button class="area-buttons btn btn-sm btn-secondary">Notvisible 2</button>
+                    </div>
+                    <div class="col-md-7 col-xs-12">
                         <input type="range" class="form-control-range" id="analizaSlider" min="-80" max="0" step="1" value="0"
                             oninput="updateAnaliza()">
                     </div>
-                    <div class="col-xs">
-                        <p><span class="currentDatetime" id="currentDatetimeValueAnaliza"></p></span>
+                    <div class="currentDatetime col-md-3 col-xs-12">
+                        <span class="badge badge-light" id="currentDatetimeValueAnaliza">Dummy</span>
                     </div>
                 </div>
-               
             </div>
 
             <div class="col controlBar" id="napoved">
-                <div class="row">
-                    <div class="col-md-9 col-xs-12">
+                <div class="row d-flex align-items-center justify-content-center">
+                    <div class="col-xs-2" id="buttonPlaceholder">
+                        <!-- Your buttons go here -->
+                        <button id="si-neighbours" class="area-buttons btn-sm btn-light active" onclick="updateNapoved('si-neighbours');toggleActive(this, 'area-buttons')">Slovenija</button>
+                        <button id="alps-adriatic" class="area-buttons btn-sm btn-light" onclick="updateNapoved('alps-adriatic');toggleActive(this, 'area-buttons')">Alpe</button>
+                    </div>
+                    <div class="col-md-7 col-xs-12">
                         <input type="range" class="form-control-range" id="napovedSlider" min="0" max="72" step="3" value="0" oninput="updateNapoved()">
                     </div>
-                    <div class="col-md-3 col-xs-12">
-                        <p><span class="currentDatetime" id="currentDatetimeValueNapoved"></p></span>
+                    <div class="currentDatetime col-md-3 col-xs-12">
+                        <span class="badge badge-light" id="currentDatetimeValueNapoved">Dummy</span>
                     </div>
+                    <!-- Placeholder for buttons (hidden by default) -->
                 </div>
-
             </div>
 
             <div class="col controlBar" id="casovniPresek">
@@ -104,12 +113,12 @@
                 <!-- Responsive Grid -->
                 <div class="row mt-3">
                     <div class="col-sm-6">
-                        <h5>Napoved padavin</h5>
+                        <h5>Padavine</h5>
                         <img id="AladinRainImage" src="dummy.jpg">
                     </div>
 
                     <div class="col-sm-6">
-                        <h5>Napoved temperature</span></h5>
+                        <h5>Temperatura</span></h5>
                         <img id="AladinTempImage" src="dummy.jpg">
                     </div>
 

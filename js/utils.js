@@ -94,6 +94,16 @@ function toggleActive(button, class_name) {
     button.classList.toggle('active');
 }
 
+function getActiveButtonId(className) {
+    var activeButton = document.querySelector('.' + className + '.active');
+
+    if (activeButton) {
+        return activeButton.id;
+    } else {
+        return null; // No active button found
+    }
+}
+
 
 function placeMainBelowNavbar() {
     var navbarHeight = document.querySelector('nav').offsetHeight;
