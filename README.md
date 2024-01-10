@@ -52,7 +52,6 @@ Navbar na dno ko je na telefonu
 Fiksna velikost, ko ni slikce (ne spremeni velikosti)
 Natančna dolžina in pozicija sliderja!
 Support za tipke levo in desno
-Slovenia / Alpe Jadran
 
 
 
@@ -60,3 +59,4 @@ Slovenia / Alpe Jadran
 
 # Dome
 Umakni scroolbar
+Slovenia / Alpe Jadran
