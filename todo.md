@@ -50,8 +50,11 @@ https://meteo.arso.gov.si/uploads/probase/www/model/aladin/point/as_20240109-120
 * Fiksna velikost, ko ni slikce (ne spremeni velikosti)
 * Natančna dolžina in pozicija sliderja!
 * Support za tipke levo in desno
-
-
+* Centralna pozicija slik znotraj col
+* Centralna pozicija controlBara na smartfounu
+* Nekako dodaj novo Gorico noter
+* cache busting
+* zapomni si nastavitve uporabnika
 
 
 
