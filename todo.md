@@ -42,6 +42,8 @@ ratece
 https://meteo.arso.gov.si/uploads/probase/www/model/aladin/point/as_20240109-1200_vm-va_ljubljana-bezigrad.png
 
 
+https://meteo.arso.gov.si/uploads/probase/www/model/ecmwf/ef_20240111-1200_dd10d_SLOVENIA_MIDDLE.png
+
 
 # TODO
 
@@ -55,7 +57,7 @@ https://meteo.arso.gov.si/uploads/probase/www/model/aladin/point/as_20240109-120
 * Nekako dodaj novo Gorico noter
 * cache busting
 * zapomni si nastavitve uporabnika
-
+* Verjetnostna napoved 10 dni
 
 
 # Done

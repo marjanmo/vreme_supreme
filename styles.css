@@ -1,7 +1,12 @@
 img {
-    max-width: 100%;
+    /* max-width: 100%; */
     height: auto;
+    width: 100%;
+        /* Make the image take up the full width of its container */
+    max-height: 100%;
+    /* Ensure the image doesn't exceed the container height */
 }
+
 
 .logo {
     max-height: 10px;
@@ -35,8 +40,8 @@ div.currentDatetime {
     font-size:18px;
 }
 
-button.presek-buttons, button.area-buttons {
-    font-size: 13px;
+button.presek-buttons, button.area-buttons, button.verjetnostna-buttons {
+    font-size: 12px;
     margin: 0px;
     border: 0px;
     padding: 2px 4px;
@@ -79,6 +84,11 @@ input {
 .col-lg-4, col, col-lg-6 {
     padding: 0px 5px;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
 }
 
 /* .currentDateTime {

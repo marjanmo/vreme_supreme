@@ -13,13 +13,13 @@
 <body>
     <nav class="navbar navbar-light bg-light fixed-top ">
         <div class="row" id="navbar">
-            <div class="col-md-5 ">
+            <div class="col ">
                 <a class="navbar-brand" href="#">
-                    <img src="cmarso.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                    <img style="width: 30px;" src="cmarso.png" class="d-inline-block align-top" alt="">
                     Čmarso Vreme
                     </a>
             </div>
-            <div id="navbar-buttons" class="col-md-7 d-flex align-items-center justify-content-center">
+            <div id="navbar-buttons" class="col d-flex align-items-center justify-content-center">
                 <button class="main-buttons btn btn-light active"
                     onclick="showContent('analiza','content');showContent('analiza','controlBar');updateAnaliza();toggleActive(this, 'main-buttons')">Analiza</button>
                 <button class="main-buttons btn btn-light"
@@ -27,6 +27,8 @@
                 <button class="main-buttons btn btn-light"
                     onclick="showContent('casovniPresek', 'content');showContent('casovniPresek','controlBar');updateProfiles('ratece');toggleActive(this, 'main-buttons')">Časovni
                     presek</button>
+                <button class="main-buttons btn btn-light"
+                    onclick="showContent('verjetnostnaNapoved', 'content');showContent('verjetnostnaNapoved','controlBar');updateVerjetnostna('ratece');toggleActive(this, 'main-buttons')">Verjetnostna napoved</button>
             </div>
 
         </div>
@@ -72,7 +74,18 @@
                 <button class="presek-buttons btn-sm btn-light" onclick="updateProfiles('novo-mesto');toggleActive(this, 'presek-buttons')">Dolenjska</button>
                 <button class="presek-buttons btn-sm btn-light" onclick="updateProfiles('murska-sobota');toggleActive(this, 'presek-buttons')">Pomurje</button>
             </div>
-
+            <div class="col controlBar" id="verjetnostnaNapoved">
+                <button class="verjetnostna-buttons btn-sm btn-light active"
+                    onclick="updateVerjetnostna('ratece');toggleActive(this, 'verjetnostna-buttons')">Gorenjska</button>
+                <button class="verjetnostna-buttons btn-sm btn-light"
+                    onclick="updateVerjetnostna('ljubljana-bezigrad');toggleActive(this, 'verjetnostna-buttons')">Ljubljana</button>
+                <button class="verjetnostna-buttons btn-sm btn-light"
+                    onclick="updateVerjetnostna('portoroz');toggleActive(this, 'verjetnostna-buttons')">Primorska</button>
+                <button class="verjetnostna-buttons btn-sm btn-light"
+                    onclick="updateVerjetnostna('novo-mesto');toggleActive(this, 'verjetnostna-buttons')">Dolenjska</button>
+                <button class="verjetnostna-buttons btn-sm btn-light"
+                    onclick="updateVerjetnostna('murska-sobota');toggleActive(this, 'verjetnostna-buttons')">Pomurje</button>
+            </div>
         </div>
     </nav>
 
@@ -142,7 +155,9 @@
                     </div>
 
                 </div>
-            
+
+
+
             </div>
         </div>
   
@@ -190,6 +205,61 @@
 
         </div>
 
+
+        <!-- Verjetnostna napoved -->
+        <div class="content" id="verjetnostnaNapoved">
+        
+            <div class="mt-3 container-fluid">
+        
+                <div class="row mt-3">
+                
+                    <!-- First Column -->
+                    <div class="col-lg-6">
+                        <h5>6h padavine</h5>
+                        <img id="rain6hProbability" src="dummy.jpg" onerror="this.src='notfound.jpg';">
+                    </div>
+                
+                    <!-- Second Column -->
+                    <div class="col-lg-6">
+                        <h5>Dnevne padavine</span></h5>
+                        <img id="rain24hProbability" src="dummy.jpg" onerror="this.src='notfound.jpg';">
+                    </div>
+                
+                </div>
+
+                <div class="row mt-3">
+                
+                    <!-- Third Column -->
+                    <div class="col-lg-6">
+                        <h5>Oblačnost</span></h5>
+                        <img id="cloudProbability" src="dummy.jpg" onerror="this.src='notfound.jpg';">
+                    </div>
+                
+                    <!-- First Column -->
+                    <div class="col-lg-6">
+                        <h5>Temperatura</h5>
+                        <img id="tempProbablity" src="dummy.jpg" onerror="this.src='notfound.jpg';">
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+               
+                    <!-- Second Column -->
+                    <div class="col-lg-6">
+                        <h5>Hitrost vetra</span></h5>
+                        <img id="windSpeedProbability" src="dummy.jpg" onerror="this.src='notfound.jpg';">
+                    </div>
+        
+                    <!-- Third Column -->
+                    <div class="col-lg-6">
+                        <h5>Smer vetra</span></h5>
+                        <img id="windDirProbability" src="dummy.jpg" onerror="this.src='notfound.jpg';">
+                    </div>
+                </div>
+        
+            </div>
+        
+        </div>
 
     </div>
     <!-- Bootstrap JS and Popper.js -->

@@ -64,6 +64,19 @@ function roundToLast12Hours(date) {
     return roundedDate;
 }
 
+function roundToLast1200(date) {
+    var roundedDate = date;
+
+    // Če je datum pred 12, potem moraš vzeti prejšnji dan    
+    if (roundedDate.getHours() < 12) {
+        roundedDate.setDate(roundedDate.getDate() - 1);
+    }
+
+    // V vsakem primeru daj na 12
+    roundedDate.setHours(12, 0, 0, 0);
+    return roundedDate;
+}
+
 
 function formatDatetime(date) {
 

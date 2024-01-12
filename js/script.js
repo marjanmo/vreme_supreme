@@ -11,6 +11,7 @@ var currentDatetime = baseDatetime
 var currentDatetimeUtc = new Date(currentDatetime.getTime() - 1 * 60 * 60 * 1000)
 var currentDatetimeUtcRounded = new Date(currentDatetimeUtc.getTime())
 var lastAladinSimulationGuessUtc = roundToLast12Hours(new Date(currentDatetimeUtc.getTime() - 5 * 60 * 60 * 1000)) // predpostavljaš, da se 5 ur računa nov run
+var lastEcmwfSimulationGuessUtc = roundToLast1200(new Date(currentDatetimeUtc.getTime() - 7 * 60 * 60 * 1000)) // predpostavljaš, da se 7 ur računa nov run  (zadnji dan ob 12h)
 
 const PROBASE_URL = 'https://meteo.arso.gov.si/uploads/probase/www/'
 
@@ -114,7 +115,29 @@ function updateProfiles(place) {
 
 }
 
+function updateVerjetnostna(place) {
 
+    //update location variable
+    console.log(place)
+    console.log(utcDateToCommonString(lastEcmwfSimulationGuessUtc))
+
+
+    var placeToVerjetnostnaCode = {
+        "ljubljana-bezigrad": "SLOVENIA_MIDDLE",
+        "murska-sobota": "SLOVENIA_NORTH-EAST",
+        "portoroz": "SLOVENIA_SOUTH-WEST",
+        "novo-mesto": "SLOVENIA_SOUTH-EAST",
+        "ratece": "SLOVENIA_NORTH-WEST",
+    }
+
+    document.getElementById('rain6hProbability').src = PROBASE_URL + 'model/ecmwf/ef_' + utcDateToCommonString(lastEcmwfSimulationGuessUtc) + '_pp_' + placeToVerjetnostnaCode[place] + '_.png';
+    document.getElementById('rain24hProbability').src = PROBASE_URL + 'model/ecmwf/ef_' + utcDateToCommonString(lastEcmwfSimulationGuessUtc) + '_tpd_' + placeToVerjetnostnaCode[place] + '_.png';
+    document.getElementById('cloudProbability').src = PROBASE_URL + 'model/ecmwf/ef_' + utcDateToCommonString(lastEcmwfSimulationGuessUtc) + '_tccd_' + placeToVerjetnostnaCode[place] + '_.png';
+    document.getElementById('tempProbablity').src = PROBASE_URL + 'model/ecmwf/ef_' + utcDateToCommonString(lastEcmwfSimulationGuessUtc) + '_tmnx2m_' + placeToVerjetnostnaCode[place] + '_.png';
+    document.getElementById('windSpeedProbability').src = PROBASE_URL + 'model/ecmwf/ef_' + utcDateToCommonString(lastEcmwfSimulationGuessUtc) + '_ff10d_' + placeToVerjetnostnaCode[place] + '_.png';
+    document.getElementById('windDirProbability').src = PROBASE_URL + 'model/ecmwf/ef_' + utcDateToCommonString(lastEcmwfSimulationGuessUtc) + '_dd10d_' + placeToVerjetnostnaCode[place] + '_.png';
+
+}
 
 document.addEventListener('DOMContentLoaded', function () {
 
