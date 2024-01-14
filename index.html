@@ -8,7 +8,7 @@
     <script src=./js/utils.js></script>
     <script src=./js/script.js></script>
 
-    <title>Čmarso Vreme </title>
+    <title>Čmarso Vreme</title>
 </head>
 <body>
     <nav class="navbar navbar-light bg-light fixed-top ">
@@ -21,13 +21,13 @@
             </div>
             <div id="navbar-buttons" class="col-auto col d-flex align-items-center justify-content-center">
                 <button data-tab="analiza" class="main-buttons btn-sm btn-light"
-                    onclick="handleMainButtonClick(this);updateAnaliza()">Analiza</button>
+                    onclick="handleMainButtonClick(this)">Analiza</button>
                 <button data-tab="napoved" class="main-buttons btn-sm btn-light"
-                    onclick="handleMainButtonClick(this);updateNapoved()">Napoved</button>
+                    onclick="handleMainButtonClick(this)">Napoved</button>
                 <button data-tab = "casovniPresek" class="main-buttons btn-sm btn-light"
-                    onclick="handleMainButtonClick(this);updateProfiles()">Časovni presek</button>
+                    onclick="handleMainButtonClick(this)">Časovni presek</button>
                 <button data-tab="verjetnostnaNapoved" class="main-buttons btn-sm btn-light"
-                    onclick="handleMainButtonClick(this);updateProfiles()">Verjetnostna napoved</button>
+                    onclick="handleMainButtonClick(this)">Verjetnostna napoved</button>
             </div>
 
         </div>
@@ -48,6 +48,7 @@
                         <span class="badge badge-light" id="currentDatetimeValueAnaliza">Dummy</span>
                     </div>
                 </div>
+            </div>
 
             <div class="col controlBar" data-tab="napoved">
                 <div class="row d-flex align-items-center justify-content-center">
@@ -56,20 +57,23 @@
                         <button data-area="alps-adriatic" class="area-buttons btn-sm btn-light" onclick="handleAreaButtonClick(this)">Alpe</button>
                     </div>
                     <div class="col-md-7 col-xs-12">
-                        <input type="range" class="form-control-range" id="napovedSlider" min="0" max="72" step="3" value="0" oninput="updateNapoved(activeArea)">
-                    </div>
-                    <div class="col-md-7 col-xs-12">
                         <input type="range" class="form-control-range" id="napovedSlider" min="0" max="72" step="3" value="0" oninput="updateNapoved()">
                     </div>
+                    <div class="currentDatetime col-md-3 col-xs-12">
+                        <span class="badge badge-light" id="currentDatetimeValueNapoved">Dummy</span>
+                    </div>
+                </div>
+            </div>
 
-            <div class="col controlBar" data-tab="casovniPresek">
+            <div id="controlBarCasovniPresek" class="col controlBar" data-tab="casovniPresek">
                 <button data-place="ljubljana-bezigrad" class="place-buttons btn-sm btn-light" onclick="handlePlaceCasovniButton(this)">Ljubljana</button>
                 <button data-place="ratece" class="place-buttons btn-sm btn-light" onclick="handlePlaceCasovniButton(this)">Gorenjska</button>
                 <button data-place="portoroz" class="place-buttons btn-sm btn-light" onclick="handlePlaceCasovniButton(this)">Primorska</button>
                 <button data-place="novo-mesto" class="place-buttons btn-sm btn-light" onclick="handlePlaceCasovniButton(this)">Dolenjska</button>
                 <button data-place="murska-sobota" class="place-buttons btn-sm btn-light" onclick="handlePlaceCasovniButton(this)">Pomurje</button>
             </div>
-            <div class="col controlBar" data-tab="verjetnostnaNapoved">
+
+            <div id="controlBarVerjetnostnaNapoved" class="col controlBar" data-tab="verjetnostnaNapoved">
                 <button data-place="ljubljana-bezigrad" class="place-buttons btn-sm btn-light"
                     onclick="handlePlaceVerjetnostnaButton(this)">Ljubljana</button>
                 <button data-place="ratece" class="place-buttons btn-sm btn-light"
@@ -80,26 +84,6 @@
                     onclick="handlePlaceVerjetnostnaButton(this)">Dolenjska</button>
                 <button data-place="murska-sobota" class="place-buttons btn-sm btn-light"
                     onclick="handlePlaceVerjetnostnaButton(this)">Pomurje</button>
-            </div>
-
-            <div class="col controlBar" id="casovniPresek">
-                <button class="presek-buttons btn-sm btn-light active" onclick="updateProfiles('ratece');toggleActive(this, 'presek-buttons')">Gorenjska</button>
-                <button class="presek-buttons btn-sm btn-light" onclick="updateProfiles('ljubljana-bezigrad');toggleActive(this, 'presek-buttons')">Ljubljana</button>
-                <button class="presek-buttons btn-sm btn-light" onclick="updateProfiles('portoroz');toggleActive(this, 'presek-buttons')">Primorska</button>
-                <button class="presek-buttons btn-sm btn-light" onclick="updateProfiles('novo-mesto');toggleActive(this, 'presek-buttons')">Dolenjska</button>
-                <button class="presek-buttons btn-sm btn-light" onclick="updateProfiles('murska-sobota');toggleActive(this, 'presek-buttons')">Pomurje</button>
-            </div>
-            <div class="col controlBar" id="verjetnostnaNapoved">
-                <button class="verjetnostna-buttons btn-sm btn-light active"
-                    onclick="updateVerjetnostna('ratece');toggleActive(this, 'verjetnostna-buttons')">Gorenjska</button>
-                <button class="verjetnostna-buttons btn-sm btn-light"
-                    onclick="updateVerjetnostna('ljubljana-bezigrad');toggleActive(this, 'verjetnostna-buttons')">Ljubljana</button>
-                <button class="verjetnostna-buttons btn-sm btn-light"
-                    onclick="updateVerjetnostna('portoroz');toggleActive(this, 'verjetnostna-buttons')">Primorska</button>
-                <button class="verjetnostna-buttons btn-sm btn-light"
-                    onclick="updateVerjetnostna('novo-mesto');toggleActive(this, 'verjetnostna-buttons')">Dolenjska</button>
-                <button class="verjetnostna-buttons btn-sm btn-light"
-                    onclick="updateVerjetnostna('murska-sobota');toggleActive(this, 'verjetnostna-buttons')">Pomurje</button>
             </div>
         </div>
     </nav>
@@ -221,15 +205,8 @@
         </div>
 
 
-<<<<<<< HEAD
-        <!-- Verjetnostna napoved -->
-        <div class="content" id="verjetnostnaNapoved">
-=======
-<<<<<<< Updated upstream
-=======
         <!-- Verjetnostna napoved -->
         <div class="content" data-tab="verjetnostnaNapoved">
->>>>>>> develop
         
             <div class="mt-3 container-fluid">
         
@@ -282,11 +259,6 @@
             </div>
         
         </div>
-
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
->>>>>>> develop
     </div>
     <!-- Bootstrap JS and Popper.js -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

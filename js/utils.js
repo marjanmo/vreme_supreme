@@ -143,7 +143,6 @@ function getActiveButtonId(className) {
 function placeMainBelowNavbar() {
     var navbarHeight = document.querySelector('nav').offsetHeight;
     var main = document.getElementById('main')
-    console.log(main)
 
     main.style.marginTop = navbarHeight + 'px';
 

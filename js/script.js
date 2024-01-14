@@ -15,22 +15,19 @@ var lastEcmwfSimulationGuessUtc = roundToLast1200(new Date(currentDatetimeUtc.ge
 
 const PROBASE_URL = 'https://meteo.arso.gov.si/uploads/probase/www/'
 
-// Preberi user nastavitve iz cache. Če ga ni, predpostavi napoved
-var activeTab = localStorage.getItem('activeTab') || "napoved";
-
-var activePlace = localStorage.getItem('activePlace') || "ljubljana-bezigrad"
-
-var activeArea = localStorage.getItem('activeArea') || "si-neighbours"
-
 
 // Function to show content, update preferences, and toggle active class
 function handleMainButtonClick(button) {
 
-    // Prikaži kateri glavni tab je aktiven
+    // Prikaži kateri glavni tab je aktiven in updajtaj variablo
     toggleActive(button, 'main-buttons');
 
-    // Preberi data-kategorijo in 
+
+    // Preberi data-kategorijo, iz aktivnega gumba 
     const tab = button.dataset.tab
+
+    // Save the active button in localStorage
+    localStorage.setItem('activeTab', tab);
 
     // Poišči elemente s tem tabom in jih prikaži
 
@@ -38,23 +35,32 @@ function handleMainButtonClick(button) {
     showContent(tab, 'content');
     showContent(tab, 'controlBar');
     
-    if (activeTab == "analiza") {
+    if (tab == "analiza") {
         updateAnaliza()
-    } else if (activeTab == "napoved") {
+    } else if (tab == "napoved") {
+        var activeArea = localStorage.getItem('activeArea') || "si-neighbours"
+
+        // Pohandlaj kot da je že kliknil tudi na zadnji aktivni button.
         activeAreaButton = document.querySelector('button[data-area="' + activeArea + '"]')
         handleAreaButtonClick(activeAreaButton)
-    } else if (activeTab == "casovniPresek") {
-        activePlaceButton = document.querySelector('button[data-place="' + activePlace + '"]')
+    } else if (tab == "casovniPresek") {
+        var activePlace = localStorage.getItem('activePlace') || "ljubljana-bezigrad"
+
+        activePlaceButton = document.querySelector('#controlBarCasovniPresek button[data-place="' + activePlace + '"]')
         handlePlaceCasovniButton(activePlaceButton)
         
-        updateProfiles(activePlace)
-    } else if (activeTab == "verjetnostnaNapoved") {
-        updateVerjetnostna(activePlace)
+        updateCasovniPresek()
+    } else if (tab == "verjetnostnaNapoved") {
+        var activePlace = localStorage.getItem('activePlace') || "ljubljana-bezigrad"
+        
+        activePlaceButton = document.querySelector('#controlBarVerjetnostnaNapoved button[data-place="' + activePlace + '"]')
+        handlePlaceVerjetnostnaButton(activePlaceButton)
+
+        updateVerjetnostna()
     }
 
 
-    // Save the active button in localStorage
-    localStorage.setItem('activeTab', tab);
+
 }
 
 
@@ -66,8 +72,13 @@ function handleAreaButtonClick(button) {
     // Preberi data 
     var area = button.dataset.area
 
-    updateNapoved(area)
+    // Shrani v browser bazo
+    localStorage.setItem("activeArea", area)
 
+    // Updajtaj vsebino
+    updateNapoved()
+
+    //bug - slider ne dobi nove spremembe area.
 
 }
 
@@ -78,7 +89,7 @@ function handlePlaceCasovniButton(button) {
 
     var place = button.dataset.place
 
-    updateProfiles(place)
+    updateCasovniPresek()
 
     // Save the active button in localStorage. Share it with Verjetnostna
     localStorage.setItem('activePlace', place);
@@ -91,7 +102,7 @@ function handlePlaceVerjetnostnaButton(button) {
 
     var place = button.dataset.place
 
-    updateVerjetnostna(place)
+    updateVerjetnostna()
 
     // Save the active button in localStorage. Share it with Casovni
     localStorage.setItem('activePlace', place);
@@ -123,7 +134,12 @@ function updateAnaliza() {
 
 };
 
-function updateNapoved(area) {
+function updateNapoved() {
+    
+    // Save the active button in localStorage. To moraš po vsakem updatu, da ker lahko vmes preklopiš area
+    area = localStorage.getItem('activeArea');
+
+
     const sliderValue = document.getElementById('napovedSlider').value;
     
     // V slajderju klices funkcijo brez imena, zato moraš pogruntat, kateri je aktiven gumb. Area se skriva v idju tega gumba
@@ -158,21 +174,16 @@ function updateNapoved(area) {
     } else {
         var wind_area = area
     };
-    console.log(area)
+
     document.getElementById('AladinWind0Image').src = PROBASE_URL + 'model/aladin/field/ad_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_vm-va10m_' + wind_area + '_' + forecasting_hour + '.png';
-
-
-    // Save the active button in localStorage. To moraš po vsakem updatu, da ker lahko vmes preklopiš area
-    localStorage.setItem('activeArea', area);
 
 };
 
 
-function updateProfiles(place) {
-        
-    //update location variable
-    console.log(place)
-    console.log(utcDateToCommonString(lastAladinSimulationGuessUtc))
+function updateCasovniPresek() {
+
+    // Preveri, o katerem place je govora
+    place = localStorage.getItem('activePlace');
 
     // Ti vzamejo ljubljana-bezigrad, murska-sobota,...
     document.getElementById('rainProfile').src = PROBASE_URL + '/model/aladin/point/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_t-r_' + place + '.png'
@@ -197,12 +208,10 @@ function updateProfiles(place) {
 
 }
 
-function updateVerjetnostna(place) {
+function updateVerjetnostna() {
 
-    //update location variable
-    console.log(place)
-    console.log(utcDateToCommonString(lastEcmwfSimulationGuessUtc))
-
+    // Preveri, o katerem place je govora
+    place = localStorage.getItem('activePlace');
 
     var placeToVerjetnostnaCode = {
         "ljubljana-bezigrad": "SLOVENIA_MIDDLE",
@@ -223,12 +232,12 @@ function updateVerjetnostna(place) {
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    console.log("Aktivni tab iz cacha: " + activeTab)
+    // Preberi user nastavitve iz cache. Če ga ni, predpostavi napoved
+    var activeTab = localStorage.getItem('activeTab') || "napoved";
+
     // Najti ustrezen gumb in ga pohandlaj.
     activeTabButton = document.querySelector('button[data-tab="'+activeTab+'"]')
-    
     handleMainButtonClick(activeTabButton);
-
 
 
     // Poskrbi, da bo vedno content pod navbarom

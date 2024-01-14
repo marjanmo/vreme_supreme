@@ -1,21 +1,13 @@
 img {
-    /* max-width: 100%; */
     height: auto;
     width: 100%;
-        /* Make the image take up the full width of its container */
     max-height: 100%;
     max-width: 600px;
-    /* Ensure the image doesn't exceed the container height */
 }
 
-
-.logo {
-    max-height: 10px;
-}
 
 nav {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                    /* Adjust the values as needed */
 }
 
 
@@ -41,17 +33,13 @@ div.currentDatetime {
     font-size:18px;
 }
 
-button.presek-buttons, button.area-buttons, button.verjetnostna-buttons {
+button.place-buttons, button.area-buttons {
     font-size: 12px;
     margin: 0px;
     border: 0px;
     padding: 2px 4px;
 }
 
-.main {
-    top: 100px;
-    /* Adjust the value based on your navbar height */
-}
 
 h5 {
     margin: 0px 0px 8px;
@@ -63,7 +51,7 @@ h5 {
     padding: 5px;
 }
 
-/* turn dynamic content off by default */
+/* turn dynamic content off by default and only toggle it with button handlers */
 .content, .controlBar {
     display: none
 }
@@ -71,16 +59,6 @@ h5 {
 input {
     width: 100%;
 }
-
-.dropdown-menu {
-    right: 0;
-    left: auto;}
-
-/* .col-lg-4 {
-    min-width: 200px;
-    min-height: 200px;
-    overflow: hidden;
-} */
 
 .col-lg-4, .col-lg-6 {
     padding: 0px 5px;
@@ -92,6 +70,7 @@ input {
 
 }
 
+/* Daj proč scroolbar */
 body {
     overflow-y: scroll;
     /* Auto hides scrollbar until needed */
