@@ -1,0 +1,15 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Center Circle -->
+  <circle cx="100" cy="100" r="90" fill="orange" stroke="black" stroke-width="6" fill="none" />
+  <circle cx="100" cy="100" r="20" fill="black" />
+
+  <!-- Concentric Lines -->
+  <line x1="30" y1="100" x2="170" y2="100" stroke="black" stroke-width="6" stroke-linecap="round" />
+
+  <!-- Diagonal Lines -->
+  <line x1="50" y1="50" x2="150" y2="150" stroke="black" stroke-width="6" stroke-linecap="round" />
+  <line x1="50" y1="150" x2="150" y2="50" stroke="black" stroke-width="6" stroke-linecap="round" />
+
+  <!-- Cross Lines -->
+  <line x1="100" y1="30" x2="100" y2="170" stroke="black" stroke-width="6" stroke-linecap="round" />
+</svg>

@@ -9,6 +9,7 @@
     <title>Arso Supreme</title>
 </head>
 <body>
+<<<<<<< Updated upstream
     <nav class="navbar navbar-light bg-light fixed-top">
         <div class="container-fluid">
             <div class="row" id="navbar">
@@ -43,9 +44,47 @@
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div> -->
                         </div>
+=======
+    <nav class="navbar navbar-light bg-light fixed-top ">
+        <div class="row" id="navbar">
+            <div class="col ">
+                <a class="navbar-brand" href="#">
+                    <img style="width: 30px;" src="cmarso.png" class="d-inline-block align-top" alt="">
+                    Čmarso Vreme
+                    </a>
+            </div>
+            <div id="navbar-buttons" class="col-auto col d-flex align-items-center justify-content-center">
+                <button data-tab="analiza" class="main-buttons btn-sm btn-light"
+                    onclick="handleMainButtonClick(this);updateAnaliza()">Analiza</button>
+                <button data-tab="napoved" class="main-buttons btn-sm btn-light"
+                    onclick="handleMainButtonClick(this);updateNapoved()">Napoved</button>
+                <button data-tab = "casovniPresek" class="main-buttons btn-sm btn-light"
+                    onclick="handleMainButtonClick(this);updateProfiles()">Časovni presek</button>
+                <button data-tab="verjetnostnaNapoved" class="main-buttons btn-sm btn-light"
+                    onclick="handleMainButtonClick(this);updateProfiles()">Verjetnostna napoved</button>
+            </div>
+
+        </div>
+        <div id="controlbar-buttons" class="row container-fluid bg-light"  id="toolbar">
+            
+            <div class="col controlBar " data-tab="analiza">
+                <div class="row d-flex align-items-center justify-content-center">
+                    <div class="col-xs-2" style="visibility: hidden;">
+                        <!-- Just a placeholder for consistency with napoved toolbar -->
+                        <button class="area-buttons btn btn-sm btn-primary">Notvisibe 1</button>
+                        <button class="area-buttons btn btn-sm btn-secondary">Notvisible 2</button>
+                    </div>
+                    <div class="col-md-7 col-xs-12">
+                        <input type="range" class="form-control-range" id="analizaSlider" min="-80" max="0" step="1" value="0"
+                            oninput="updateAnaliza()">
+                    </div>
+                    <div class="currentDatetime col-md-3 col-xs-12">
+                        <span class="badge badge-light" id="currentDatetimeValueAnaliza">Dummy</span>
+>>>>>>> Stashed changes
                     </div>
                 </div>
 
+<<<<<<< Updated upstream
 
             </div>
                 <div class="row container-fluid" id="toolbar">
@@ -59,6 +98,16 @@
                         <p><span id="currentDatetimeValueNapoved"></p></span>
                         <input type="range" class="form-control-range" id="napovedSlider" min="0" max="72" step="3" value="0"
                             oninput="updateNapoved()">
+=======
+            <div class="col controlBar" data-tab="napoved">
+                <div class="row d-flex align-items-center justify-content-center">
+                    <div class="col-xs-2" id="buttonPlaceholder">
+                        <button data-area="si-neighbours" class="area-buttons btn-sm btn-light" onclick="handleAreaButtonClick(this)">Slovenija</button>
+                        <button data-area="alps-adriatic" class="area-buttons btn-sm btn-light" onclick="handleAreaButtonClick(this)">Alpe</button>
+                    </div>
+                    <div class="col-md-7 col-xs-12">
+                        <input type="range" class="form-control-range" id="napovedSlider" min="0" max="72" step="3" value="0" oninput="updateNapoved(activeArea)">
+>>>>>>> Stashed changes
                     </div>
 
                     <div class="col controlBar" id="casovniPresek">
@@ -70,14 +119,35 @@
 
                     </div>
 
+<<<<<<< Updated upstream
                 </div>
+=======
+            <div class="col controlBar" data-tab="casovniPresek">
+                <button data-place="ljubljana-bezigrad" class="place-buttons btn-sm btn-light" onclick="handlePlaceCasovniButton(this)">Ljubljana</button>
+                <button data-place="ratece" class="place-buttons btn-sm btn-light" onclick="handlePlaceCasovniButton(this)">Gorenjska</button>
+                <button data-place="portoroz" class="place-buttons btn-sm btn-light" onclick="handlePlaceCasovniButton(this)">Primorska</button>
+                <button data-place="novo-mesto" class="place-buttons btn-sm btn-light" onclick="handlePlaceCasovniButton(this)">Dolenjska</button>
+                <button data-place="murska-sobota" class="place-buttons btn-sm btn-light" onclick="handlePlaceCasovniButton(this)">Pomurje</button>
+            </div>
+            <div class="col controlBar" data-tab="verjetnostnaNapoved">
+                <button data-place="ljubljana-bezigrad" class="place-buttons btn-sm btn-light"
+                    onclick="handlePlaceVerjetnostnaButton(this)">Ljubljana</button>
+                <button data-place="ratece" class="place-buttons btn-sm btn-light"
+                    onclick="handlePlaceVerjetnostnaButton(this)">Gorenjska</button>
+                <button data-place="portoroz" class="place-buttons btn-sm btn-light"
+                    onclick="handlePlaceVerjetnostnaButton(this)">Primorska</button>
+                <button data-place="novo-mesto" class="place-buttons btn-sm btn-light"
+                    onclick="handlePlaceVerjetnostnaButton(this)">Dolenjska</button>
+                <button data-place="murska-sobota" class="place-buttons btn-sm btn-light"
+                    onclick="handlePlaceVerjetnostnaButton(this)">Pomurje</button>
+>>>>>>> Stashed changes
             </div>
         </div>
     </nav>
 
     <div id="main">
         <!-- Analiza -->
-        <div class="content" id="analiza">
+        <div class="content" data-tab="analiza">
             
             <div class="mt-3 container-fluid">
 
@@ -106,11 +176,12 @@
         </div>
         
         <!-- Napoved -->
-        <div class="content" id="napoved">
+        <div class="content" data-tab="napoved">
             <div class="mt-3 container-fluid">
 
                 <!-- Responsive Grid -->
                 <div class="row mt-3">
+<<<<<<< Updated upstream
                     <div class="col col-lg-4">
                         <h5>Napoved padavin</h5>
                         <img id="AladinRainImage" src="dummy.jpg">
@@ -119,6 +190,16 @@
                     <div class="col col-lg-4">
                         <h5>Napoved temperature</span></h5>
                         <img id="AladinTempImage" src="dummy.jpg">
+=======
+                    <div class="col-lg-6">
+                        <h5>Padavine</h5>
+                        <img id="AladinRainImage" src="dummy.jpg" onerror="this.src='notfound.jpg';">
+                    </div>
+
+                    <div class="col-lg-6">
+                        <h5>Temperatura</span></h5>
+                        <img id="AladinTempImage" src="dummy.jpg" onerror="this.src='notfound.jpg';">
+>>>>>>> Stashed changes
                     </div>
 
                 </div>
@@ -146,7 +227,7 @@
         </div>
   
         <!-- Časovni preseki -->
-        <div class="content" id="casovniPresek">
+        <div class="content" data-tab="casovniPresek">
 
             <div class="mt-3 container-fluid">
             
@@ -191,6 +272,64 @@
         </div>
 
 
+<<<<<<< Updated upstream
+=======
+        <!-- Verjetnostna napoved -->
+        <div class="content" data-tab="verjetnostnaNapoved">
+        
+            <div class="mt-3 container-fluid">
+        
+                <div class="row mt-3">
+                
+                    <!-- First Column -->
+                    <div class="col-lg-6">
+                        <h5>6h padavine</h5>
+                        <img id="rain6hProbability" src="dummy.jpg" onerror="this.src='notfound.jpg';">
+                    </div>
+                
+                    <!-- Second Column -->
+                    <div class="col-lg-6">
+                        <h5>Dnevne padavine</span></h5>
+                        <img id="rain24hProbability" src="dummy.jpg" onerror="this.src='notfound.jpg';">
+                    </div>
+                
+                </div>
+
+                <div class="row mt-3">
+                
+                    <!-- Third Column -->
+                    <div class="col-lg-6">
+                        <h5>Oblačnost</span></h5>
+                        <img id="cloudProbability" src="dummy.jpg" onerror="this.src='notfound.jpg';">
+                    </div>
+                
+                    <!-- First Column -->
+                    <div class="col-lg-6">
+                        <h5>Temperatura</h5>
+                        <img id="tempProbablity" src="dummy.jpg" onerror="this.src='notfound.jpg';">
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+               
+                    <!-- Second Column -->
+                    <div class="col-lg-6">
+                        <h5>Hitrost vetra</span></h5>
+                        <img id="windSpeedProbability" src="dummy.jpg" onerror="this.src='notfound.jpg';">
+                    </div>
+        
+                    <!-- Third Column -->
+                    <div class="col-lg-6">
+                        <h5>Smer vetra</span></h5>
+                        <img id="windDirProbability" src="dummy.jpg" onerror="this.src='notfound.jpg';">
+                    </div>
+                </div>
+        
+            </div>
+        
+        </div>
+
+>>>>>>> Stashed changes
     </div>
     <!-- Bootstrap JS and Popper.js -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
