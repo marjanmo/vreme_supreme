@@ -9,42 +9,6 @@
     <title>Arso Supreme</title>
 </head>
 <body>
-<<<<<<< Updated upstream
-    <nav class="navbar navbar-light bg-light fixed-top">
-        <div class="container-fluid">
-            <div class="row" id="navbar">
-
-                <!-- Logo -->
-                <a class="navbar-brand" href="#">Vreme Supreme</a>
-
-                <button class="main-buttons btn btn-light active" onclick="showContent('analiza','content');showContent('analiza','controlBar');updateAnaliza();toggleActive(this)">Analiza</button>
-                <button class="main-buttons btn btn-light" onclick="showContent('napoved', 'content');showContent('napoved','controlBar');updateNapoved();toggleActive(this)">Napoved</button>
-                <button class="main-buttons btn btn-light" onclick="showContent('casovniPresek', 'content');showContent('casovniPresek','controlBar');updateProfiles();toggleActive(this)">Časovni presek</button>
-
-                <!-- Icon that triggers the elevated text field -->
-                <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
-                    &#9432; <!-- Unicode for an info icon -->
-                </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <!-- <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Tekstovna napoved</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div> -->
-                            <iframe
-                                src="https://meteo.arso.gov.si/uploads/probase/www/fproduct/text/sl/fcast_si_text.html"
-                                height="400" frameborder="0"></iframe>
-                            <!-- <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div> -->
-                        </div>
-=======
     <nav class="navbar navbar-light bg-light fixed-top ">
         <div class="row" id="navbar">
             <div class="col ">
@@ -80,25 +44,9 @@
                     </div>
                     <div class="currentDatetime col-md-3 col-xs-12">
                         <span class="badge badge-light" id="currentDatetimeValueAnaliza">Dummy</span>
->>>>>>> Stashed changes
                     </div>
                 </div>
 
-<<<<<<< Updated upstream
-
-            </div>
-                <div class="row container-fluid" id="toolbar">
-                    <div class="col controlBar" id="analiza">
-                        <p><span id="currentDatetimeValueAnaliza"></p></span>
-                        <input type="range" class="form-control-range" id="analizaSlider" min="-80" max="0" step="1"
-                            value="0" oninput="updateAnaliza()">
-                    </div>
-
-                    <div class="col controlBar" id="napoved">
-                        <p><span id="currentDatetimeValueNapoved"></p></span>
-                        <input type="range" class="form-control-range" id="napovedSlider" min="0" max="72" step="3" value="0"
-                            oninput="updateNapoved()">
-=======
             <div class="col controlBar" data-tab="napoved">
                 <div class="row d-flex align-items-center justify-content-center">
                     <div class="col-xs-2" id="buttonPlaceholder">
@@ -107,7 +55,6 @@
                     </div>
                     <div class="col-md-7 col-xs-12">
                         <input type="range" class="form-control-range" id="napovedSlider" min="0" max="72" step="3" value="0" oninput="updateNapoved(activeArea)">
->>>>>>> Stashed changes
                     </div>
 
                     <div class="col controlBar" id="casovniPresek">
@@ -119,9 +66,6 @@
 
                     </div>
 
-<<<<<<< Updated upstream
-                </div>
-=======
             <div class="col controlBar" data-tab="casovniPresek">
                 <button data-place="ljubljana-bezigrad" class="place-buttons btn-sm btn-light" onclick="handlePlaceCasovniButton(this)">Ljubljana</button>
                 <button data-place="ratece" class="place-buttons btn-sm btn-light" onclick="handlePlaceCasovniButton(this)">Gorenjska</button>
@@ -140,7 +84,6 @@
                     onclick="handlePlaceVerjetnostnaButton(this)">Dolenjska</button>
                 <button data-place="murska-sobota" class="place-buttons btn-sm btn-light"
                     onclick="handlePlaceVerjetnostnaButton(this)">Pomurje</button>
->>>>>>> Stashed changes
             </div>
         </div>
     </nav>
@@ -181,16 +124,6 @@
 
                 <!-- Responsive Grid -->
                 <div class="row mt-3">
-<<<<<<< Updated upstream
-                    <div class="col col-lg-4">
-                        <h5>Napoved padavin</h5>
-                        <img id="AladinRainImage" src="dummy.jpg">
-                    </div>
-
-                    <div class="col col-lg-4">
-                        <h5>Napoved temperature</span></h5>
-                        <img id="AladinTempImage" src="dummy.jpg">
-=======
                     <div class="col-lg-6">
                         <h5>Padavine</h5>
                         <img id="AladinRainImage" src="dummy.jpg" onerror="this.src='notfound.jpg';">
@@ -199,7 +132,6 @@
                     <div class="col-lg-6">
                         <h5>Temperatura</span></h5>
                         <img id="AladinTempImage" src="dummy.jpg" onerror="this.src='notfound.jpg';">
->>>>>>> Stashed changes
                     </div>
 
                 </div>
