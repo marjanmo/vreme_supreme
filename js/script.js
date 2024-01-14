@@ -1,17 +1,41 @@
-// import { handleOrientationChange, formatDatetime, roundToLast12Hours, utcDateToCommonString, showContent, toggleActive, placeMainBelowNavbar } from './utils.js';
-
 
 // Set a base datetime, rounded to last hour
 var baseDatetime = new Date();
 baseDatetime.setMinutes(0);
 baseDatetime.setSeconds(0);
-
+console.log(baseDatetime)
 // določi začetne vrednosti
 var currentDatetime = baseDatetime
 var currentDatetimeUtc = new Date(currentDatetime.getTime() - 1 * 60 * 60 * 1000)
 var currentDatetimeUtcRounded = new Date(currentDatetimeUtc.getTime())
 var lastAladinSimulationGuessUtc = roundToLast12Hours(new Date(currentDatetimeUtc.getTime() - 5 * 60 * 60 * 1000)) // predpostavljaš, da se 5 ur računa nov run
 var lastEcmwfSimulationGuessUtc = roundToLast1200(new Date(currentDatetimeUtc.getTime() - 7 * 60 * 60 * 1000)) // predpostavljaš, da se 7 ur računa nov run  (zadnji dan ob 12h)
+
+
+function setForecastingSteps() {
+
+    const rangeSlider = document.getElementById('napovedSlider');
+
+    // min forecasting hour
+    var start = lastAladinSimulationGuessUtc.getTime() - currentDatetimeUtc.getTime()
+    var start = Math.round((start / (1000 * 60 * 60)))
+    console.log(lastAladinSimulationGuessUtc)
+    console.log(currentDatetimeUtc)
+    console.log(start)
+    rangeSlider.min = start + 3;  // čisto zadnjega ne najde
+
+
+    // max forecasting hour
+    const lastAladinLastDate = new Date(lastAladinSimulationGuessUtc.getTime() + 72 * 60 * 60 * 1000)
+
+    var end = lastAladinLastDate.getTime() - currentDatetimeUtc.getTime()
+    var end = Math.round((end / (1000 * 60 * 60)))
+    console.log(lastAladinLastDate)
+    console.log(currentDatetimeUtc)
+    console.log(end)
+    rangeSlider.max = end;
+
+}
 
 const PROBASE_URL = 'https://meteo.arso.gov.si/uploads/probase/www/'
 
@@ -30,19 +54,28 @@ function handleMainButtonClick(button) {
     localStorage.setItem('activeTab', tab);
 
     // Poišči elemente s tem tabom in jih prikaži
-
     // Moras imeti syncane data-tab propertyje med main-button, controlbar in contentom
     showContent(tab, 'content');
     showContent(tab, 'controlBar');
     
     if (tab == "analiza") {
         updateAnaliza()
+
+        focusOnSlider("analizaSlider")
+
+
     } else if (tab == "napoved") {
         var activeArea = localStorage.getItem('activeArea') || "si-neighbours"
 
         // Pohandlaj kot da je že kliknil tudi na zadnji aktivni button.
         activeAreaButton = document.querySelector('button[data-area="' + activeArea + '"]')
         handleAreaButtonClick(activeAreaButton)
+
+        setForecastingSteps()
+
+        focusOnSlider("napovedSlider")
+
+
     } else if (tab == "casovniPresek") {
         var activePlace = localStorage.getItem('activePlace') || "ljubljana-bezigrad"
 
@@ -50,6 +83,7 @@ function handleMainButtonClick(button) {
         handlePlaceCasovniButton(activePlaceButton)
         
         updateCasovniPresek()
+
     } else if (tab == "verjetnostnaNapoved") {
         var activePlace = localStorage.getItem('activePlace') || "ljubljana-bezigrad"
         
@@ -229,6 +263,9 @@ function updateVerjetnostna() {
     document.getElementById('windDirProbability').src = PROBASE_URL + 'model/ecmwf/ef_' + utcDateToCommonString(lastEcmwfSimulationGuessUtc) + '_dd10d_' + placeToVerjetnostnaCode[place] + '_.png';
 
 }
+
+
+
 
 document.addEventListener('DOMContentLoaded', function () {
 

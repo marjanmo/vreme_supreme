@@ -88,13 +88,8 @@ https://meteo.arso.gov.si/uploads/probase/www/model/ecmwf/ef_20240111-1200_dd10d
 
 * Swiping support for smartphones
 * Navbar na dno ko je na telefonu
-* Natančna dolžina in pozicija sliderja!
-* Support za tipke levo in desno
-* Centralna pozicija slik znotraj col
-* Centralna pozicija controlBara na smartfounu
 * Nekako dodaj novo Gorico noter
 * cache busting
-* zapomni si nastavitve uporabnika
 
 
 # Done
@@ -102,3 +97,8 @@ https://meteo.arso.gov.si/uploads/probase/www/model/ecmwf/ef_20240111-1200_dd10d
 * Slovenia / Alpe Jadran
 * Verjetnostna napoved 10 dni
 * Fiksna velikost, ko ni slikce (ne spremeni velikosti)
+* zapomni si nastavitve uporabnika
+* autofokus na viden slider (Support za tipke levo in desno)
+* Centralna pozicija slik znotraj col
+* Centralna pozicija controlBara na smartfounu
+* Natančna dolžina in pozicija sliderja!

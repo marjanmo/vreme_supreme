@@ -42,7 +42,7 @@ button.place-buttons, button.area-buttons {
 
 
 h5 {
-    margin: 0px 0px 8px;
+    margin: 8px 0px 4px;
     font-size: 16px;
     text-align: center;
 }
@@ -81,7 +81,9 @@ body::-webkit-scrollbar {
     /* Width of the placeholder scrollbar */
 }
 
-
+.form-control-range:focus {
+    outline: none;
+}
 
 
 

@@ -22,6 +22,14 @@
 // //     }
 
 // }
+function focusOnSlider(sliderId) {
+    // Find the visible range slider and set focus
+    const visibleRangeSlider = document.getElementById(sliderId);
+
+    if (visibleRangeSlider) {
+        visibleRangeSlider.focus();
+    }
+}
 
 // Function to handle orientation change
 function handleOrientationChange() {
