@@ -1,6 +1,16 @@
 img {
     max-width: 100%;
     height: auto;
+    width: 100%;
+        /* Make the image take up the full width of its container */
+    max-height: 100%;
+    max-width: 600px;
+    /* Ensure the image doesn't exceed the container height */
+}
+
+
+.logo {
+    max-height: 10px;
 }
 
 nav {
@@ -8,7 +18,35 @@ nav {
                     /* Adjust the values as needed */
 }
 
-controlBar
+
+a.navbar-brand  {
+    padding: 5px 0px, 10px, 0px;
+}
+
+button.main-buttons {
+    font-size: 13px;
+    margin: 0px;
+    border: 0px;
+    /* u l d r - kot gre ura*/
+    padding: 3px 6px;
+    vertical-align: bottom;
+}
+
+#toolbar {
+    padding: 0px 0px 0px 0px;
+}
+
+div.currentDatetime {
+    padding: 0px;
+    font-size:18px;
+}
+
+button.presek-buttons, button.area-buttons, button.verjetnostna-buttons {
+    font-size: 12px;
+    margin: 0px;
+    border: 0px;
+    padding: 2px 4px;
+}
 
 .main {
     top: 100px;
@@ -37,3 +75,33 @@ input {
     min-height: 200px;
     overflow: hidden;
 } */
+
+.col-lg-4, .col-lg-6 {
+    padding: 0px 5px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+body {
+    overflow-y: scroll;
+    /* Auto hides scrollbar until needed */
+}
+
+body::-webkit-scrollbar {
+    width: 0px;
+    /* Width of the placeholder scrollbar */
+}
+
+
+
+
+
+
+/* Media query for extra-small screens */
+@media (max-width: 575.98px) {
+
+}
