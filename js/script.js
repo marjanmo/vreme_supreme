@@ -15,6 +15,88 @@ var lastEcmwfSimulationGuessUtc = roundToLast1200(new Date(currentDatetimeUtc.ge
 
 const PROBASE_URL = 'https://meteo.arso.gov.si/uploads/probase/www/'
 
+// Preberi user nastavitve iz cache. Če ga ni, predpostavi napoved
+var activeTab = localStorage.getItem('activeTab') || "napoved";
+
+var activePlace = localStorage.getItem('activePlace') || "ljubljana-bezigrad"
+
+var activeArea = localStorage.getItem('activeArea') || "si-neighbours"
+
+
+// Function to show content, update preferences, and toggle active class
+function handleMainButtonClick(button) {
+
+    // Prikaži kateri glavni tab je aktiven
+    toggleActive(button, 'main-buttons');
+
+    // Preberi data-kategorijo in 
+    const tab = button.dataset.tab
+
+    // Poišči elemente s tem tabom in jih prikaži
+
+    // Moras imeti syncane data-tab propertyje med main-button, controlbar in contentom
+    showContent(tab, 'content');
+    showContent(tab, 'controlBar');
+    
+    if (activeTab == "analiza") {
+        updateAnaliza()
+    } else if (activeTab == "napoved") {
+        activeAreaButton = document.querySelector('button[data-area="' + activeArea + '"]')
+        handleAreaButtonClick(activeAreaButton)
+    } else if (activeTab == "casovniPresek") {
+        activePlaceButton = document.querySelector('button[data-place="' + activePlace + '"]')
+        handlePlaceCasovniButton(activePlaceButton)
+        
+        updateProfiles(activePlace)
+    } else if (activeTab == "verjetnostnaNapoved") {
+        updateVerjetnostna(activePlace)
+    }
+
+
+    // Save the active button in localStorage
+    localStorage.setItem('activeTab', tab);
+}
+
+
+function handleAreaButtonClick(button) {
+    
+    // Javi kot poklikano
+    toggleActive(button, "area-buttons");
+
+    // Preberi data 
+    var area = button.dataset.area
+
+    updateNapoved(area)
+
+
+}
+
+
+function handlePlaceCasovniButton(button) {
+    
+    toggleActive(button, "place-buttons")
+
+    var place = button.dataset.place
+
+    updateProfiles(place)
+
+    // Save the active button in localStorage. Share it with Verjetnostna
+    localStorage.setItem('activePlace', place);
+
+}
+
+function handlePlaceVerjetnostnaButton(button) {
+
+    toggleActive(button, "place-buttons")
+
+    var place = button.dataset.place
+
+    updateVerjetnostna(place)
+
+    // Save the active button in localStorage. Share it with Casovni
+    localStorage.setItem('activePlace', place);
+
+}
 
 function updateAnaliza() {
     const sliderValue = document.getElementById('analizaSlider').value;
@@ -76,12 +158,12 @@ function updateNapoved(area) {
     } else {
         var wind_area = area
     };
-    console.log(wind_area)
+    console.log(area)
     document.getElementById('AladinWind0Image').src = PROBASE_URL + 'model/aladin/field/ad_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_vm-va10m_' + wind_area + '_' + forecasting_hour + '.png';
 
 
-    //Update wind text and image
-    //document.getElementById('windImage').src = PROBASE_URL + 'www/model/aladin/field/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_va10m_si_' + forecasting_hour + '.png';
+    // Save the active button in localStorage. To moraš po vsakem updatu, da ker lahko vmes preklopiš area
+    localStorage.setItem('activeArea', area);
 
 };
 
@@ -141,16 +223,15 @@ function updateVerjetnostna(place) {
 
 document.addEventListener('DOMContentLoaded', function () {
 
+    console.log("Aktivni tab iz cacha: " + activeTab)
+    // Najti ustrezen gumb in ga pohandlaj.
+    activeTabButton = document.querySelector('button[data-tab="'+activeTab+'"]')
+    
+    handleMainButtonClick(activeTabButton);
 
-    // Default je analiza
-    showContent("analiza", "content")
-    // Pokaži samo svoj filter
-    showContent("analiza", "controlBar")
 
-    updateAnaliza()
 
-    //focusOnRangeSlider()
-
+    // Poskrbi, da bo vedno content pod navbarom
     placeMainBelowNavbar()
 
     window.addEventListener('resize', placeMainBelowNavbar());
@@ -187,49 +268,6 @@ document.addEventListener('DOMContentLoaded', function () {
     //     const inputEvent = new Event('input', { bubbles: true });
     //     visibleSlider.dispatchEvent(inputEvent);
     // });
-
-
-
-
-
-    // Text napoved
-    //https://meteo.arso.gov.si/uploads/probase/www/fproduct/text/sl/fcast_si_text.html
-
-
-    // Text napoved za letalce
-    // https://meteo.arso.gov.si/uploads/probase/www/aviation/fproduct/text/sl/aviation.txt
-
-    // Radarska slika
-    // https://meteo.arso.gov.si/uploads/probase/www/observ/radar/si0_20240107-2240_zm_si.jpg
-
-
-    // Satelitska slika Evropa
-    // https://meteo.arso.gov.si/uploads/probase/www/observ/satellite/msg_20240107-1000_ir_sateu.jpg
-
-    // Satelitska slika Slovenija
-    // https://meteo.arso.gov.si/uploads/probase/www/observ/satellite/msg_20240108-1000_hrv_si.jpg
-
-    // Padavine Napoved SLO
-    // https://meteo.arso.gov.si/uploads/probase/www/model/aladin/field/as_20240108-0000_tcc-rr_si-neighbours_069.png?1704712225313
-
-    // Veter Napoved SLO
-    // https://meteo.arso.gov.si/uploads/probase/www/model/aladin/field/as_20240108-0000_va10m_si_024.png?1704712293943
-
-    //
-
-    // Profil oblačnosti (SILESce, SIBOVec, SIPOStojna, SIPORtorož, SILJUbljana, SIPTUj, SISGRadec, SIMNOmesto, SIKOCevje, SIMSObota)
-    // https://meteo.arso.gov.si/uploads/probase/www/model/aladin/point/as_20240108-0000_rh-t_SILES.png
-
-    // Profil temperature
-    // https://meteo.arso.gov.si/uploads/probase/www/model/aladin/point/as_20240108-0000_tgrad_SILES.png
-
-    // Profil vlage
-    // https://meteo.arso.gov.si/uploads/probase/www/model/aladin/point/as_20240108-0000_rh-va_SILES.png
-
-    // Profil vetra
-    // https://meteo.arso.gov.si/uploads/probase/www/model/aladin/point/as_20240108-0000_vm-va_SILES.png
-
-
 
 
 });

@@ -104,13 +104,13 @@ function formatDatetime(date) {
 }
 
 
-function showContent(contentId, class_name) {
+function showContent(tab, class_name) {
 
-    //Funkcija skrije vse elemente z classom content in nato odmaskira samo tistega z željenim id
+    // Funkcija skrije vse elemente z classom content in nato odmaskira samo tistega, ki ima ustrezno vrednost dataset taba
 
     var contentDivs = document.getElementsByClassName(class_name);
     for (var i = 0; i < contentDivs.length; i++) {
-        if (contentDivs[i].id === contentId) {
+        if (contentDivs[i].dataset.tab === tab) {
             contentDivs[i].style.display = "block";
         } else {
             contentDivs[i].style.display = "none";

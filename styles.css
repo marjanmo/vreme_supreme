@@ -4,6 +4,7 @@ img {
     width: 100%;
         /* Make the image take up the full width of its container */
     max-height: 100%;
+    max-width: 600px;
     /* Ensure the image doesn't exceed the container height */
 }
 
@@ -23,7 +24,7 @@ a.navbar-brand  {
 }
 
 button.main-buttons {
-    font-size: 15px;
+    font-size: 13px;
     margin: 0px;
     border: 0px;
     /* u l d r - kot gre ura*/
@@ -81,7 +82,7 @@ input {
     overflow: hidden;
 } */
 
-.col-lg-4, col, col-lg-6 {
+.col-lg-4, .col-lg-6 {
     padding: 0px 5px;
     height: 100%;
     display: flex;
@@ -90,13 +91,6 @@ input {
     align-items: center;
 
 }
-
-/* .currentDateTime {
-    color: white;
-} */
-
-
-/* placeholder for scroolbar */
 
 body {
     overflow-y: scroll;
