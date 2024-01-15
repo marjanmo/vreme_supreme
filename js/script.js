@@ -118,15 +118,16 @@ function handleAreaButtonClick(button) {
 
 
 function handlePlaceCasovniButton(button) {
-    
+
     toggleActive(button, "place-buttons")
 
     var place = button.dataset.place
 
-    updateCasovniPresek()
-
     // Save the active button in localStorage. Share it with Verjetnostna
     localStorage.setItem('activePlace', place);
+
+    updateCasovniPresek()
+
 
 }
 
@@ -136,10 +137,12 @@ function handlePlaceVerjetnostnaButton(button) {
 
     var place = button.dataset.place
 
-    updateVerjetnostna()
-
     // Save the active button in localStorage. Share it with Casovni
     localStorage.setItem('activePlace', place);
+
+    updateVerjetnostna()
+
+
 
 }
 
