@@ -102,3 +102,4 @@ https://meteo.arso.gov.si/uploads/probase/www/model/ecmwf/ef_20240111-1200_dd10d
 * Centralna pozicija slik znotraj col
 * Centralna pozicija controlBara na smartfounu
 * Natančna dolžina in pozicija sliderja!
+* tekst napoved arso in avio

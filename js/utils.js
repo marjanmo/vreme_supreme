@@ -112,13 +112,13 @@ function formatDatetime(date) {
 }
 
 
-function showContent(tab, class_name) {
+function toggleVisibleContent(class_name, dataset_name, dataset_value) {
 
     // Funkcija skrije vse elemente z classom content in nato odmaskira samo tistega, ki ima ustrezno vrednost dataset taba
 
     var contentDivs = document.getElementsByClassName(class_name);
     for (var i = 0; i < contentDivs.length; i++) {
-        if (contentDivs[i].dataset.tab === tab) {
+        if (contentDivs[i].dataset[dataset_name] === dataset_value) {
             contentDivs[i].style.display = "block";
         } else {
             contentDivs[i].style.display = "none";
@@ -129,7 +129,10 @@ function showContent(tab, class_name) {
 
 }
 
-function toggleActive(button, class_name) {
+
+
+
+function toggleActiveButton(button, class_name) {
     var navbarButtons = document.getElementsByClassName(class_name);
     for (var i = 0; i < navbarButtons.length; i++) {
         navbarButtons[i].classList.remove('active');
@@ -157,5 +160,161 @@ function placeMainBelowNavbar() {
 }
 
 
+function parseAviationForecastData(container) {
+    var url = "https://meteo.arso.gov.si/uploads/probase/www/aviation/fproduct/text/sl/aviation.txt"
+    url = 'https://corsproxy.io/?' + encodeURIComponent(url);
 
-// export { handleOrientationChange, formatDatetime, roundToLast12Hours, utcDateToCommonString, showContent, toggleActive, placeMainBelowNavbar  }
+
+    function parseData(data) {
+        const lines = data.split('\r\n');
+
+        var osvezeno = document.createElement('h5');
+        osvezeno.textContent = 'Napoved za letalstvo (' + lines[1].replace("IZDANO: ", "") + ')';
+        container.appendChild(osvezeno);
+
+        //Loopaj vse od 4 vrstice naprej in filaj pare naslov, text
+        for (let i = 3; i < lines.length; i++) {
+            let el = lines[i];
+
+            if (el.length == 0) {
+                // prazna vrstica
+            }
+
+            // Če je narejen
+            else if (el.toUpperCase() === el) {
+                const title = document.createElement('h6');
+                title.textContent = el;
+                container.appendChild(title);
+
+            } else {
+                // Ne rabiš tega.
+                if (el.startsWith('NASLEDNJA NAPOVED')) {
+                    break;
+                }
+
+                const parapraph = document.createElement('p');
+                parapraph.textContent = el;
+                container.appendChild(parapraph);
+            }
+
+        };
+    }
+
+    // Make a GET request using the fetch API
+    fetch(url)
+        .then(response => {
+            // Check if the request was successful (status code 200-299)
+            if (!response.ok) {
+                throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
+            }
+
+            // Return the response text
+            return response.text();
+        })
+        .then(parseData)
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+
+
+
+
+}
+
+function parseGeneralForecastData(container) {
+    var url = "https://meteo.arso.gov.si/uploads/probase/www/fproduct/text/sl/fcast_si_text.xml"
+    var url = 'https://corsproxy.io/?' + encodeURIComponent(url);
+
+    function parseData(data) {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(data, 'application/xml');
+
+        // Naslov
+        createElement(container, 'h5', 'Vremenska napoved (' + xmlDoc.querySelector('articleinfo').querySelector('pubdate').textContent + ')');
+
+
+        //Preveri, če je opozorilo!
+        var warning = xmlDoc.querySelector('#warning_SLOVENIA para').textContent
+        if (warning != "Dodatnega opozorila ni.") {
+            createElement(container, 'h4', "NAPOVED ZA SLOVENIJO", "warning")
+            createElement(container, 'p', warning, "warning")
+        }
+
+
+
+        // Napoved za Slovenijo
+        createElement(container, 'h6', "NAPOVED ZA SLOVENIJO")
+        createElement(container, 'p', "POVZETEK: " + xmlDoc.querySelector('#fcast_summary_SLOVENIA_d1-d2 para').textContent, "povzetek")
+        var paragraphs = xmlDoc.querySelector('#fcast_SLOVENIA_d1').querySelectorAll("para")
+        parTextContent = ""
+        for (let j = 0; j < paragraphs.length; j++) {
+            parTextContent += (" " + paragraphs[j].textContent)
+        }
+        createElement(container, 'p', parTextContent)
+
+        // Obeti za Slovenijo
+        createElement(container, 'h6', "OBETI")
+        var paragraphs = xmlDoc.querySelector('#fcast_SLOVENIA_d3-d5').querySelectorAll("para")
+        parTextContent = ""
+        for (let j = 0; j < paragraphs.length; j++) {
+            parTextContent += (" " + paragraphs[j].textContent)
+        }
+        createElement(container, 'p', parTextContent)
+
+
+        // Sosednje pokrajine
+        createElement(container, 'h6', "NAPOVED ZA SOSEDNJE POKRAJINE")
+        var paragraphs = xmlDoc.querySelectorAll('#fcast_SI_NEIGHBOURS_d1 para,#fcast_SI_NEIGHBOURS_d2 para')
+        parTextContent = ""
+        for (let j = 0; j < paragraphs.length; j++) {
+            parTextContent += (" " + paragraphs[j].textContent)
+        }
+        createElement(container, 'p', parTextContent)
+
+
+        // Vremenska slika
+        createElement(container, 'h6', "VREMENSKA SLIKA")
+        var paragraphs = xmlDoc.querySelector('#fcast_EUROPE_d1').querySelectorAll("para")
+        parTextContent = ""
+        for (let j = 0; j < paragraphs.length; j++) {
+            parTextContent += (" " + paragraphs[j].textContent)
+        }
+        createElement(container, 'p', parTextContent)
+
+
+    }
+
+    // Make a GET request using the fetch API
+    fetch(url)
+        .then(response => {
+            // Check if the request was successful (status code 200-299)
+            if (!response.ok) {
+                throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
+            }
+
+            // Return the response text
+            return response.text();
+        })
+        .then(parseData)
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+
+
+
+
+}
+// export { handleOrientationChange, formatDatetime, roundToLast12Hours, utcDateToCommonString, toggleVisibleContent, toggleActiveButton, placeMainBelowNavbar  }
+
+function createElement(parent, type, text, className) {
+    const el = document.createElement(type);
+    el.textContent = text;
+
+    if (className) {
+        el.classList.add(className);
+    }
+
+    parent.appendChild(el);
+}

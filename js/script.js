@@ -3,7 +3,7 @@
 var baseDatetime = new Date();
 baseDatetime.setMinutes(0);
 baseDatetime.setSeconds(0);
-console.log(baseDatetime)
+
 // določi začetne vrednosti
 var currentDatetime = baseDatetime
 var currentDatetimeUtc = new Date(currentDatetime.getTime() - 1 * 60 * 60 * 1000)
@@ -19,9 +19,7 @@ function setForecastingSteps() {
     // min forecasting hour
     var start = lastAladinSimulationGuessUtc.getTime() - currentDatetimeUtc.getTime()
     var start = Math.round((start / (1000 * 60 * 60)))
-    console.log(lastAladinSimulationGuessUtc)
-    console.log(currentDatetimeUtc)
-    console.log(start)
+
     rangeSlider.min = start + 3;  // čisto zadnjega ne najde
 
 
@@ -30,21 +28,18 @@ function setForecastingSteps() {
 
     var end = lastAladinLastDate.getTime() - currentDatetimeUtc.getTime()
     var end = Math.round((end / (1000 * 60 * 60)))
-    console.log(lastAladinLastDate)
-    console.log(currentDatetimeUtc)
-    console.log(end)
+
     rangeSlider.max = end;
 
 }
 
 const PROBASE_URL = 'https://meteo.arso.gov.si/uploads/probase/www/'
 
-
 // Function to show content, update preferences, and toggle active class
 function handleMainButtonClick(button) {
 
     // Prikaži kateri glavni tab je aktiven in updajtaj variablo
-    toggleActive(button, 'main-buttons');
+    toggleActiveButton(button, 'main-buttons');
 
 
     // Preberi data-kategorijo, iz aktivnega gumba 
@@ -55,8 +50,8 @@ function handleMainButtonClick(button) {
 
     // Poišči elemente s tem tabom in jih prikaži
     // Moras imeti syncane data-tab propertyje med main-button, controlbar in contentom
-    showContent(tab, 'content');
-    showContent(tab, 'controlBar');
+    toggleVisibleContent('content', 'tab', tab);
+    toggleVisibleContent('controlBar', 'tab', tab);
     
     if (tab == "analiza") {
         updateAnaliza()
@@ -91,6 +86,14 @@ function handleMainButtonClick(button) {
         handlePlaceVerjetnostnaButton(activePlaceButton)
 
         updateVerjetnostna()
+
+    } else if (tab == "textNapoved") {
+        var activeText = localStorage.getItem('activeText') || "general"
+        
+        activeTextNapovedButton = document.querySelector('#controlBarTextNapoved button[data-text="' + activeText + '"]')
+
+        handleTextNapovedButtonClick(activeTextNapovedButton)
+
     }
 
 
@@ -101,7 +104,7 @@ function handleMainButtonClick(button) {
 function handleAreaButtonClick(button) {
     
     // Javi kot poklikano
-    toggleActive(button, "area-buttons");
+    toggleActiveButton(button, "area-buttons");
 
     // Preberi data 
     var area = button.dataset.area
@@ -119,7 +122,7 @@ function handleAreaButtonClick(button) {
 
 function handlePlaceCasovniButton(button) {
 
-    toggleActive(button, "place-buttons")
+    toggleActiveButton(button, "place-buttons")
 
     var place = button.dataset.place
 
@@ -133,7 +136,7 @@ function handlePlaceCasovniButton(button) {
 
 function handlePlaceVerjetnostnaButton(button) {
 
-    toggleActive(button, "place-buttons")
+    toggleActiveButton(button, "place-buttons")
 
     var place = button.dataset.place
 
@@ -142,7 +145,18 @@ function handlePlaceVerjetnostnaButton(button) {
 
     updateVerjetnostna()
 
+}
 
+
+function handleTextNapovedButtonClick(button) {
+
+    toggleActiveButton(button, "text-buttons")
+
+    var text = button.dataset.text
+
+    localStorage.setItem('activeText', text);
+
+    updateTextForecast()
 
 }
 
@@ -267,7 +281,28 @@ function updateVerjetnostna() {
 
 }
 
+function updateTextForecast() {
 
+    text = localStorage.getItem("activeText")
+
+    // Najdi textNapoved kontainer.
+    let container = document.querySelector('.textNapovedType[data-text="' + text +'"]');
+    
+    // Prikaži tapravi kontainer. To zato, da ni lahko samo 1x loadaš, ne pa ob vsakem kliku.
+    toggleVisibleContent("textNapovedType", "text", text)
+
+
+    // Če je bil v sessionu že populiran, potem skenslaj.
+    if (container.hasChildNodes()) {
+        return
+    }
+
+    if (text == "aviation") {
+        parseAviationForecastData(container)
+    } else {
+        parseGeneralForecastData(container) 
+    }
+}
 
 
 document.addEventListener('DOMContentLoaded', function () {

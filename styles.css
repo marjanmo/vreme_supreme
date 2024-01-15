@@ -33,18 +33,40 @@ div.currentDatetime {
     font-size:18px;
 }
 
-button.place-buttons, button.area-buttons {
+button.place-buttons, button.area-buttons, button.text-buttons {
     font-size: 12px;
     margin: 0px;
     border: 0px;
     padding: 2px 4px;
 }
 
+/* info krogec večji
+button[data-tab="textNapoved"] {
+    padding: 0px;
+} */
 
 h5 {
-    margin: 8px 0px 4px;
+    margin: 8px 0px 8px;
     font-size: 16px;
     text-align: center;
+}
+
+h6 {
+    font-size: 13px;
+    margin: 0px 0px 10px;
+}
+
+p {
+    font-size: 13px;
+}
+
+.povzetek {
+    margin: 0px 0px 6px;
+    font-style: italic;  
+}
+
+.warning {
+    color: red;
 }
 
 .content {
@@ -54,6 +76,10 @@ h5 {
 /* turn dynamic content off by default and only toggle it with button handlers */
 .content, .controlBar {
     display: none
+}
+
+.textContent {
+    padding: 30px 30px;
 }
 
 input {
@@ -85,11 +111,18 @@ body::-webkit-scrollbar {
     outline: none;
 }
 
+button:focus {
+    outline: none;
+}
 
+/* Media query for smartphones (up to 767px width) */
+@media only screen and (max-width: 767px) {
 
-
-/* Media query for extra-small screens */
-@media (max-width: 575.98px) {
-
-
+    /* Change the class to fixed-bottom on smartphones */
+    .navbar {
+        position: fixed;
+        bottom: 0;
+        top: auto;
+        /* Other styles specific to fixed-bottom */
+    }
 }
