@@ -152,10 +152,22 @@ function getActiveButtonId(className) {
 
 
 function placeMainBelowNavbar() {
-    var navbarHeight = document.querySelector('nav').offsetHeight;
+    
+
+    navbar = document.querySelector('nav')
+
+    var navbarHeight = navbar.offsetHeight;
     var main = document.getElementById('main')
 
-    main.style.marginTop = navbarHeight + 'px';
+    // Če je na smartphonu in je dol, potem naštimaj margin spodaj, sicer pa zgoraj
+    if (window.getComputedStyle(navbar).bottom === "0px") {
+        main.style.marginBottom = navbarHeight + 'px';
+        main.style.marginTop = '5px';
+
+    } else
+        
+        main.style.marginTop = navbarHeight + 'px';
+        main.style.marginBottom = '0px';
 
 }
 
