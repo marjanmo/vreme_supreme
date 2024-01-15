@@ -9,7 +9,7 @@ var currentDatetime = baseDatetime
 var currentDatetimeUtc = new Date(currentDatetime.getTime() - 1 * 60 * 60 * 1000)
 var currentDatetimeUtcRounded = new Date(currentDatetimeUtc.getTime())
 var lastAladinSimulationGuessUtc = roundToLast12Hours(new Date(currentDatetimeUtc.getTime() - 5 * 60 * 60 * 1000)) // predpostavljaš, da se 5 ur računa nov run
-var lastEcmwfSimulationGuessUtc = roundToLast1200(new Date(currentDatetimeUtc.getTime() - 7 * 60 * 60 * 1000)) // predpostavljaš, da se 7 ur računa nov run  (zadnji dan ob 12h)
+var lastEcmwfSimulationGuessUtc = roundToLast1200(new Date(currentDatetimeUtc.getTime() - 9 * 60 * 60 * 1000)) // predpostavljaš, da se 9 ur računa nov run  (zadnji dan ob 12h - enkrat ob 20.45 še ni bil 12 runa)
 
 
 function setForecastingSteps() {
@@ -294,6 +294,7 @@ function updateTextForecast() {
 
     // Če je bil v sessionu že populiran, potem skenslaj.
     if (container.hasChildNodes()) {
+        console.log(container)
         return
     }
 

@@ -160,28 +160,28 @@ function placeMainBelowNavbar() {
     var main = document.getElementById('main')
 
     // Če je na smartphonu in je dol, potem naštimaj margin spodaj, sicer pa zgoraj
-    if (window.getComputedStyle(navbar).bottom === "0px") {
+    if (window.getComputedStyle(navbar).bottom === "0px" || navbar.style.bottom === "0px") {
         main.style.marginBottom = navbarHeight + 'px';
-        main.style.marginTop = '5px';
+        main.style.marginTop = '0px';
 
-    } else
+    } else {
         
-        main.style.marginTop = navbarHeight + 'px';
         main.style.marginBottom = '0px';
-
+        main.style.marginTop = navbarHeight + 'px';
+    }
 }
 
 
 function parseAviationForecastData(container) {
     var url = "https://meteo.arso.gov.si/uploads/probase/www/aviation/fproduct/text/sl/aviation.txt"
-    url = 'https://corsproxy.io/?' + encodeURIComponent(url);
+    url = 'https://corsproxy.io/?' + encodeURIComponent(url+'?timestamp='+ Date.now());
 
 
     function parseData(data) {
         const lines = data.split('\r\n');
-
+        console.log(lines)
         var osvezeno = document.createElement('h5');
-        osvezeno.textContent = 'Napoved za letalstvo (' + lines[1].replace("IZDANO: ", "") + ')';
+        osvezeno.textContent = lines[1].replace("IZDANO: ", "");
         container.appendChild(osvezeno);
 
         //Loopaj vse od 4 vrstice naprej in filaj pare naslov, text
@@ -236,14 +236,15 @@ function parseAviationForecastData(container) {
 
 function parseGeneralForecastData(container) {
     var url = "https://meteo.arso.gov.si/uploads/probase/www/fproduct/text/sl/fcast_si_text.xml"
-    var url = 'https://corsproxy.io/?' + encodeURIComponent(url);
+    var url = 'https://corsproxy.io/?' + encodeURIComponent(url + '?timestamp=' + Date.now());
 
     function parseData(data) {
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(data, 'application/xml');
 
         // Naslov
-        createElement(container, 'h5', 'Vremenska napoved (' + xmlDoc.querySelector('articleinfo').querySelector('pubdate').textContent + ')');
+        var osvezeno = xmlDoc.querySelector('articleinfo').querySelector('pubdate').textContent.split(", ")[1]
+        createElement(container, 'h5', osvezeno);
 
 
         //Preveri, če je opozorilo!
