@@ -5,17 +5,17 @@
 
 //     // Hide the default "alt" message
 //     img.style.display = 'none';
-//     // img.src = "notfound.jpg";
+//     // img.src = "img/notfound.jpg";
 //     img.style.display = 'block';
 
-//     //img.src = 'notfound.jpg';
+//     //img.src = 'img/notfound.jpg';
 //     //img.style.display = 'block';
 
 // //     // Check if the fallback image has already been set, da ne bo žmigalo.
 // //     if (!img.getAttribute('data-fallback-set')) {
 // //         // Replace the source with the fallback image URL
         
-// // img.src = 'notfound.jpg';
+// // img.src = 'img/notfound.jpg';
 // //         console.log(img.src)
 // //         // Set a data attribute to mark that the fallback image has been set
 // //         img.setAttribute('data-fallback-set', true);
