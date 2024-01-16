@@ -54,11 +54,25 @@ h5 {
 h6 {
     font-size: 13px;
     margin: 0px 0px 10px;
+    font-weight: strong;
 }
 
 p {
     font-size: 13px;
 }
+
+
+.textContent, .textNapovedType {
+  display: flex;
+  justify-content: center;
+
+}
+
+.textContent, textNapovedType {
+    max-width: 500px;
+    width: 100%; /* Ensure child elements take up the full width if their content is less than 500px */
+}
+
 
 .povzetek {
     margin: 0px 0px 6px;

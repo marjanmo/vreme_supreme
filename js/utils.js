@@ -1,27 +1,4 @@
 
-// function fallbackImage(img) {
-//     // Replace the source with the fallback image URL
-//     //this.src = backupImage.src
-
-//     // Hide the default "alt" message
-//     img.style.display = 'none';
-//     // img.src = "img/notfound.jpg";
-//     img.style.display = 'block';
-
-//     //img.src = 'img/notfound.jpg';
-//     //img.style.display = 'block';
-
-// //     // Check if the fallback image has already been set, da ne bo žmigalo.
-// //     if (!img.getAttribute('data-fallback-set')) {
-// //         // Replace the source with the fallback image URL
-        
-// // img.src = 'img/notfound.jpg';
-// //         console.log(img.src)
-// //         // Set a data attribute to mark that the fallback image has been set
-// //         img.setAttribute('data-fallback-set', true);
-// //     }
-
-// }
 
 function preloadImages(urlList) {
   
@@ -44,11 +21,6 @@ function preloadImages(urlList) {
 
   return Promise.all(imagePromises);
 }
-
-
-
-
-
 
 
 function focusOnSlider(sliderId) {
@@ -91,6 +63,7 @@ function utcDateToCommonString(utcdate) {
     return `${year}${month}${day}-${hours}${minutes}`
 }
 
+
 function roundToLast12Hours(date) {
     const roundedDate = date;
 
@@ -100,6 +73,7 @@ function roundToLast12Hours(date) {
     roundedDate.setHours(roundedHours, 0, 0, 0);
     return roundedDate;
 }
+
 
 function roundToLast1200(date) {
     var roundedDate = date;
@@ -159,8 +133,6 @@ function toggleVisibleContent(class_name, dataset_name, dataset_value) {
 }
 
 
-
-
 function toggleActiveButton(button, class_name) {
     var navbarButtons = document.getElementsByClassName(class_name);
     for (var i = 0; i < navbarButtons.length; i++) {
@@ -168,6 +140,7 @@ function toggleActiveButton(button, class_name) {
     }
     button.classList.toggle('active');
 }
+
 
 function getActiveButtonId(className) {
     var activeButton = document.querySelector('.' + className + '.active');
@@ -263,6 +236,7 @@ function parseAviationForecastData(container) {
 
 }
 
+
 function parseGeneralForecastData(container) {
     var url = "https://meteo.arso.gov.si/uploads/probase/www/fproduct/text/sl/fcast_si_text.xml"
     var url = 'https://corsproxy.io/?' + encodeURIComponent(url + '?timestamp=' + Date.now());
@@ -348,7 +322,7 @@ function parseGeneralForecastData(container) {
 
 
 }
-// export { handleOrientationChange, formatDatetime, roundToLast12Hours, utcDateToCommonString, toggleVisibleContent, toggleActiveButton, placeMainBelowNavbar  }
+
 
 function createElement(parent, type, text, className) {
     const el = document.createElement(type);

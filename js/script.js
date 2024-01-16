@@ -15,6 +15,8 @@ var lastEcmwfSimulationGuessUtc = roundToLast1200(new Date(currentDatetimeUtc.ge
 var isAnalizaPreloaded = false
 var isNapovedPreloaded = false
 
+const PROBASE_URL = 'https://meteo.arso.gov.si/uploads/probase/www/'
+
 
 function setForecastingSteps() {
 
@@ -37,7 +39,6 @@ function setForecastingSteps() {
 
 }
 
-const PROBASE_URL = 'https://meteo.arso.gov.si/uploads/probase/www/'
 
 // Function to show content, update preferences, and toggle active class
 function handleMainButtonClick(button) {
