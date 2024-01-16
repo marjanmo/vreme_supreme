@@ -66,11 +66,12 @@ function handleMainButtonClick(button) {
     } else if (tab == "napoved") {
         var activeArea = localStorage.getItem('activeArea') || "si-neighbours"
 
+        setForecastingSteps()
+
         // Pohandlaj kot da je že kliknil tudi na zadnji aktivni button.
         activeAreaButton = document.querySelector('button[data-area="' + activeArea + '"]')
         handleAreaButtonClick(activeAreaButton)
 
-        setForecastingSteps()
 
         focusOnSlider("napovedSlider")
 
@@ -182,7 +183,7 @@ function updateAnaliza() {
     document.getElementById('satelliteImageEU').src = PROBASE_URL + 'observ/satellite/msg_' + utcDateToCommonString(currentDatetimeUtcRounded) + '_ir_sateu.jpg';
 
     // Ko je default value
-    if (slider.value == 0 && !isAnalizaPreloaded) {
+    if (!isAnalizaPreloaded) {
         preloadAnaliza()
     }
 };
@@ -242,7 +243,7 @@ function updateNapoved() {
     area = localStorage.getItem('activeArea');
 
 
-    const sliderValue = document.getElementById('napovedSlider').value;
+    const slider = document.getElementById('napovedSlider');
     
     // V slajderju klices funkcijo brez imena, zato moraš pogruntat, kateri je aktiven gumb. Area se skriva v idju tega gumba
     if (area == undefined) {
@@ -251,7 +252,7 @@ function updateNapoved() {
 
     //Updajtaj datume
     // Calculate the new datetime based on the slider value (rounded to 1 hour)
-    currentDatetime = new Date(baseDatetime.getTime() + sliderValue * 60 * 60 * 1000);
+    currentDatetime = new Date(baseDatetime.getTime() + slider.value * 60 * 60 * 1000);
     currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
 
     // Update datum text
@@ -279,6 +280,12 @@ function updateNapoved() {
 
     document.getElementById('AladinWind0Image').src = PROBASE_URL + 'model/aladin/field/ad_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_vm-va10m_' + wind_area + '_' + forecasting_hour + '.png';
 
+
+    if (!isNapovedPreloaded) {
+        preloadNapoved()
+    }
+
+
 };
 
 
@@ -295,16 +302,33 @@ function preloadNapoved() {
     all_images = []
     // max lahko izkljucis, ker si ga itak že loadal initially na suho.
     for (var i = slider.min; i < slider.max; i++) {
+        
 
-        currentDatetime = new Date(baseDatetime.getTime() + i * 10 * 60 * 1000);
+        // Calculate the new datetime based on the slider value (rounded to 1 hour)
+        currentDatetime = new Date(baseDatetime.getTime() + i * 60 * 60 * 1000);
         currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
 
-        all_images.push(PROBASE_URL + 'observ/radar/si0_' + utcDateToCommonString(currentDatetimeUtc) + '_zm_si.jpg');
+        //pogruntaj, koliko ur je že od zadnje simulacije
+        hoursAfterSimulation = Math.floor((currentDatetimeUtc - lastAladinSimulationGuessUtc) / (1000 * 60 * 60));
 
-        // Samo prvo uro gledaš.
-        if (currentDatetime.getMinutes() === 0) {
-            all_images.push(PROBASE_URL + 'observ/satellite/msg_' + utcDateToCommonString(currentDatetimeUtcRounded) + '_hrv_si.jpg');
-            all_images.push(PROBASE_URL + 'observ/satellite/msg_' + utcDateToCommonString(currentDatetimeUtcRounded) + '_ir_sateu.jpg');
+        var forecasting_hour = String(Math.floor(hoursAfterSimulation / 3) * 3).padStart(3, '0')
+
+        for (const area of ["si-neighbours", "alps-adriatic"]) {
+            //Update radar text and image
+            all_images.push(PROBASE_URL + 'model/aladin/field/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_tcc-rr_' + area + '_' + forecasting_hour + '.png');
+            all_images.push(PROBASE_URL + 'model/aladin/field/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_t2m_' + area + '_' + forecasting_hour + '.png');
+            all_images.push(PROBASE_URL + 'model/aladin/field/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_vf925_' + area + '_' + forecasting_hour + '.png');
+            all_images.push(PROBASE_URL + 'model/aladin/field/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_r-t-vf850_' + area + '_' + forecasting_hour + '.png');
+
+            // Za veter ne obstjaa si-neigbour, ampak samo si
+            if (area === "si-neighbours") {
+                var wind_area = "si"
+            } else {
+                var wind_area = area
+            };
+
+            all_images.push(PROBASE_URL + 'model/aladin/field/ad_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_vm-va10m_' + wind_area + '_' + forecasting_hour + '.png');
+
         }
 
     }
