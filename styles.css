@@ -115,6 +115,24 @@ button:focus {
     outline: none;
 }
 
+
+.loading-icon {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+
 /* Media query for smartphones (up to 767px width) */
 @media only screen and (max-width: 767px) {
 

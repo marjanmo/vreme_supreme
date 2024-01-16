@@ -22,6 +22,35 @@
 // //     }
 
 // }
+
+function preloadImages(urlList) {
+  
+  //Vrne funkcijo, ko popinga komplet seznam slik.
+  
+  const imagePromises = [];
+
+  for (const url of urlList) {
+    
+    const imagePromise = new Promise((resolve) => {
+    
+      const img = new Image();
+      img.src = url;
+      img.onload = () => resolve({ success: true, url });
+      img.onerror = () => resolve({ success: false, url });
+    });
+
+    imagePromises.push(imagePromise);
+  }
+
+  return Promise.all(imagePromises);
+}
+
+
+
+
+
+
+
 function focusOnSlider(sliderId) {
     // Find the visible range slider and set focus
     const visibleRangeSlider = document.getElementById(sliderId);

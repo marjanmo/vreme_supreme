@@ -31,10 +31,9 @@
                 <button data-tab="textNapoved" class="main-buttons btn-sm btn-light"
                 onclick="handleMainButtonClick(this)">Tekst</button>
             </div>
-
+            
         </div>
         <div id="controlbar-buttons" class="row container-fluid"  id="toolbar">
-            
             <div class="col controlBar" data-tab="analiza">
                 <div class="row d-flex align-items-center justify-content-center">
                     <div class="col-xs-2" style="visibility: hidden;">
@@ -46,8 +45,9 @@
                         <input type="range" class="form-control-range" id="analizaSlider" min="-144" max="0" step="1" value="0"
                             oninput="updateAnaliza()">
                     </div>
-                    <div class="currentDatetime col-md-3 col-xs-12">
+                    <div class="currentDatetime col-md-3 col-xs-12 container-fluid">
                         <span class="badge badge-light" id="currentDatetimeValueAnaliza">Dummy</span>
+                        <div id="loading-icon-analiza" class="loading-icon"></div>
                     </div>
                 </div>
             </div>

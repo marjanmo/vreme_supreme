@@ -12,6 +12,10 @@ var lastAladinSimulationGuessUtc = roundToLast12Hours(new Date(currentDatetimeUt
 var lastEcmwfSimulationGuessUtc = roundToLast1200(new Date(currentDatetimeUtc.getTime() - 9 * 60 * 60 * 1000)) // predpostavljaš, da se 9 ur računa nov run  (zadnji dan ob 12h - enkrat ob 20.45 še ni bil 12 runa)
 
 
+var isAnalizaPreloaded = false
+var isNapovedPreloaded = false
+
+
 function setForecastingSteps() {
 
     const rangeSlider = document.getElementById('napovedSlider');
@@ -161,29 +165,76 @@ function handleTextNapovedButtonClick(button) {
 }
 
 function updateAnaliza() {
-    const sliderValue = document.getElementById('analizaSlider').value;
+    
+    var slider = document.getElementById('analizaSlider')
 
     //Updajtaj datume
     // Calculate the new datetime based on the slider value (rounded to 10 minutes)
-    currentDatetime = new Date(baseDatetime.getTime() + sliderValue * 10 * 60 * 1000);
+    currentDatetime = new Date(baseDatetime.getTime() + slider.value * 10 * 60 * 1000);
     currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
     currentDatetimeUtcRounded = new Date(currentDatetimeUtc.getTime());
     currentDatetimeUtcRounded.setMinutes(0);
 
-    // Update datum text
+    
     document.getElementById('currentDatetimeValueAnaliza').textContent = formatDatetime(currentDatetime);
-
-    // Update radar image
     document.getElementById('radarImage').src = PROBASE_URL + 'observ/radar/si0_' + utcDateToCommonString(currentDatetimeUtc) + '_zm_si.jpg';
-
-
-    //Update Satellite Image SLO
     document.getElementById('satelliteImageSLO').src = PROBASE_URL + 'observ/satellite/msg_' + utcDateToCommonString(currentDatetimeUtcRounded) + '_hrv_si.jpg';
-
-    //Update Satellite Image EU
     document.getElementById('satelliteImageEU').src = PROBASE_URL + 'observ/satellite/msg_' + utcDateToCommonString(currentDatetimeUtcRounded) + '_ir_sateu.jpg';
 
+    // Ko je default value
+    if (slider.value == 0 && !isAnalizaPreloaded) {
+        preloadAnaliza()
+    }
 };
+
+
+function preloadAnaliza() {
+
+    var slider = document.getElementById('analizaSlider')
+    slider.disabled = true;
+
+    // Pokaži loading button
+    document.getElementById('loading-icon-analiza').style.display = 'block';
+
+
+    //Sestavi seznam slik za prepingat.
+    all_images = []
+    // max lahko izkljucis, ker si ga itak že loadal initially na suho.
+    for (var i = slider.min; i < slider.max; i++) {
+
+        currentDatetime = new Date(baseDatetime.getTime() + i * 10 * 60 * 1000);
+        currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
+
+        all_images.push(PROBASE_URL + 'observ/radar/si0_' + utcDateToCommonString(currentDatetimeUtc) + '_zm_si.jpg');
+
+        // Samo prvo uro gledaš.
+        if (currentDatetime.getMinutes() === 0) {
+            all_images.push(PROBASE_URL + 'observ/satellite/msg_' + utcDateToCommonString(currentDatetimeUtcRounded) + '_hrv_si.jpg');
+            all_images.push(PROBASE_URL + 'observ/satellite/msg_' + utcDateToCommonString(currentDatetimeUtcRounded) + '_ir_sateu.jpg');
+        }
+
+    }
+
+    // Loopaj po fotkah in jih prelaodaj
+    // Ko prepinga vse fotke, lahko ugasneš loader in odblokiraš slider
+    preloadImages(all_images)
+        .then(() => {
+
+            document.getElementById('loading-icon-analiza').style.display = 'none';
+            slider.disabled = false;
+
+            isAnalizaPreloaded = true;
+
+        })
+    .catch((error) => {
+        console.error('Error preloading images:', error);
+    });
+
+
+
+
+}
+
 
 function updateNapoved() {
     
@@ -229,6 +280,55 @@ function updateNapoved() {
     document.getElementById('AladinWind0Image').src = PROBASE_URL + 'model/aladin/field/ad_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_vm-va10m_' + wind_area + '_' + forecasting_hour + '.png';
 
 };
+
+
+function preloadNapoved() {
+
+    var slider = document.getElementById('napovedSlider')
+    slider.disabled = true;
+
+    // Pokaži loading button
+    document.getElementById('loading-icon-napoved').style.display = 'block';
+
+
+    //Sestavi seznam slik za prepingat.
+    all_images = []
+    // max lahko izkljucis, ker si ga itak že loadal initially na suho.
+    for (var i = slider.min; i < slider.max; i++) {
+
+        currentDatetime = new Date(baseDatetime.getTime() + i * 10 * 60 * 1000);
+        currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
+
+        all_images.push(PROBASE_URL + 'observ/radar/si0_' + utcDateToCommonString(currentDatetimeUtc) + '_zm_si.jpg');
+
+        // Samo prvo uro gledaš.
+        if (currentDatetime.getMinutes() === 0) {
+            all_images.push(PROBASE_URL + 'observ/satellite/msg_' + utcDateToCommonString(currentDatetimeUtcRounded) + '_hrv_si.jpg');
+            all_images.push(PROBASE_URL + 'observ/satellite/msg_' + utcDateToCommonString(currentDatetimeUtcRounded) + '_ir_sateu.jpg');
+        }
+
+    }
+
+    // Loopaj po fotkah in jih prelaodaj
+    // Ko prepinga vse fotke, lahko ugasneš loader in odblokiraš slider
+    preloadImages(all_images)
+        .then(() => {
+
+            document.getElementById('loading-icon-napoved').style.display = 'none';
+            slider.disabled = false;
+
+            isNapovedPreloaded = true;
+
+        })
+    .catch((error) => {
+        console.error('Error preloading images:', error);
+    });
+
+
+
+
+}
+
 
 
 function updateCasovniPresek() {
