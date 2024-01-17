@@ -12,8 +12,8 @@
 <body>
     
     <!-- upper navbar - always on top -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top d-flex justify-content-center justify-content-md-start">
-        <div id="navbar-buttons">
+    <div id="mainBar" class = "py-2 px-3 bg-light fixed-top">
+        <div class="row d-flex justify-content-center justify-content-md-start " id="navbar-buttons">
             <a 
                 title="Učni projekt za JS. Avtor celotne vsebine je ARSO, ta spletna stran je samo poenostavitev vsebine" href="#">
                 <img style="width: 30px;" src="img/cmarso.png" class="d-inline-block align-top" alt="">
@@ -29,11 +29,8 @@
             <button data-tab="textNapoved" class="main-buttons btn-sm btn-light"
             onclick="handleMainButtonClick(this)">Tekst</button>
         </div>  
-    </nav>
-
-    <!-- Bottom toolbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-bottom d-flex justify-content-center justify-content-md-start">
-        <div id="controlbar-buttons" class="row d-flex justify-content-center justify-content-md-start" id="toolbar">
+        <!-- Bottom toolbar -->
+        <div class="row" id="toolBar">
             <div class="col controlBar" data-tab="analiza">
                 <div class="row d-flex align-items-center justify-content-center">
                     <div class="col-xs-2" style="visibility: hidden;">
@@ -51,26 +48,27 @@
                     </div>
                 </div>
             </div>
-
+        
             <div class="col controlBar" data-tab="napoved">
-                <div class="row d-flex align-items-center justify-content-center">
-                    <div class="col-xs-2" id="buttonPlaceholder">
+                <div class="d-flex justify-content-between">
+                    <div id="buttonPlaceholder">
                         <button data-area="si-neighbours" class="area-buttons btn-sm btn-light"
                             onclick="handleAreaButtonClick(this)">Slovenija</button>
                         <button data-area="alps-adriatic" class="area-buttons btn-sm btn-light"
                             onclick="handleAreaButtonClick(this)">Alpe</button>
                     </div>
-                    <div class="col-md-7 col-xs-12">
+                    <div class="d-flex flex-grow-1">
                         <input type="range" class="form-control-range" id="napovedSlider" min="0" max="72" step="3" value="0"
                             oninput="updateNapoved()">
                     </div>
-                    <div class="currentDatetime col-md-3 col-xs-12 container-fluid">
-                        <span class="badge badge-light" id="currentDatetimeValueNapoved">Dummy</span>
+                    <div class="d-flex currentDatetime">
+                        <span class="badge badge-light" id="currentDatetimeValueNapoved"></span>
                         <div id="loading-icon-napoved" class="loading-icon"></div>
                     </div>
                 </div>
             </div>
-
+        
+        
             <div id="controlBarCasovniPresek" class="col controlBar" data-tab="casovniPresek">
                 <button data-place="ljubljana-bezigrad" class="place-buttons btn-sm btn-light"
                     onclick="handlePlaceCasovniButton(this)">Ljubljana</button>
@@ -83,7 +81,7 @@
                 <button data-place="murska-sobota" class="place-buttons btn-sm btn-light"
                     onclick="handlePlaceCasovniButton(this)">Pomurje</button>
             </div>
-
+        
             <div id="controlBarVerjetnostnaNapoved" class="col controlBar" data-tab="verjetnostnaNapoved">
                 <button data-place="ljubljana-bezigrad" class="place-buttons btn-sm btn-light"
                     onclick="handlePlaceVerjetnostnaButton(this)">Ljubljana</button>
@@ -96,7 +94,7 @@
                 <button data-place="murska-sobota" class="place-buttons btn-sm btn-light"
                     onclick="handlePlaceVerjetnostnaButton(this)">Pomurje</button>
             </div>
-
+        
             <div id="controlBarTextNapoved" class="col controlBar" data-tab="textNapoved">
                 <div class="row d-flex align-items-center justify-content-center">
                     <div class="col-xs-2" id="buttonPlaceholder">
@@ -107,12 +105,19 @@
                     </div>
                 </div>
             </div>
-
+        
         </div>
-    </nav>
+    </div>
+
+
 
     <!-- Main canvas -->
     <div id="main">
+
+        <div class="d-flex">
+            <div class="row">Kva je 1</div>
+            <div class="row">Kva je 2</div>
+        </div>
         <!-- Analiza -->
         <div class="content" data-tab="analiza">
             

@@ -128,7 +128,7 @@ function toggleVisibleContent(class_name, dataset_name, dataset_value) {
         }
     }
 
-    placeMainBelowNavbar()
+    // placeMainBelowNavbar()
 
 }
 

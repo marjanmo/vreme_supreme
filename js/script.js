@@ -196,7 +196,7 @@ function preloadAnaliza() {
     slider.disabled = true;
 
     // Pokaži loading button
-    document.getElementById('loading-icon-analiza').style.display = 'block';
+    document.getElementById('loading-icon-analiza').style.visible = 'visible';
 
 
     //Sestavi seznam slik za prepingat.
@@ -442,9 +442,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // Poskrbi, da bo vedno content pod navbarom
-    placeMainBelowNavbar()
+    // placeMainBelowNavbar()
 
-    window.addEventListener('resize', placeMainBelowNavbar());
+    // window.addEventListener('resize', placeMainBelowNavbar());
 
 
     // Listen for orientation changes
