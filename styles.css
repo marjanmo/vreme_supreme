@@ -141,3 +141,16 @@ button:focus {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+
+/* Media query for smartphones (up to 767px width) */
+@media (max-width: 767.98px) {
+
+    /* Change the class to fixed-bottom on smartphones */
+    #navBar {
+        position: fixed;
+        bottom: 0;
+        top: auto;
+        /* Other styles specific to fixed-bottom */
+    }
+}
