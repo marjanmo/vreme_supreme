@@ -92,7 +92,7 @@ https://meteo.arso.gov.si/uploads/probase/www/model/ecmwf/ef_20240111-1200_dd10d
 * navbar refactor - desktop in smartphone layout 
 * max širina teksta na širokih zaslonih
 * autorefresh
-* prelaod images
+* auto
 
 # Done
 * Umakni scroolbar
@@ -106,3 +106,4 @@ https://meteo.arso.gov.si/uploads/probase/www/model/ecmwf/ef_20240111-1200_dd10d
 * Natančna dolžina in pozicija sliderja!
 * tekst napoved arso in avio
 * Navbar na dno ko je na telefonu
+* prelaod images

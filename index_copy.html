@@ -4,114 +4,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="img/cmarso.png" type="image/x-icon">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./styles2.css">
     <script src=./js/utils.js></script>
     <script src=./js/script.js></script>
+
     <title>Čmarso Vreme</title>
 </head>
 <body>
-    
-    <!-- upper navbar - always on top -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top d-flex justify-content-center justify-content-md-start">
-        <div id="navbar-buttons">
-            <a 
-                title="Učni projekt za JS. Avtor celotne vsebine je ARSO, ta spletna stran je samo poenostavitev vsebine" href="#">
-                <img style="width: 30px;" src="img/cmarso.png" class="d-inline-block align-top" alt="">
-            </a>
-            <button data-tab="analiza" class="main-buttons btn-sm btn-light"
-                onclick="handleMainButtonClick(this)">Analiza</button>
-            <button data-tab="napoved" class="main-buttons btn-sm btn-light"
-                onclick="handleMainButtonClick(this)">Napoved</button>
-            <button data-tab = "casovniPresek" class="main-buttons btn-sm btn-light"
-                onclick="handleMainButtonClick(this)">Presek</button>
-            <button data-tab="verjetnostnaNapoved" class="main-buttons btn-sm btn-light"
-                onclick="handleMainButtonClick(this)">Verjetnost</button>
-            <button data-tab="textNapoved" class="main-buttons btn-sm btn-light"
-            onclick="handleMainButtonClick(this)">Tekst</button>
-        </div>  
-    </nav>
 
-    <!-- Bottom toolbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-bottom d-flex justify-content-center justify-content-md-start">
-        <div id="controlbar-buttons" class="row d-flex justify-content-center justify-content-md-start" id="toolbar">
-            <div class="col controlBar" data-tab="analiza">
-                <div class="row d-flex align-items-center justify-content-center">
-                    <div class="col-xs-2" style="visibility: hidden;">
-                        <!-- Just a placeholder for consistency with napoved toolbar -->
-                        <button class="area-buttons btn btn-sm btn-primary">Notvisibe 1</button>
-                        <button class="area-buttons btn btn-sm btn-secondary">Notvisible 2</button>
-                    </div>
-                    <div class="col-md-7 col-xs-12">
-                        <input type="range" class="form-control-range" id="analizaSlider" min="-144" max="0" step="1" value="0"
-                            oninput="updateAnaliza()">
-                    </div>
-                    <div class="currentDatetime col-md-3 col-xs-12 container-fluid">
-                        <span class="badge badge-light" id="currentDatetimeValueAnaliza">Dummy</span>
-                        <div id="loading-icon-analiza" class="loading-icon"></div>
-                    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <!-- First Row -->
+            <div class="row d-flex flex-column">
+                <a class="navbar-brand" href="#">
+                    <img src="img/cmarso.png" class="d-inline-block align-top" alt="" style="max-width: 30px;">
+                    Čmarso Vreme
+                </a>
+            </div>
+            <!-- Second Row -->
+            <div class="row d-flex flex-column">
+                <div class="col">
+                    <button data-tab="analiza" class="main-buttons btn btn-sm btn-light"
+                        onclick="handleMainButtonClick(this)">Analiza</button>
+                    <!-- Add more buttons or elements as needed -->
                 </div>
             </div>
-
-            <div class="col controlBar" data-tab="napoved">
-                <div class="row d-flex align-items-center justify-content-center">
-                    <div class="col-xs-2" id="buttonPlaceholder">
-                        <button data-area="si-neighbours" class="area-buttons btn-sm btn-light"
-                            onclick="handleAreaButtonClick(this)">Slovenija</button>
-                        <button data-area="alps-adriatic" class="area-buttons btn-sm btn-light"
-                            onclick="handleAreaButtonClick(this)">Alpe</button>
-                    </div>
-                    <div class="col-md-7 col-xs-12">
-                        <input type="range" class="form-control-range" id="napovedSlider" min="0" max="72" step="3" value="0"
-                            oninput="updateNapoved()">
-                    </div>
-                    <div class="currentDatetime col-md-3 col-xs-12 container-fluid">
-                        <span class="badge badge-light" id="currentDatetimeValueNapoved">Dummy</span>
-                        <div id="loading-icon-napoved" class="loading-icon"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="controlBarCasovniPresek" class="col controlBar" data-tab="casovniPresek">
-                <button data-place="ljubljana-bezigrad" class="place-buttons btn-sm btn-light"
-                    onclick="handlePlaceCasovniButton(this)">Ljubljana</button>
-                <button data-place="ratece" class="place-buttons btn-sm btn-light"
-                    onclick="handlePlaceCasovniButton(this)">Gorenjska</button>
-                <button data-place="portoroz" class="place-buttons btn-sm btn-light"
-                    onclick="handlePlaceCasovniButton(this)">Primorska</button>
-                <button data-place="novo-mesto" class="place-buttons btn-sm btn-light"
-                    onclick="handlePlaceCasovniButton(this)">Dolenjska</button>
-                <button data-place="murska-sobota" class="place-buttons btn-sm btn-light"
-                    onclick="handlePlaceCasovniButton(this)">Pomurje</button>
-            </div>
-
-            <div id="controlBarVerjetnostnaNapoved" class="col controlBar" data-tab="verjetnostnaNapoved">
-                <button data-place="ljubljana-bezigrad" class="place-buttons btn-sm btn-light"
-                    onclick="handlePlaceVerjetnostnaButton(this)">Ljubljana</button>
-                <button data-place="ratece" class="place-buttons btn-sm btn-light"
-                    onclick="handlePlaceVerjetnostnaButton(this)">Gorenjska</button>
-                <button data-place="portoroz" class="place-buttons btn-sm btn-light"
-                    onclick="handlePlaceVerjetnostnaButton(this)">Primorska</button>
-                <button data-place="novo-mesto" class="place-buttons btn-sm btn-light"
-                    onclick="handlePlaceVerjetnostnaButton(this)">Dolenjska</button>
-                <button data-place="murska-sobota" class="place-buttons btn-sm btn-light"
-                    onclick="handlePlaceVerjetnostnaButton(this)">Pomurje</button>
-            </div>
-
-            <div id="controlBarTextNapoved" class="col controlBar" data-tab="textNapoved">
-                <div class="row d-flex align-items-center justify-content-center">
-                    <div class="col-xs-2" id="buttonPlaceholder">
-                        <button data-text="general" class="text-buttons btn-sm btn-light"
-                            onclick="handleTextNapovedButtonClick(this)">Splošno</button>
-                        <button data-text="aviation" class="text-buttons btn-sm btn-light"
-                            onclick="handleTextNapovedButtonClick(this)">Letalstvo</button>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </nav>
 
-    <!-- Main canvas -->
+
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand"
+                title="Učni projekt za JS. Avtor celotne vsebine je ARSO, ta spletna stran je samo poenostavitev vsebine"
+                href="#">
+                <img src="img/cmarso.png" class="d-inline-block align-top" alt="" style="max-width: 30px;">
+                Čmarso Vreme
+            </a>
+            <div id="navbar-buttons" class="d-flex align-items-center">
+                <button data-tab="analiza" class="main-buttons btn btn-sm btn-light"
+                    onclick="handleMainButtonClick(this)">Analiza</button>
+                <button data-tab="napoved" class="main-buttons btn btn-sm btn-light"
+                    onclick="handleMainButtonClick(this)">Napoved</button>
+                <button data-tab="casovniPresek" class="main-buttons btn btn-sm btn-light"
+                    onclick="handleMainButtonClick(this)">Presek</button>
+                <button data-tab="verjetnostnaNapoved" class="main-buttons btn btn-sm btn-light"
+                    onclick="handleMainButtonClick(this)">Verjetnost</button>
+                <button data-tab="textNapoved" class="main-buttons btn btn-sm btn-light"
+                    onclick="handleMainButtonClick(this)">Tekst</button>
+            </div>
+        </div>
+        <div id="controlbar-buttons" class="container-fluid">
+            <div class="row">
+                <!-- ... Other content for control bar ... -->
+            </div>
+        </div>
+    </nav> -->
+
     <div id="main">
         <!-- Analiza -->
         <div class="content" data-tab="analiza">
