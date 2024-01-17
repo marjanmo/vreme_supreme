@@ -1,12 +1,9 @@
 
-Browsing [ARSO meteo.si](https://meteo.arso.gov.si/met/sl/app/webmet/) images made easy.
+Browsing advanced [ARSO meteo.si](https://meteo.arso.gov.si/met/sl/app/webmet/) images made simple and easy.
 
-Webpage hosted on [GitHub pages](https://marjanmo.github.io/img/cmarso-vreme/)
+Webpage hosted on [GitHub pages](https://marjanmo.github.io/img/cmarso-vreme/).
 
-
-
-
+Inspiration: [Perfect Motherfucking website](https://perfectmotherfuckingwebsite.com/).
 
 
-
-My first JavaScript learning project - suggestions and critics welcome.
+*This is my first Vanilla JavaScript learning project - suggestions and critics welcome.*

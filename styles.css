@@ -15,7 +15,7 @@ a.navbar-brand  {
     padding: 5px 0px, 10px, 0px;
 }
 
-#mainBar {
+#navBar {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -128,7 +128,7 @@ button:focus {
 
 
 .loading-icon {
-    display: none;
+    visibility: hidden;
     width: 20px;
     height: 20px;
     border: 2px solid rgba(0, 0, 0, 0.1);

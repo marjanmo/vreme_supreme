@@ -122,13 +122,18 @@ function toggleVisibleContent(class_name, dataset_name, dataset_value) {
     var contentDivs = document.getElementsByClassName(class_name);
     for (var i = 0; i < contentDivs.length; i++) {
         if (contentDivs[i].dataset[dataset_name] === dataset_value) {
+            console.log("prižigam", class_name,  contentDivs[i].dataset[dataset_name])
+
             contentDivs[i].style.display = "block";
         } else {
+            console.log("Ugašam", class_name,  contentDivs[i].dataset[dataset_name])
+
             contentDivs[i].style.display = "none";
+
         }
     }
 
-    // placeMainBelowNavbar()
+    placeMainBelowNavbar()
 
 }
 
@@ -156,9 +161,9 @@ function getActiveButtonId(className) {
 function placeMainBelowNavbar() {
     
 
-    navbar = document.querySelector('nav')
-
+    navbar = document.getElementById('navBar')
     var navbarHeight = navbar.offsetHeight;
+
     var main = document.getElementById('main')
 
     // Če je na smartphonu in je dol, potem naštimaj margin spodaj, sicer pa zgoraj

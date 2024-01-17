@@ -58,7 +58,6 @@ https://meteo.arso.gov.si/uploads/probase/www/model/aladin/field/as_20240109-000
 https://meteo.arso.gov.si/uploads/probase/www/model/aladin/field/as_20240109-0000_r-t-vf850_alps-adriatic_027.png
 
 
-
 # EU Padavine
 https://meteo.arso.gov.si/uploads/probase/www/model/ecmwf/ec_20240109-0000_mslp-tcc-rr_eu_018.png
 
@@ -69,14 +68,6 @@ https://meteo.arso.gov.si/uploads/probase/www/model/aladin/field/as_20240109-000
 https://meteo.arso.gov.si/uploads/probase/www/model/aladin/field/ad_20240109-0000_vm-va10m_si_042.png
 
 
-#Lokacije: Gorenjska
-
-ljubljana-bezigrad
-murska-sobota
-novo-mesto
-portoroz
-ratece
-
 #Profil Aladin
 https://meteo.arso.gov.si/uploads/probase/www/model/aladin/point/as_20240109-1200_vm-va_ljubljana-bezigrad.png
 
@@ -86,13 +77,11 @@ https://meteo.arso.gov.si/uploads/probase/www/model/ecmwf/ef_20240111-1200_dd10d
 
 # TODO
 
-* Swiping support for smartphones
 * Nekako dodaj novo Gorico noter
 * info/legal na ikonco
 * navbar refactor - desktop in smartphone layout 
-* max širina teksta na širokih zaslonih
-* autorefresh
 * auto
+* evropa (ecmwf)
 
 # Done
 * Umakni scroolbar
@@ -107,3 +96,6 @@ https://meteo.arso.gov.si/uploads/probase/www/model/ecmwf/ef_20240111-1200_dd10d
 * tekst napoved arso in avio
 * Navbar na dno ko je na telefonu
 * prelaod images
+* Swiping support for smartphones -- samo navbar dol, pa je
+* max širina teksta na širokih zaslonih
+* autorefresh - nočeš tega

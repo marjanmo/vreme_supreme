@@ -222,7 +222,7 @@ function preloadAnaliza() {
     preloadImages(all_images)
         .then(() => {
 
-            document.getElementById('loading-icon-analiza').style.display = 'none';
+            document.getElementById('loading-icon-analiza').style.visibility = 'hidden';
             slider.disabled = false;
 
             isAnalizaPreloaded = true;
@@ -296,7 +296,7 @@ function preloadNapoved() {
     slider.disabled = true;
 
     // Pokaži loading button
-    document.getElementById('loading-icon-napoved').style.display = 'block';
+    document.getElementById('loading-icon-napoved').style.visibility = 'visible';
 
 
     //Sestavi seznam slik za prepingat.
@@ -339,7 +339,7 @@ function preloadNapoved() {
     preloadImages(all_images)
         .then(() => {
 
-            document.getElementById('loading-icon-napoved').style.display = 'none';
+            document.getElementById('loading-icon-napoved').style.visibility = 'hidden';
             slider.disabled = false;
 
             isNapovedPreloaded = true;
@@ -433,6 +433,18 @@ function updateTextForecast() {
 
 document.addEventListener('DOMContentLoaded', function () {
 
+    // Initialize tooltips
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip({
+            // https://stackoverflow.com/questions/33584392/bootstraps-tooltip-doesnt-disappear-after-button-click-mouseleave
+            trigger: 'hover',
+            // https://stackoverflow.com/questions/15170967/how-to-delay-show-hide-of-bootstrap-tooltips 
+            'delay': { show: 1000, hide: 0 },
+            'placement': "right"
+
+        })
+    });
+
     // Preberi user nastavitve iz cache. Če ga ni, predpostavi napoved
     var activeTab = localStorage.getItem('activeTab') || "napoved";
 
@@ -442,9 +454,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // Poskrbi, da bo vedno content pod navbarom
-    // placeMainBelowNavbar()
+    placeMainBelowNavbar()
 
-    // window.addEventListener('resize', placeMainBelowNavbar());
+    window.addEventListener('resize', placeMainBelowNavbar());
 
 
     // Listen for orientation changes
@@ -453,31 +465,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initial setup to handle the current orientation
     handleOrientationChange();
 
-
- 
-    // document.addEventListener('keydown', function (event) {
-        
-    //     //find active slider
-    //     //najdi slider, ki je viden.
-
-    //     if (document.getElementById('analiza').display === 'block') {
-    //         var visibleSlider = document.getElementById("analizaSlider")
-    //     } else {
-    //         var visibleSlider = document.getElementById("napovedSlider")
-    //     }
-    //     console.log(visibleSlider)
-    //     if (event.key === 'ArrowLeft') {
-    //         // Move the slider left
-    //         visibleSlider.value = parseInt(visibleSlider.value, 10) - 1;
-    //     } else if (event.key === 'ArrowRight') {
-    //         // Move the slider right
-    //         visibleSlider.value = parseInt(visibleSlider.value, 10) + 1;
-    //     }
-
-    //     // Trigger the input event manually
-    //     const inputEvent = new Event('input', { bubbles: true });
-    //     visibleSlider.dispatchEvent(inputEvent);
-    // });
 
 
 });

@@ -12,38 +12,38 @@
 <body>
     
     <!-- upper navbar - always on top -->
-    <div id="mainBar" class = "py-2 px-3 bg-light fixed-top">
-        <div class="row d-flex justify-content-center justify-content-md-start " id="navbar-buttons">
-            <a 
+    <div id="navBar" class = "px-3 bg-light fixed-top">
+        <div class="row px-2 py-2 d-flex justify-content-center justify-content-md-start " id="navbar-buttons">
+            <a data-toggle="tooltip"
                 title="Učni projekt za JS. Avtor celotne vsebine je ARSO, ta spletna stran je samo poenostavitev vsebine" href="#">
-                <img style="width: 30px;" src="img/cmarso.png" class="d-inline-block align-top" alt="">
+                <img style="width: 25px;" src="img/cmarso.png" class="d-inline-block align-bottom" alt="">
             </a>
-            <button data-tab="analiza" class="main-buttons btn-sm btn-light"
+            <button data-toggle="tooltip" title="Pretekle radarske in satelitske slike" data-tab="analiza" class="main-buttons btn-sm btn-light"
                 onclick="handleMainButtonClick(this)">Analiza</button>
-            <button data-tab="napoved" class="main-buttons btn-sm btn-light"
+            <button data-toggle="tooltip" title="Napoved na zemljevidu" data-tab="napoved" class="main-buttons btn-sm btn-light"
                 onclick="handleMainButtonClick(this)">Napoved</button>
-            <button data-tab = "casovniPresek" class="main-buttons btn-sm btn-light"
+            <button data-toggle="tooltip" title="Napoved v časovnem vertikalnem preseku po regijah" data-tab = "casovniPresek" class="main-buttons btn-sm btn-light"
                 onclick="handleMainButtonClick(this)">Presek</button>
-            <button data-tab="verjetnostnaNapoved" class="main-buttons btn-sm btn-light"
+            <button data-toggle="tooltip" title="Ansambelska 10-dnevna verjetnostna napoved po regijah" data-tab="verjetnostnaNapoved" class="main-buttons btn-sm btn-light"
                 onclick="handleMainButtonClick(this)">Verjetnost</button>
-            <button data-tab="textNapoved" class="main-buttons btn-sm btn-light"
+            <button data-toggle="tooltip" title="Standardna subjektivna tekstovna napoved dežurnega prognostika ARSO" data-tab="textNapoved" class="main-buttons btn-sm btn-light"
             onclick="handleMainButtonClick(this)">Tekst</button>
         </div>  
         <!-- Bottom toolbar -->
-        <div class="row" id="toolBar">
+        <div class="row py-2 bg-white" id="toolBar">
             <div class="col controlBar" data-tab="analiza">
-                <div class="row d-flex align-items-center justify-content-center">
-                    <div class="col-xs-2" style="visibility: hidden;">
+                <div class="d-flex justify-content-between">
+                    <div style="visibility: hidden;">
                         <!-- Just a placeholder for consistency with napoved toolbar -->
-                        <button class="area-buttons btn btn-sm btn-primary">Notvisibe 1</button>
-                        <button class="area-buttons btn btn-sm btn-secondary">Notvisible 2</button>
+                        <button class="area-buttons btn-sm btn-light">Slovenija</button>
+                        <button class="area-buttons btn-sm btn-light">Alps</button>
                     </div>
-                    <div class="col-md-7 col-xs-12">
-                        <input type="range" class="form-control-range" id="analizaSlider" min="-144" max="0" step="1" value="0"
+                    <div class="d-flex flex-grow-1">
+                        <input type="range" class="pl-1 form-control-range" id="analizaSlider" min="-144" max="0" step="1" value="0"
                             oninput="updateAnaliza()">
                     </div>
-                    <div class="currentDatetime col-md-3 col-xs-12 container-fluid">
-                        <span class="badge badge-light" id="currentDatetimeValueAnaliza">Dummy</span>
+                    <div class="d-flex currentDatetime">
+                        <span class="badge" id="currentDatetimeValueAnaliza">Dummy</span>
                         <div id="loading-icon-analiza" class="loading-icon"></div>
                     </div>
                 </div>
@@ -51,18 +51,18 @@
         
             <div class="col controlBar" data-tab="napoved">
                 <div class="d-flex justify-content-between">
-                    <div id="buttonPlaceholder">
+                    <div>
                         <button data-area="si-neighbours" class="area-buttons btn-sm btn-light"
                             onclick="handleAreaButtonClick(this)">Slovenija</button>
                         <button data-area="alps-adriatic" class="area-buttons btn-sm btn-light"
                             onclick="handleAreaButtonClick(this)">Alpe</button>
                     </div>
                     <div class="d-flex flex-grow-1">
-                        <input type="range" class="form-control-range" id="napovedSlider" min="0" max="72" step="3" value="0"
+                        <input type="range" class="pl-1 form-control-range" id="napovedSlider" min="0" max="72" step="3" value="0"
                             oninput="updateNapoved()">
                     </div>
                     <div class="d-flex currentDatetime">
-                        <span class="badge badge-light" id="currentDatetimeValueNapoved"></span>
+                        <span class="badge" id="currentDatetimeValueNapoved"></span>
                         <div id="loading-icon-napoved" class="loading-icon"></div>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
         
             <div id="controlBarTextNapoved" class="col controlBar" data-tab="textNapoved">
                 <div class="row d-flex align-items-center justify-content-center">
-                    <div class="col-xs-2" id="buttonPlaceholder">
+                    <div>
                         <button data-text="general" class="text-buttons btn-sm btn-light"
                             onclick="handleTextNapovedButtonClick(this)">Splošno</button>
                         <button data-text="aviation" class="text-buttons btn-sm btn-light"
@@ -114,10 +114,6 @@
     <!-- Main canvas -->
     <div id="main">
 
-        <div class="d-flex">
-            <div class="row">Kva je 1</div>
-            <div class="row">Kva je 2</div>
-        </div>
         <!-- Analiza -->
         <div class="content" data-tab="analiza">
             
@@ -299,7 +295,7 @@
 
     <!-- Bootstrap JS and Popper.js -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
