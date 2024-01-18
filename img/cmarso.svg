@@ -1,16 +1,55 @@
 <!-- https://www.svgviewer.dev/svg-to-png -->
 <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+
+  <defs>
+    <radialGradient id="circleGradient" cx="50%" cy="50%" r="30%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color: rgba(0, 0, 0, 1); stop-opacity: 1" />
+      <stop offset="100%" style="stop-color: rgba(0, 0, 0, 0); stop-opacity: 0" />
+    </radialGradient>
+    <radialGradient id="lineGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color: black; stop-opacity: 1; stop-width: 3" />
+      <stop offset="100%" style="stop-color: black; stop-opacity: 0; stop-width: 0" />
+    </radialGradient>
+  </defs>
+  </defs>
+
   <!-- Center Circle -->
-  <circle cx="100" cy="100" r="90" stroke="black" stroke-width="6" fill="none" />
-  <circle cx="100" cy="100" r="20" fill="black" />
+  <!-- <circle cx="100" cy="100" r="90" stroke="black" stroke-width="6" fill="none" /> -->
+  <!-- <circle cx="100" cy="100" r="20" fill="black" /> -->
 
-  <!-- Concentric Lines -->
-  <line x1="30" y1="100" x2="170" y2="100" stroke="black" stroke-width="6" stroke-linecap="round" />
-
-  <!-- Diagonal Lines -->
+  <!-- <line x1="30" y1="100" x2="170" y2="100" stroke="black" stroke-width="6" stroke-linecap="round" />
   <line x1="50" y1="50" x2="150" y2="150" stroke="black" stroke-width="6" stroke-linecap="round" />
   <line x1="50" y1="150" x2="150" y2="50" stroke="black" stroke-width="6" stroke-linecap="round" />
+  <line x1="100" y1="30" x2="100" y2="170" stroke="black" stroke-width="6" stroke-linecap="round" /> -->
 
-  <!-- Cross Lines -->
-  <line x1="100" y1="30" x2="100" y2="170" stroke="black" stroke-width="6" stroke-linecap="round" />
+  <!-- Generate 8 concentric lines -->
+  <script type="text/ecmascript">
+    <![CDATA[
+      for (let i = 0; i < 22; i++) {
+        let angle = (i * (360/22)) * Math.PI / 180;
+        var x1 = 100;
+        var y1 = 100;
+        if (i % 2) { 
+          var x2 = 100 + Math.cos(angle) * 80 + (i*5)%8;
+          var y2 = 100 + Math.sin(angle) * 80 + (i*5)%8;
+          var stroke = 2.5;     
+
+
+        } else {
+          var x2 = 100 + Math.cos(angle) * 50 + (i*10)%8;
+          var y2 = 100 + Math.sin(angle) * 50 + (i*10)%8;
+          var stroke = 2;     
+
+        }
+        document.write(`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="black" stroke-width="${stroke}" stroke-linecap="round" />\n`);
+
+
+      }
+    ]]>
+  </script>
+
+
+  <!-- Create circle with radial gradient fill -->
+  <circle cx="100" cy="100" r="110" fill="url(#circleGradient)" />
+  <circle cx="100" cy="100" r="50" fill="url(#circleGradient)" />
 </svg>

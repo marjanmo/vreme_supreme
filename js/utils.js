@@ -89,6 +89,72 @@ function roundToLast1200(date) {
 }
 
 
+function roundToLastNMinutes(date, n_minutes) {
+    console.log(date)
+    const minutes = date.getMinutes();
+    const roundedMinutes = Math.floor(minutes / n_minutes) * n_minutes;
+    date.setMinutes(roundedMinutes, 0, 0);
+    return date;
+}
+
+
+function RelativeDateFormat(date, current_date) {
+
+    var DayStr = "";
+    var HourStr = "";
+
+    daysDifference = Math.floor((date - current_date) / (24 * 1000 * 60 * 60));
+
+    console.log(date)
+    console.log(current_date)
+
+    var currentDateMidnight = current_date
+    currentDateMidnight.setHours(0,0,0,0)
+
+    if (date.getHours() >= 23) {
+        HourStr = "ponoči"
+    } else if (date.getHours() >= 18) {
+        HourStr = "zvečer"
+    } else if (date.getHours() >= 12) {
+        HourStr = "popoldne"
+    } else if (date.getHours() >= 8) {
+        HourStr = "dopoldne"
+    } else if (date.getHours() >= 6) {
+        HourStr = "zjutraj"
+    } else {
+        HourStr = "ponoči"
+    }
+
+    // Če je večji od pojutrišnjem
+    if (date > new Date(currentDateMidnight.getTime() + 3 * 24 * 60 * 60 * 1000)) {
+        DayStr = "čez " + daysDifference + " dni"
+        HourStr = ""
+    // Če je večji od polnoč + 2 dni, je potem lahko samo še pojutrišnjem
+    } else if (date >= new Date(currentDateMidnight.getTime() + 2 * 24 * 60 * 60 * 1000)) {
+        DayStr = "pojutrišnjem"
+    // Če je večji od polnoč + 1 dni, je potem lahko samo še jutri
+    } else if (date >= new Date(currentDateMidnight.getTime() + 1 * 24 * 60 * 60 * 1000)) {
+        DayStr = "jutri"
+    // Če je večji od polnoč, je potem lahko samo še danes
+    } else if (date >= currentDateMidnight.getTime()) {
+        DayStr = "danes"
+    // Naredi še za preteklost
+    } else if (date >= new Date(currentDateMidnight.getTime() - 1 * 24 * 60 * 60 * 1000)) {
+        DayStr = "včeraj"
+        // Če je večji od polnoč + 1 dni, je potem lahko samo še jutri
+    } else if (date >= new Date(currentDateMidnight.getTime() - 2 * 24 * 60 * 60 * 1000)) {
+        DayStr = "predvčerajšnjim"
+    } else {
+        DayStr = "pred " + Math.abs(daysDifference) + " dni" 
+        HourStr = ""
+    }
+    console.log(DayStr + " " + HourStr)
+
+    return DayStr +  " " + HourStr
+
+}
+
+
 function formatDatetime(date) {
 
     // Pridobi informacijo o trenutnem timezonu
@@ -103,8 +169,8 @@ function formatDatetime(date) {
     var options = {
         weekday: 'long', // Ponedeljek
         day: 'numeric',  // 14
-        month: 'long',   // oktober
-        year: 'numeric',  // 2024
+        month: 'numeric',   // oktober
+        // year: 'numeric',  // 2024
         hour: 'numeric',  // 13
         minute: 'numeric' // 00
     };

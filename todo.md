@@ -79,8 +79,8 @@ https://meteo.arso.gov.si/uploads/probase/www/model/ecmwf/ef_20240111-1200_dd10d
 
 * Nekako dodaj novo Gorico noter
 * info/legal na ikonco
-* navbar refactor - desktop in smartphone layout 
-* auto
+* tooltipe pri smarthonih stran
+* slider v novo vrsto pri malih telefonih
 * evropa (ecmwf)
 
 # Done
@@ -99,3 +99,5 @@ https://meteo.arso.gov.si/uploads/probase/www/model/ecmwf/ef_20240111-1200_dd10d
 * Swiping support for smartphones -- samo navbar dol, pa je
 * max širina teksta na širokih zaslonih
 * autorefresh - nočeš tega
+* navbar refactor - desktop in smartphone layout 
+* cel spacing pri main buttons na malih telefonih

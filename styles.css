@@ -19,18 +19,22 @@ a.navbar-brand  {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.badge {
+    font-size: 15px;
+}
 
 /* #main {
     margin-top: 80px;
 } */
 
 button.main-buttons {
-    font-size: 13px;
+    font-size: 14px;
     margin: 0px;
     border: 0px;
     /* u l d r - kot gre ura*/
     padding: 3px 6px;
     vertical-align: bottom;
+    /* font-weight: bold; */
 }
 
 #toolbar {
@@ -144,7 +148,7 @@ button:focus {
 
 
 /* Media query for smartphones (up to 767px width) */
-@media (max-width: 767.98px) {
+@media (max-width: 575.98px) {
 
     /* Change the class to fixed-bottom on smartphones */
     #navBar {

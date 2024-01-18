@@ -10,6 +10,7 @@ var currentDatetimeUtc = new Date(currentDatetime.getTime() - 1 * 60 * 60 * 1000
 var currentDatetimeUtcRounded = new Date(currentDatetimeUtc.getTime())
 var lastAladinSimulationGuessUtc = roundToLast12Hours(new Date(currentDatetimeUtc.getTime() - 5 * 60 * 60 * 1000)) // predpostavljaš, da se 5 ur računa nov run
 var lastEcmwfSimulationGuessUtc = roundToLast1200(new Date(currentDatetimeUtc.getTime() - 9 * 60 * 60 * 1000)) // predpostavljaš, da se 9 ur računa nov run  (zadnji dan ob 12h - enkrat ob 20.45 še ni bil 12 runa)
+var lastRadarGuess = roundToLastNMinutes(new Date(new Date().getTime() - (5 * 60 * 1000)), 10) // predpostavljaš, da se 5 minut obdeluje zadnji radar in na 10 minute se objavljajo.
 
 
 var isAnalizaPreloaded = false
@@ -172,13 +173,13 @@ function updateAnaliza() {
 
     //Updajtaj datume
     // Calculate the new datetime based on the slider value (rounded to 10 minutes)
-    currentDatetime = new Date(baseDatetime.getTime() + slider.value * 10 * 60 * 1000);
+    currentDatetime = new Date(lastRadarGuess.getTime() + slider.value * 10 * 60 * 1000);
     currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
     currentDatetimeUtcRounded = new Date(currentDatetimeUtc.getTime());
     currentDatetimeUtcRounded.setMinutes(0);
 
     
-    document.getElementById('currentDatetimeValueAnaliza').textContent = formatDatetime(currentDatetime);
+    document.getElementById('currentDatetimeValueAnaliza').textContent = formatDatetime(currentDatetime) + "  (" + RelativeDateFormat(currentDatetime, baseDatetime) + ")";
     document.getElementById('radarImage').src = PROBASE_URL + 'observ/radar/si0_' + utcDateToCommonString(currentDatetimeUtc) + '_zm_si.jpg';
     document.getElementById('satelliteImageSLO').src = PROBASE_URL + 'observ/satellite/msg_' + utcDateToCommonString(currentDatetimeUtcRounded) + '_hrv_si.jpg';
     document.getElementById('satelliteImageEU').src = PROBASE_URL + 'observ/satellite/msg_' + utcDateToCommonString(currentDatetimeUtcRounded) + '_ir_sateu.jpg';
@@ -256,8 +257,8 @@ function updateNapoved() {
     currentDatetime = new Date(baseDatetime.getTime() + slider.value * 60 * 60 * 1000);
     currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
 
-    // Update datum text
-    document.getElementById('currentDatetimeValueNapoved').textContent = formatDatetime(currentDatetime);
+ 
+    document.getElementById('currentDatetimeValueNapoved').textContent = formatDatetime(currentDatetime) + "  (" + RelativeDateFormat(currentDatetime, baseDatetime) + ")";
 
 
     //pogruntaj, koliko ur je že od zadnje simulacije
