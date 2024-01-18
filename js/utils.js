@@ -98,17 +98,17 @@ function roundToLastNMinutes(date, n_minutes) {
 }
 
 
-function RelativeDateFormat(date, current_date) {
+function RelativeDateFormat(date, currentDate) {
 
     var DayStr = "";
     var HourStr = "";
 
-    daysDifference = Math.floor((date - current_date) / (24 * 1000 * 60 * 60));
+    daysDifference = Math.floor((date - currentDate) / (24 * 1000 * 60 * 60));
 
-    console.log(date)
-    console.log(current_date)
-
-    var currentDateMidnight = current_date
+    // Manipulate currentDate locally without affecting the global variable by creating a new local copy of var
+    currentDateMidnight = new Date(currentDate);
+    // Če boš naredil tako kot spodaj, boš v resnici spreminjal vrednost globalne variable, ki si jo poslal v funckijo kot currentDate
+    // var currentDateMidnight = currentDate
     currentDateMidnight.setHours(0,0,0,0)
 
     if (date.getHours() >= 23) {
@@ -131,26 +131,25 @@ function RelativeDateFormat(date, current_date) {
         HourStr = ""
     // Če je večji od polnoč + 2 dni, je potem lahko samo še pojutrišnjem
     } else if (date >= new Date(currentDateMidnight.getTime() + 2 * 24 * 60 * 60 * 1000)) {
-        DayStr = "pojutrišnjem"
+        DayStr = "pojutrišnjem "
     // Če je večji od polnoč + 1 dni, je potem lahko samo še jutri
     } else if (date >= new Date(currentDateMidnight.getTime() + 1 * 24 * 60 * 60 * 1000)) {
-        DayStr = "jutri"
+        DayStr = "jutri "
     // Če je večji od polnoč, je potem lahko samo še danes
     } else if (date >= currentDateMidnight.getTime()) {
-        DayStr = "danes"
+        DayStr = "danes "
     // Naredi še za preteklost
     } else if (date >= new Date(currentDateMidnight.getTime() - 1 * 24 * 60 * 60 * 1000)) {
-        DayStr = "včeraj"
+        DayStr = "včeraj "
         // Če je večji od polnoč + 1 dni, je potem lahko samo še jutri
     } else if (date >= new Date(currentDateMidnight.getTime() - 2 * 24 * 60 * 60 * 1000)) {
-        DayStr = "predvčerajšnjim"
+        DayStr = "predvčerajšnjim "
     } else {
         DayStr = "pred " + Math.abs(daysDifference) + " dni" 
         HourStr = ""
     }
-    console.log(DayStr + " " + HourStr)
 
-    return DayStr +  " " + HourStr
+    return DayStr + HourStr
 
 }
 
@@ -168,14 +167,9 @@ function formatDatetime(date) {
 
     var options = {
         weekday: 'long', // Ponedeljek
-        day: 'numeric',  // 14
-        month: 'numeric',   // oktober
-        // year: 'numeric',  // 2024
-        hour: 'numeric',  // 13
-        minute: 'numeric' // 00
     };
 
-    return date.toLocaleDateString('sl-SI', options) //+ " " + timeZoneName
+    return date.toLocaleDateString('sl-SI', options) + " " +  date.getDate() + "." + (date.getMonth() + 1) + ". " + date.getHours() + ":" + String(date.getMinutes()).padStart(2, '0') //+ " " + timeZoneName
 
 
 }

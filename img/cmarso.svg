@@ -30,8 +30,8 @@
         var x1 = 100;
         var y1 = 100;
         if (i % 2) { 
-          var x2 = 100 + Math.cos(angle) * 80 + (i*5)%8;
-          var y2 = 100 + Math.sin(angle) * 80 + (i*5)%8;
+          var x2 = 100 + Math.cos(angle) * 90 + (i*5)%8;
+          var y2 = 100 + Math.sin(angle) * 90 + (i*5)%8;
           var stroke = 2.5;     
 
 

@@ -257,7 +257,6 @@ function updateNapoved() {
     currentDatetime = new Date(baseDatetime.getTime() + slider.value * 60 * 60 * 1000);
     currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
 
- 
     document.getElementById('currentDatetimeValueNapoved').textContent = formatDatetime(currentDatetime) + "  (" + RelativeDateFormat(currentDatetime, baseDatetime) + ")";
 
 
