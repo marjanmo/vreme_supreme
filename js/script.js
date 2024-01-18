@@ -445,6 +445,14 @@ document.addEventListener('DOMContentLoaded', function () {
         })
     });
 
+    if (window.innerWidth < 576) {
+        // Find all tooltips and remove their 'data-toggle' attribute
+        document.querySelectorAll('[data-toggle="tooltip"]').forEach(function (element) {
+            element.removeAttribute('data-toggle');
+        });
+    }
+ 
+
     // Preberi user nastavitve iz cache. Če ga ni, predpostavi napoved
     var activeTab = localStorage.getItem('activeTab') || "napoved";
 
@@ -457,14 +465,6 @@ document.addEventListener('DOMContentLoaded', function () {
     placeMainBelowNavbar()
 
     window.addEventListener('resize', placeMainBelowNavbar());
-
-
-    // Listen for orientation changes
-    window.addEventListener("orientationchange", handleOrientationChange);
-
-    // Initial setup to handle the current orientation
-    handleOrientationChange();
-
 
 
 });

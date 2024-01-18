@@ -318,7 +318,7 @@ function parseGeneralForecastData(container) {
         //Preveri, če je opozorilo!
         var warning = xmlDoc.querySelector('#warning_SLOVENIA para').textContent
         if (warning != "Dodatnega opozorila ni.") {
-            createElement(container, 'h4', "NAPOVED ZA SLOVENIJO", "warning")
+            createElement(container, 'h5', "OPOZORILO", "warning")
             createElement(container, 'p', warning, "warning")
         }
 
