@@ -40,6 +40,31 @@ function setForecastingSteps() {
 
 }
 
+function handleResize() {
+
+    // Poskrbi, da bo vedno content pod navbarom
+    placeMainBelowNavbar()
+
+    // Custom logika za premikanje datuma ob majhnih zaslonih.
+    var elementToMove = document.getElementById('current-datetime-area');
+
+    if (window.innerWidth < 576) {
+        // Get the element to be moved
+
+        // Get the target container
+        var targetContainer = document.getElementById('current-datetime-small');
+
+        // Move the element to the target container
+    } else {
+
+        // Get the target container
+        var targetContainer = document.getElementById('current-datetime-big');
+
+    }
+    targetContainer.appendChild(elementToMove);
+
+}
+
 
 // Function to show content, update preferences, and toggle active class
 function handleMainButtonClick(button) {
@@ -237,9 +262,6 @@ function preloadAnaliza() {
         console.error('Error preloading images:', error);
     });
 
-
-
-
 }
 
 
@@ -353,9 +375,6 @@ function preloadNapoved() {
         console.error('Error preloading images:', error);
     });
 
-
-
-
 }
 
 
@@ -465,11 +484,9 @@ document.addEventListener('DOMContentLoaded', function () {
     handleMainButtonClick(activeTabButton);
 
 
-    // Poskrbi, da bo vedno content pod navbarom
-    placeMainBelowNavbar()
+    window.addEventListener('resize', handleResize);
 
-    window.addEventListener('resize', placeMainBelowNavbar());
-
+    handleResize();
 
 });
 

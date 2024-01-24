@@ -10,16 +10,13 @@
     <title>Čmarso Vreme</title>
 </head>
 <body>
-    <!-- Na velikih elementih bo zgoraj desno, na majhnih pa zgoraj na sredini - glej spodaj element -->
-    <div class="shadow row justify-content-center d-block d-sm-none fixed-top bg-light px-2 py-2">
-        <span data-tab="analiza" class="current-datetime badge text-sm" id="currentDatetimeValueAnaliza"></span>
-        <span data-tab="napoved" class="current-datetime badge text-sm" id="currentDatetimeValueNapoved"></span>
+    <!-- Place holder for current-datetime on small windows -->
+    <div id="current-datetime-small" class="shadow row justify-content-center d-block d-sm-none fixed-top bg-light px-2 py-2">
     </div>
     <!-- upper navbar - always on top -->
     <div id="navBar" class = "shadow px-3 bg-light fixed-top">
-        <div class="row px-2 py-2 d-flex justify-content-between justify-content-sm-start " id="navbar-buttons">
-            <a data-toggle="tooltip"
-                title="JS učni projekt. Avtor celotne vsebine je ARSO, ta spletna stran je samo poenostavitev vsebine" href="#">
+        <div class="row px-2 py-2 d-flex justify-content-between justify-content-sm-start" id="navbar-buttons">
+            <a data-toggle="modal" data-target="#infoModal">
                 <img style="width: 25px;" src="img/cmarso.png" class="d-inline-block align-bottom" alt="">
             </a>
             <button data-toggle="tooltip" title="Pretekle radarske in satelitske slike" data-tab="analiza" class="main-buttons btn-sm btn-light"
@@ -34,9 +31,11 @@
             onclick="handleMainButtonClick(this)">Tekst</button>
 
             <!-- Na velikih elementih bo zgoraj desno, na majhnih pa zgoraj na sredini - glej spodaj element -->
-            <div class="d-none d-sm-block ml-auto">
-                <span data-tab="analiza" class="current-datetime badge text-sm" id="currentDatetimeValueAnaliza"></span>
-                <span data-tab="napoved" class="current-datetime badge text-sm" id="currentDatetimeValueNapoved"></span>
+            <div id="current-datetime-big" class="d-none d-sm-block ml-auto">
+                <div id="current-datetime-area">
+                    <span data-tab="analiza" class="current-datetime badge text-sm" id="currentDatetimeValueAnaliza"></span>
+                    <span data-tab="napoved" class="current-datetime badge text-sm" id="currentDatetimeValueNapoved"></span>
+                </div>
             </div>
         </div>  
         <!-- Bottom toolbar -->
@@ -302,6 +301,35 @@
             <div class="textNapovedType" data-text="aviation"></div>
         </div>
     </div>
+
+
+    <!-- Logo Modal -->
+    <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="infoModalLabel">Čmarso Vreme</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Modal content goes here -->
+                    <p>Aplikacija je nastala z željo po lažji dostopnosti najpopularnejših grafičnih produktov naprednega ARSO pregledovalnika <a href="https://meteo.arso.gov.si/met/sl/app/webmet/#webmet=vUHcs9WYkN3LtVGdl92LhBHcvcXZi1WZ09Cc1p2cvAncvd2LyVWYs12Lp1WYnV2Lp5Wa05CetxGfzx2b2VmbpF2XuVWanhmYvVnczxXatF2Zlx3ek9Wbhlmb6cycs9mdl5Wah9lbll2ZoJ2b1J3cnwCchJXYtVGdlJnOnEETBRUSO9lUSdSf;">meteo.si</a> na mobilnih telefonih.</p>
+                    <p>Frustracije ob mobilni uporabi originalnega vmesnika so bile večje od mojega neznanja in strahu pred JavaScriptom in rezultat je pričujoče skropucalo. 
+                    Upam, da še komu skrajša že tako predolgo čakanje na novo sodobno vremensko aplikacijo, ki so ARSO menda že razvija. 
+                    </p>
+                    <hr>
+                    <p>Kritike, predlogi in popravki <a href="https://github.com/marjanmo/cmarso-vreme">dobrodošli</a>!</p> 
+                    <hr>
+                    <p>&copy;Vir in lastnik vseh podatkov v tej aplikaciji je Agencija RS za okolje (ARSO).</p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
 
 
     <!-- Bootstrap JS and Popper.js -->
