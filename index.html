@@ -10,12 +10,16 @@
     <title>Čmarso Vreme</title>
 </head>
 <body>
-    
+    <!-- Na velikih elementih bo zgoraj desno, na majhnih pa zgoraj na sredini - glej spodaj element -->
+    <div class="shadow row justify-content-center d-block d-sm-none fixed-top bg-light px-2 py-2">
+        <span data-tab="analiza" class="current-datetime badge text-sm" id="currentDatetimeValueAnaliza"></span>
+        <span data-tab="napoved" class="current-datetime badge text-sm" id="currentDatetimeValueNapoved"></span>
+    </div>
     <!-- upper navbar - always on top -->
-    <div id="navBar" class = "px-3 bg-light fixed-top">
+    <div id="navBar" class = "shadow px-3 bg-light fixed-top">
         <div class="row px-2 py-2 d-flex justify-content-between justify-content-sm-start " id="navbar-buttons">
             <a data-toggle="tooltip"
-                title="Učni projekt za JS. Avtor celotne vsebine je ARSO, ta spletna stran je samo poenostavitev vsebine" href="#">
+                title="JS učni projekt. Avtor celotne vsebine je ARSO, ta spletna stran je samo poenostavitev vsebine" href="#">
                 <img style="width: 25px;" src="img/cmarso.png" class="d-inline-block align-bottom" alt="">
             </a>
             <button data-toggle="tooltip" title="Pretekle radarske in satelitske slike" data-tab="analiza" class="main-buttons btn-sm btn-light"
@@ -28,6 +32,12 @@
                 onclick="handleMainButtonClick(this)">Verjetnost</button>
             <button data-toggle="tooltip" title="Standardna subjektivna tekstovna napoved dežurnega prognostika ARSO" data-tab="textNapoved" class="main-buttons btn-sm btn-light"
             onclick="handleMainButtonClick(this)">Tekst</button>
+
+            <!-- Na velikih elementih bo zgoraj desno, na majhnih pa zgoraj na sredini - glej spodaj element -->
+            <div class="d-none d-sm-block ml-auto">
+                <span data-tab="analiza" class="current-datetime badge text-sm" id="currentDatetimeValueAnaliza"></span>
+                <span data-tab="napoved" class="current-datetime badge text-sm" id="currentDatetimeValueNapoved"></span>
+            </div>
         </div>  
         <!-- Bottom toolbar -->
         <div class="row py-1 bg-white" id="toolBar">
@@ -38,14 +48,11 @@
                         <button class="area-buttons btn-sm btn-light">Slovenija</button>
                         <button class="area-buttons btn-sm btn-light">Alps</button>
                     </div>
-                    <div class="d-flex currentDatetime">
-                        <span class="badge text-sm" id="currentDatetimeValueAnaliza"></span>
+                    <div class="py-1 d-flex flex-grow-1">
+                        <div id="loading-icon-analiza" class="loading-icon"></div>
+                        <input type="range" class="pl-1 form-control-range" id="analizaSlider" min="-144" max="0" step="1" value="0"
+                            oninput="updateAnaliza()">
                     </div>
-                </div>
-                <div class="py-1 d-flex flex-grow-1">
-                    <div id="loading-icon-analiza" class="loading-icon"></div>
-                    <input type="range" class="pl-1 form-control-range" id="analizaSlider" min="-144" max="0" step="1" value="0"
-                        oninput="updateAnaliza()">
                 </div>
             </div>
 
@@ -58,22 +65,17 @@
                         <button data-area="alps-adriatic" class="area-buttons btn-sm btn-light"
                             onclick="handleAreaButtonClick(this)">Alpe</button>
                     </div>
-                    <div>
-                        <div class="d-flex currentDatetime">
-                            <span class="badge text-sm" id="currentDatetimeValueNapoved"></span>
-                        </div>
+                    <div class="py-1 d-flex flex-grow-1">
+                        <div id="loading-icon-napoved" class="loading-icon"></div>
+                        <input type="range" class="pl-1 form-control-range" id="napovedSlider" min="0" max="72" step="3" value="0"
+                            oninput="updateNapoved()">
                     </div>
-                </div>
-                <div class="py-1 d-flex flex-grow-1">
-                    <div id="loading-icon-napoved" class="loading-icon"></div>
-                    <input type="range" class="pl-1 form-control-range" id="napovedSlider" min="0" max="72" step="3" value="0"
-                        oninput="updateNapoved()">
                 </div>
             </div>
 
         
             <div id="controlBarCasovniPresek" class="col controlBar" data-tab="casovniPresek">
-                <div class="d-flex justify-content-between justify-content-md-start">
+                <div class="d-flex justify-content-between justify-content-sm-start">
 
                     <button data-place="ljubljana-bezigrad" class="place-buttons btn-sm btn-light"
                         onclick="handlePlaceCasovniButton(this)">Ljubljana</button>
@@ -89,7 +91,7 @@
             </div>
         
             <div id="controlBarVerjetnostnaNapoved" class="col controlBar" data-tab="verjetnostnaNapoved">
-                <div class="d-flex justify-content-between justify-content-md-start">
+                <div class="d-flex justify-content-between justify-content-sm-start">
 
                     <button data-place="ljubljana-bezigrad" class="place-buttons btn-sm btn-light"
                         onclick="handlePlaceVerjetnostnaButton(this)">Ljubljana</button>
@@ -105,7 +107,7 @@
             </div>
         
             <div id="controlBarTextNapoved" class="col controlBar" data-tab="textNapoved">
-                <div class="d-flex justify-content-center justify-content-md-start">
+                <div class="d-flex justify-content-center justify-content-sm-start">
                     <div>
                         <button data-text="general" class="text-buttons btn-sm btn-light"
                             onclick="handleTextNapovedButtonClick(this)">Splošno</button>
@@ -133,17 +135,17 @@
 
                     <div class="col-lg-4">
                         <h5>Radarska slika padavin</h5>
-                        <img id="radarImage" src="dummy.jpg" onerror="this.src='img/notfound.jpg';">
+                        <img id="radarImage" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
 
                     <div class="col-lg-4">
                         <h5>Satelitska slika - Evropa</span></h5>
-                        <img id="satelliteImageEU" src="dummy.jpg" onerror="this.src='img/notfound.jpg';">
+                        <img id="satelliteImageEU" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
 
                     <div class="col-lg-4">
                         <h5>Satelitska slika - Slovenija</span></h5>
-                        <img id="satelliteImageSLO" alt="error" src="dummy.jpg" onerror="this.src='img/notfound.jpg';">
+                        <img id="satelliteImageSLO" alt="error" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
 
                 </div>
@@ -160,12 +162,12 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <h5>Padavine</h5>
-                        <img id="AladinRainImage" src="dummy.jpg" onerror="this.src='img/notfound.jpg';">
+                        <img id="AladinRainImage" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
 
                     <div class="col-lg-6">
                         <h5>Temperatura</span></h5>
-                        <img id="AladinTempImage" src="dummy.jpg" onerror="this.src='img/notfound.jpg';">
+                        <img id="AladinTempImage" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
 
                 </div>
@@ -174,17 +176,17 @@
             
                     <div id=radar class="col-lg-4">
                         <h5>Veter pri tleh</h5>
-                        <img id="AladinWind0Image" src="dummy.jpg" onerror="this.src='img/notfound.jpg';">
+                        <img id="AladinWind0Image" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
             
                     <div class="col-lg-4">
                         <h5>Veter na 700 m.n.v.</span></h5>
-                        <img id="AladinWind700Image" src="dummy.jpg" onerror="this.src='img/notfound.jpg';">
+                        <img id="AladinWind700Image" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
 
                     <div class="col-lg-4">
                         <h5>Veter na 1500 m.n.v.</span></h5>
-                        <img id="AladinWind1500Image" src="dummy.jpg" onerror="this.src='img/notfound.jpg';">
+                        <img id="AladinWind1500Image" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
 
                 </div>
@@ -203,12 +205,12 @@
 
                     <div class="col-lg-6">
                         <h5>Vlaga in temperatura</h5>
-                        <img id="rainProfile" src="dummy.jpg" onerror="this.src='img/notfound.jpg';">
+                        <img id="rainProfile" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
 
                     <div class="col-lg-6">
                         <h5>Veter</h5>
-                        <img id="windProfile" src="dummy.jpg" onerror="this.src='img/notfound.jpg';">
+                        <img id="windProfile" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
 
                 </div>
@@ -218,19 +220,19 @@
                     <!-- First Column -->
                     <div class="col-lg-4">
                         <h5>Oblačnost</h5>
-                        <img id="cloudProfile" src="dummy.jpg" onerror="this.src='img/notfound.jpg';">
+                        <img id="cloudProfile" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
             
                     <!-- Second Column -->
                     <div class="col-lg-4">
                         <h5>Vlaga</span></h5>
-                        <img id="humidityProfile" src="dummy.jpg" onerror="this.src='img/notfound.jpg';">
+                        <img id="humidityProfile" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
             
                     <!-- Third Column -->
                     <div class="col-lg-4">
                         <h5>Temperaturni gradient</span></h5>
-                        <img id="temperatureProfile" src="dummy.jpg" onerror="this.src='img/notfound.jpg';">
+                        <img id="temperatureProfile" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
                 </div>
             
@@ -249,13 +251,13 @@
                     <!-- First Column -->
                     <div class="col-lg-6">
                         <h5>6h padavine</h5>
-                        <img id="rain6hProbability" src="dummy.jpg" onerror="this.src='img/notfound.jpg';">
+                        <img id="rain6hProbability" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
                 
                     <!-- Second Column -->
                     <div class="col-lg-6">
                         <h5>Dnevne padavine</span></h5>
-                        <img id="rain24hProbability" src="dummy.jpg" onerror="this.src='img/notfound.jpg';">
+                        <img id="rain24hProbability" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
                 
                 </div>
@@ -265,13 +267,13 @@
                     <!-- Third Column -->
                     <div class="col-lg-6">
                         <h5>Oblačnost</span></h5>
-                        <img id="cloudProbability" src="dummy.jpg" onerror="this.src='img/notfound.jpg';">
+                        <img id="cloudProbability" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
                 
                     <!-- First Column -->
                     <div class="col-lg-6">
                         <h5>Temperatura</h5>
-                        <img id="tempProbablity" src="dummy.jpg" onerror="this.src='img/notfound.jpg';">
+                        <img id="tempProbablity" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
                 </div>
 
@@ -280,13 +282,13 @@
                     <!-- Second Column -->
                     <div class="col-lg-6">
                         <h5>Hitrost vetra</span></h5>
-                        <img id="windSpeedProbability" src="dummy.jpg" onerror="this.src='img/notfound.jpg';">
+                        <img id="windSpeedProbability" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
         
                     <!-- Third Column -->
                     <div class="col-lg-6">
                         <h5>Smer vetra</span></h5>
-                        <img id="windDirProbability" src="dummy.jpg" onerror="this.src='img/notfound.jpg';">
+                        <img id="windDirProbability" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
                 </div>
         

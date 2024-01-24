@@ -60,12 +60,16 @@ function handleMainButtonClick(button) {
     toggleVisibleContent('controlBar', 'tab', tab);
     
     if (tab == "analiza") {
+        toggleVisibleContent('current-datetime', 'tab', tab)
+        
         updateAnaliza()
 
         focusOnSlider("analizaSlider")
 
 
     } else if (tab == "napoved") {
+        toggleVisibleContent('current-datetime', 'tab', tab)
+
         var activeArea = localStorage.getItem('activeArea') || "si-neighbours"
 
         setForecastingSteps()

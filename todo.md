@@ -79,8 +79,8 @@ https://meteo.arso.gov.si/uploads/probase/www/model/ecmwf/ef_20240111-1200_dd10d
 
 * Nekako dodaj novo Gorico noter
 * info/legal na ikonco
-* tooltipe pri smarthonih stran
-* slider v novo vrsto pri malih telefonih
+* dropdown opcija za lokacije Slo/Alpe/Evropa (ecmwf)
+* Na smartphonu stalni naslov zgoraj z celim datumom in logotom!
 * evropa (ecmwf)
 
 # Done
@@ -101,3 +101,6 @@ https://meteo.arso.gov.si/uploads/probase/www/model/ecmwf/ef_20240111-1200_dd10d
 * autorefresh - nočeš tega
 * navbar refactor - desktop in smartphone layout 
 * cel spacing pri main buttons na malih telefonih
+* slider v novo vrsto pri malih telefonih
+* tooltipe pri smarthonih stran
+* ni blinkanja ob prvem loadu

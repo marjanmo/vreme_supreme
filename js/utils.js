@@ -182,12 +182,10 @@ function toggleVisibleContent(class_name, dataset_name, dataset_value) {
     var contentDivs = document.getElementsByClassName(class_name);
     for (var i = 0; i < contentDivs.length; i++) {
         if (contentDivs[i].dataset[dataset_name] === dataset_value) {
-            console.log("prižigam", class_name,  contentDivs[i].dataset[dataset_name])
-
+            console.log("Prižigam", class_name,  contentDivs[i].dataset[dataset_name])
             contentDivs[i].style.display = "block";
         } else {
             console.log("Ugašam", class_name,  contentDivs[i].dataset[dataset_name])
-
             contentDivs[i].style.display = "none";
 
         }
@@ -246,10 +244,8 @@ function parseAviationForecastData(container) {
 
     function parseData(data) {
         const lines = data.split('\r\n');
-        console.log(lines)
-        var osvezeno = document.createElement('h5');
-        osvezeno.textContent = lines[1].replace("IZDANO: ", "");
-        container.appendChild(osvezeno);
+
+        createElement(container, 'p', "Datum: " + lines[1].replace("IZDANO: ", ""));
 
         //Loopaj vse od 4 vrstice naprej in filaj pare naslov, text
         for (let i = 3; i < lines.length; i++) {
@@ -312,13 +308,13 @@ function parseGeneralForecastData(container) {
 
         // Naslov
         var osvezeno = xmlDoc.querySelector('articleinfo').querySelector('pubdate').textContent.split(", ")[1]
-        createElement(container, 'h5', osvezeno);
+        createElement(container, 'p', "Datum: " + osvezeno);
 
 
         //Preveri, če je opozorilo!
         var warning = xmlDoc.querySelector('#warning_SLOVENIA para').textContent
         if (warning != "Dodatnega opozorila ni.") {
-            createElement(container, 'h5', "OPOZORILO", "warning")
+            createElement(container, 'h6', "OPOZORILO", "warning")
             createElement(container, 'p', warning, "warning")
         }
 
