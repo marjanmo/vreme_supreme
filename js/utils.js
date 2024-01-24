@@ -227,7 +227,8 @@ function placeMainBelowNavbar() {
     // Če je na smartphonu in je dol, potem naštimaj margin spodaj, sicer pa zgoraj
     if (window.getComputedStyle(navbar).bottom === "0px" || navbar.style.bottom === "0px") {
         main.style.marginBottom = navbarHeight + 'px';
-        main.style.marginTop = '0px';
+                
+        main.style.marginTop = document.getElementById('current-datetime-small').offsetHeight + 'px';
 
     } else {
         
