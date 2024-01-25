@@ -297,6 +297,7 @@ function parseAviationForecastData(container) {
 
 // Function to update the image order
 function updateImageOrder(gridId, order) {
+    console.log(order)
     order.forEach((imageId) => {
         let imageElement = document.getElementById(imageId);
         if (imageElement) {

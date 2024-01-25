@@ -22,6 +22,8 @@ const PROBASE_URL = 'https://meteo.arso.gov.si/uploads/probase/www/'
 defaultImageOrder = {
     'analizaGrid': ['radarImage', 'satelliteImageEU', 'satelliteImageSLO'],
     'napovedGrid': ['AladinRainImage', 'AladinTempImage', 'AladinWind0Image', 'AladinWind700Image', 'AladinWind1500Image'],
+    'casovniPresekGrid': ['rainProfile', 'windProfile', 'cloudProfile', 'humidityProfile', 'temperatureProfile'],
+    'probabilityGrid': ['rain6hProbability', 'rain24hProbability', 'cloudProbability', 'tempProbablity', 'windSpeedProbability', 'windDirProbability']
 }
 
 // Preberi vrstni red slik različne gride oz določi default, če ga še ni v bazi.
@@ -127,6 +129,10 @@ function handleMainButtonClick(button) {
 
     } else if (tab == "casovniPresek") {
         var activePlace = localStorage.getItem('activePlace') || "ljubljana-bezigrad"
+        
+        //Nastavi vrstni red slik tako kot hoče uporabnik
+        updateImageOrder("casovniPresekGrid", imageOrder["casovniPresekGrid"])
+
 
         activePlaceButton = document.querySelector('#controlBarCasovniPresek button[data-place="' + activePlace + '"]')
         handlePlaceCasovniButton(activePlaceButton)
@@ -135,7 +141,11 @@ function handleMainButtonClick(button) {
 
     } else if (tab == "verjetnostnaNapoved") {
         var activePlace = localStorage.getItem('activePlace') || "ljubljana-bezigrad"
-        
+
+        //Nastavi vrstni red slik tako kot hoče uporabnik
+        updateImageOrder("probabilityGrid", imageOrder["probabilityGrid"])
+
+
         activePlaceButton = document.querySelector('#controlBarVerjetnostnaNapoved button[data-place="' + activePlace + '"]')
         handlePlaceVerjetnostnaButton(activePlaceButton)
 
