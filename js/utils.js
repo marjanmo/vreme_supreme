@@ -182,10 +182,10 @@ function toggleVisibleContent(class_name, dataset_name, dataset_value) {
     var contentDivs = document.getElementsByClassName(class_name);
     for (var i = 0; i < contentDivs.length; i++) {
         if (contentDivs[i].dataset[dataset_name] === dataset_value) {
-            console.log("Prižigam", class_name,  contentDivs[i].dataset[dataset_name])
+            // console.log("Prižigam", class_name,  contentDivs[i].dataset[dataset_name])
             contentDivs[i].style.display = "block";
         } else {
-            console.log("Ugašam", class_name,  contentDivs[i].dataset[dataset_name])
+            // console.log("Ugašam", class_name,  contentDivs[i].dataset[dataset_name])
             contentDivs[i].style.display = "none";
 
         }
@@ -292,11 +292,60 @@ function parseAviationForecastData(container) {
             console.error('Error:', error);
         });
 
-
-
-
-
 }
+
+
+// Function to update the image order
+function updateImageOrder(gridId, order) {
+    order.forEach((imageId) => {
+        let imageElement = document.getElementById(imageId);
+        if (imageElement) {
+            document.getElementById(gridId).appendChild(imageElement.parentNode);
+        }
+    });
+}
+
+
+// Function to handle drag and drop events
+function handleImageReorder(event) {
+    event.preventDefault();
+    const draggedImageId = event.dataTransfer.getData('text/plain');
+    
+    // Pogruntaj kontekst iz imageId.
+    console.log("V roki si držal: ", draggedImageId)
+    gridId = document.querySelector('[data-image="' + draggedImageId + '"]').parentNode.id
+    console.log(gridId)
+    //Preberi trenutni imageorder
+    order = imageOrder[gridId]
+    const draggedIndex = order.indexOf(draggedImageId);
+    console.log(order)
+    
+    // Najdi ime in id target lokacije
+    const targetDraggableElement = event.target.closest('[draggable="true"]');
+
+    if (!targetDraggableElement) {
+        console.error('No draggable element found.');
+        return;
+    }
+    
+    // LI
+    const dropIndex = order.indexOf(targetDraggableElement.dataset.image);
+    console.log(targetDraggableElement.dataset.image)
+    console.log(draggedIndex, dropIndex)
+    // Swap the positions in the order array using a temporary variable
+    const temp = order[draggedIndex];
+    order[draggedIndex] = order[dropIndex];
+    order[dropIndex] = temp;
+
+    // Update the order in localStorage
+    imageOrder[gridId] = order
+    console.log("Novi red je: ", order)
+    localStorage.setItem('imageOrder', JSON.stringify(imageOrder));
+
+    // Update the visual order
+    updateImageOrder(gridId, order);
+}
+
 
 
 function parseGeneralForecastData(container) {

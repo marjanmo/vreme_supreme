@@ -130,19 +130,19 @@
             <div class="container-fluid">
 
                 <!-- Responsive Grid -->
-                <div class="row">
+                <div class="row" id="analizaGrid">
 
-                    <div class="col-lg-4">
+                    <div class="col-lg-4" draggable="true" data-image="radarImage">
                         <h5>Radarska slika padavin</h5>
                         <img id="radarImage" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
 
-                    <div class="col-lg-4">
+                    <div class="col-lg-4" draggable="true" data-image="satelliteImageEU">
                         <h5>Satelitska slika - Evropa</span></h5>
                         <img id="satelliteImageEU" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
 
-                    <div class="col-lg-4">
+                    <div class="col-lg-4" draggable="true" data-image="satelliteImageSLO">
                         <h5>Satelitska slika - Slovenija</span></h5>
                         <img id="satelliteImageSLO" alt="error" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
@@ -155,35 +155,31 @@
         
         <!-- Napoved -->
         <div class="content" data-tab="napoved">
-            <div class="container-fluid">
+            <div class="container-fluid" >
 
                 <!-- Responsive Grid -->
-                <div class="row">
-                    <div class="col-lg-6">
+                <div class="row" id="napovedGrid">
+                    <div class="col-lg-6" draggable="true" data-image="AladinRainImage">
                         <h5>Padavine</h5>
                         <img id="AladinRainImage" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
 
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" draggable="true" data-image="AladinTempImage">
                         <h5>Temperatura</span></h5>
                         <img id="AladinTempImage" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
-
-                </div>
-           
-                <div class="row">
             
-                    <div id=radar class="col-lg-4">
+                    <div id=radar class="col-lg-4" draggable="true" data-image="AladinWind0Image">
                         <h5>Veter pri tleh</h5>
                         <img id="AladinWind0Image" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
             
-                    <div class="col-lg-4">
+                    <div class="col-lg-4" draggable="true" data-image="AladinWind700Image">
                         <h5>Veter na 700 m.n.v.</span></h5>
                         <img id="AladinWind700Image" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
 
-                    <div class="col-lg-4">
+                    <div class="col-lg-4" draggable="true" data-image="AladinWind1500Image">
                         <h5>Veter na 1500 m.n.v.</span></h5>
                         <img id="AladinWind1500Image" src="img/blank.svg" onerror="this.src='img/notfound.jpg';">
                     </div>
@@ -317,11 +313,14 @@
                     <!-- Modal content goes here -->
                     <p>Aplikacija je nastala z željo po lažji dostopnosti najpopularnejših grafičnih produktov naprednega ARSO pregledovalnika <a href="https://meteo.arso.gov.si/met/sl/app/webmet/#webmet=vUHcs9WYkN3LtVGdl92LhBHcvcXZi1WZ09Cc1p2cvAncvd2LyVWYs12Lp1WYnV2Lp5Wa05CetxGfzx2b2VmbpF2XuVWanhmYvVnczxXatF2Zlx3ek9Wbhlmb6cycs9mdl5Wah9lbll2ZoJ2b1J3cnwCchJXYtVGdlJnOnEETBRUSO9lUSdSf;">meteo.si</a> na mobilnih telefonih.</p>
                     <p>Frustracije ob mobilni uporabi originalnega vmesnika so bile večje od avtorjevega neznanja JavaScripta in rezultat je pričujoče skropucalo. 
-                    Upam, da še komu skrajša že tako predolgo čakanje na novo sodobno vremensko aplikacijo, ki so ARSO menda že razvija. 
+                    Upam, da še komu skrajša že tako predolgo čakanje na novo sodobno vremensko aplikacijo, ki jo ARSO menda že razvija. 
                     </p>
                     <hr>
-                    <p>Kritike, predlogi in popravki <a href="https://github.com/marjanmo/cmarso-vreme">dobrodošli</a>!</p> 
+                    <h6>Namig:</h6>
+                    <p>Vrstni red slik si lahko personalizirate z "drag&drop" zamenjavo poljubnih dveh slik v istem zavihku.</p>
                     <hr>
+                    <p>Kritike, predlogi in popravki <a href="https://github.com/marjanmo/cmarso-vreme">dobrodošli</a>!</p>
+                    <br>
                     <p>&copy;Vir in lastnik vseh podatkov v tej aplikaciji je Agencija RS za okolje (ARSO).</p>
                     <p></p>
                 </div>

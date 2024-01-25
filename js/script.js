@@ -18,6 +18,18 @@ var isNapovedPreloaded = false
 
 const PROBASE_URL = 'https://meteo.arso.gov.si/uploads/probase/www/'
 
+// json, ki imenuje 
+defaultImageOrder = {
+    'analizaGrid': ['radarImage', 'satelliteImageEU', 'satelliteImageSLO'],
+    'napovedGrid': ['AladinRainImage', 'AladinTempImage', 'AladinWind0Image', 'AladinWind700Image', 'AladinWind1500Image'],
+}
+
+// Preberi vrstni red slik različne gride oz določi default, če ga še ni v bazi.
+var imageOrder = localStorage.getItem('imageOrder');
+imageOrder = imageOrder ? JSON.parse(imageOrder) : defaultImageOrder;
+
+
+
 
 function setForecastingSteps() {
 
@@ -86,7 +98,10 @@ function handleMainButtonClick(button) {
     
     if (tab == "analiza") {
         toggleVisibleContent('current-datetime', 'tab', tab)
-        
+
+        //Nastavi vrstni red slik tako kot hoče uporabnik
+        updateImageOrder("analizaGrid", imageOrder["analizaGrid"])
+
         updateAnaliza()
 
         focusOnSlider("analizaSlider")
@@ -94,6 +109,9 @@ function handleMainButtonClick(button) {
 
     } else if (tab == "napoved") {
         toggleVisibleContent('current-datetime', 'tab', tab)
+
+        //Nastavi vrstni red slik tako kot hoče uporabnik
+        updateImageOrder("napovedGrid", imageOrder["napovedGrid"])
 
         var activeArea = localStorage.getItem('activeArea') || "si-neighbours"
 
@@ -468,6 +486,20 @@ document.addEventListener('DOMContentLoaded', function () {
         })
     });
 
+    // Attach drag and drop event listeners to draggable elements
+    const draggableElements = document.querySelectorAll('[draggable="true"]');
+    draggableElements.forEach((element) => {
+        element.addEventListener('dragstart', function (event) {
+            event.dataTransfer.setData('text/plain', this.dataset.image);
+        });
+        element.addEventListener('dragover', function (event) {
+            event.preventDefault();
+        });
+        element.addEventListener('drop', handleImageReorder);
+    });
+
+
+
     if (window.innerWidth < 576) {
         // Find all tooltips and remove their 'data-toggle' attribute
         document.querySelectorAll('[data-toggle="tooltip"]').forEach(function (element) {
@@ -482,7 +514,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Najti ustrezen gumb in ga pohandlaj.
     activeTabButton = document.querySelector('button[data-tab="'+activeTab+'"]')
     handleMainButtonClick(activeTabButton);
-
 
     window.addEventListener('resize', handleResize);
 

@@ -80,6 +80,8 @@ https://meteo.arso.gov.si/uploads/probase/www/model/ecmwf/ef_20240111-1200_dd10d
 * Nekako dodaj novo Gorico noter
 * dropdown opcija za lokacije Slo/Alpe/Evropa (ecmwf)
 * ločeno loadanje slo/alpe/evropa
+* bug v datumu, bug v prazni vrstici na mobilnem
+* custom vrstni red slik, če hočeš
 
 # Done
 * Umakni scroolbar
