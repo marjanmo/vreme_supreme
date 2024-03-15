@@ -110,6 +110,7 @@ function handleMainButtonClick(button) {
 
 
     } else if (tab == "napoved") {
+        // Izklopi datume, ker ni relevanten tukaj
         toggleVisibleContent('current-datetime', 'tab', tab)
 
         //Nastavi vrstni red slik tako kot hoče uporabnik
@@ -128,6 +129,9 @@ function handleMainButtonClick(button) {
 
 
     } else if (tab == "casovniPresek") {
+        // Izklopi datume, ker ni relevanten tukaj
+        toggleVisibleContent('current-datetime', 'tab', tab)
+
         var activePlace = localStorage.getItem('activePlace') || "ljubljana-bezigrad"
         
         //Nastavi vrstni red slik tako kot hoče uporabnik
@@ -140,6 +144,9 @@ function handleMainButtonClick(button) {
         updateCasovniPresek()
 
     } else if (tab == "verjetnostnaNapoved") {
+        // Izklopi datume, ker ni relevanten tukaj
+        toggleVisibleContent('current-datetime', 'tab', tab)
+
         var activePlace = localStorage.getItem('activePlace') || "ljubljana-bezigrad"
 
         //Nastavi vrstni red slik tako kot hoče uporabnik
@@ -230,9 +237,9 @@ function updateAnaliza() {
 
     //Updajtaj datume
     // Calculate the new datetime based on the slider value (rounded to 10 minutes)
-    currentDatetime = new Date(lastRadarGuess.getTime() + slider.value * 10 * 60 * 1000);
-    currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
-    currentDatetimeUtcRounded = new Date(currentDatetimeUtc.getTime());
+    var currentDatetime = new Date(lastRadarGuess.getTime() + slider.value * 10 * 60 * 1000);
+    var currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
+    var currentDatetimeUtcRounded = new Date(currentDatetimeUtc.getTime());
     currentDatetimeUtcRounded.setMinutes(0);
 
     
@@ -262,8 +269,8 @@ function preloadAnaliza() {
     // max lahko izkljucis, ker si ga itak že loadal initially na suho.
     for (var i = slider.min; i < slider.max; i++) {
 
-        currentDatetime = new Date(baseDatetime.getTime() + i * 10 * 60 * 1000);
-        currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
+        var currentDatetime = new Date(baseDatetime.getTime() + i * 10 * 60 * 1000);
+        var currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
 
         all_images.push(PROBASE_URL + 'observ/radar/si0_' + utcDateToCommonString(currentDatetimeUtc) + '_zm_si.jpg');
 
@@ -308,8 +315,8 @@ function updateNapoved() {
 
     //Updajtaj datume
     // Calculate the new datetime based on the slider value (rounded to 1 hour)
-    currentDatetime = new Date(baseDatetime.getTime() + slider.value * 60 * 60 * 1000);
-    currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
+    var currentDatetime = new Date(baseDatetime.getTime() + slider.value * 60 * 60 * 1000);
+    var currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
 
     document.getElementById('currentDatetimeValueNapoved').textContent = formatDatetime(currentDatetime) + "  (" + RelativeDateFormat(currentDatetime, baseDatetime) + ")";
 
@@ -360,8 +367,8 @@ function preloadNapoved() {
         
 
         // Calculate the new datetime based on the slider value (rounded to 1 hour)
-        currentDatetime = new Date(baseDatetime.getTime() + i * 60 * 60 * 1000);
-        currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
+        var currentDatetime = new Date(baseDatetime.getTime() + i * 60 * 60 * 1000);
+        var currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
 
         //pogruntaj, koliko ur je že od zadnje simulacije
         hoursAfterSimulation = Math.floor((currentDatetimeUtc - lastAladinSimulationGuessUtc) / (1000 * 60 * 60));
