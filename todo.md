@@ -106,3 +106,5 @@ https://meteo.arso.gov.si/uploads/probase/www/model/ecmwf/ef_20240111-1200_dd10d
 * ni blinkanja ob prvem loadu
 * info/legal na ikonco
 * Na smartphonu stalni naslov zgoraj z celim datumom!
+* correct DST local date switching 
+* loading icons for both analiza and napoved

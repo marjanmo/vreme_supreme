@@ -238,6 +238,16 @@ function placeMainBelowNavbar() {
 }
 
 
+function SetElementVisibilty(element_id, value) {
+
+    div = document.getElementById(element_id);
+    div.style.setProperty('display', value, 'important');  // Use !important to override other styles
+
+
+}
+
+
+
 function parseAviationForecastData(container) {
     var url = "https://meteo.arso.gov.si/uploads/probase/www/aviation/fproduct/text/sl/aviation.txt"
     url = 'https://corsproxy.io/?' + encodeURIComponent(url+'?timestamp='+ Date.now());

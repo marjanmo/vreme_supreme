@@ -1,12 +1,14 @@
 
 // Set a base datetime, rounded to last hour
 var baseDatetime = new Date();
+var timezoneOffsetInMinutes = baseDatetime.getTimezoneOffset();
+
 baseDatetime.setMinutes(0);
 baseDatetime.setSeconds(0);
 
 // določi začetne vrednosti
 var currentDatetime = baseDatetime
-var currentDatetimeUtc = new Date(currentDatetime.getTime() - 1 * 60 * 60 * 1000)
+var currentDatetimeUtc = new Date(currentDatetime.getTime() + baseDatetime.getTimezoneOffset() * 60 * 1000)  // vrne, koliko minut je UTC naprej ali nazaj.
 var currentDatetimeUtcRounded = new Date(currentDatetimeUtc.getTime())
 var lastAladinSimulationGuessUtc = roundToLast12Hours(new Date(currentDatetimeUtc.getTime() - 5 * 60 * 60 * 1000)) // predpostavljaš, da se 5 ur računa nov run
 var lastEcmwfSimulationGuessUtc = roundToLast1200(new Date(currentDatetimeUtc.getTime() - 9 * 60 * 60 * 1000)) // predpostavljaš, da se 9 ur računa nov run  (zadnji dan ob 12h - enkrat ob 20.45 še ni bil 12 runa)
@@ -57,7 +59,7 @@ function setForecastingSteps() {
 function handleResize() {
 
     // Poskrbi, da bo vedno content pod navbarom
-    placeMainBelowNavbar()
+    // placeMainBelowNavbar()
 
     // Custom logika za premikanje datuma ob majhnih zaslonih.
     var elementToMove = document.getElementById('current-datetime-area');
@@ -76,6 +78,9 @@ function handleResize() {
 
     }
     targetContainer.appendChild(elementToMove);
+
+    // Poskrbi, da bo vedno content pod navbarom
+    placeMainBelowNavbar()
 
 }
 
@@ -97,7 +102,14 @@ function handleMainButtonClick(button) {
     // Moras imeti syncane data-tab propertyje med main-button, controlbar in contentom
     toggleVisibleContent('content', 'tab', tab);
     toggleVisibleContent('controlBar', 'tab', tab);
-    
+
+    // Hide current-datetime-small placeholder, because it shows in top on mobile phones
+    if (["analiza", "napoved"].includes(tab)) {
+        SetElementVisibilty("current-datetime-small", "block")
+    } else {
+        SetElementVisibilty("current-datetime-small", "none")
+    }
+
     if (tab == "analiza") {
         toggleVisibleContent('current-datetime', 'tab', tab)
 
@@ -110,7 +122,6 @@ function handleMainButtonClick(button) {
 
 
     } else if (tab == "napoved") {
-        // Izklopi datume, ker ni relevanten tukaj
         toggleVisibleContent('current-datetime', 'tab', tab)
 
         //Nastavi vrstni red slik tako kot hoče uporabnik
@@ -168,6 +179,8 @@ function handleMainButtonClick(button) {
     }
 
 
+    // Dodaj check, da izbriše optional datetime-current-area, ce je prazen (da ne hardcodaš logike po if elsih)
+    // hideEmptyCurrentDatetimeDiv()
 
 }
 
@@ -238,7 +251,7 @@ function updateAnaliza() {
     //Updajtaj datume
     // Calculate the new datetime based on the slider value (rounded to 10 minutes)
     var currentDatetime = new Date(lastRadarGuess.getTime() + slider.value * 10 * 60 * 1000);
-    var currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
+    var currentDatetimeUtc = new Date(currentDatetime.getTime() + baseDatetime.getTimezoneOffset() * 60 * 1000);
     var currentDatetimeUtcRounded = new Date(currentDatetimeUtc.getTime());
     currentDatetimeUtcRounded.setMinutes(0);
 
@@ -261,7 +274,7 @@ function preloadAnaliza() {
     slider.disabled = true;
 
     // Pokaži loading button
-    document.getElementById('loading-icon-analiza').style.visible = 'visible';
+    document.getElementById('loading-icon-analiza').style.visibility = 'visible';
 
 
     //Sestavi seznam slik za prepingat.
@@ -270,7 +283,7 @@ function preloadAnaliza() {
     for (var i = slider.min; i < slider.max; i++) {
 
         var currentDatetime = new Date(baseDatetime.getTime() + i * 10 * 60 * 1000);
-        var currentDatetimeUtc = new Date(currentDatetime.getTime() - 60 * 60 * 1000);
+        var currentDatetimeUtc = new Date(currentDatetime.getTime() + baseDatetime.getTimezoneOffset() * 60 * 1000);
 
         all_images.push(PROBASE_URL + 'observ/radar/si0_' + utcDateToCommonString(currentDatetimeUtc) + '_zm_si.jpg');
 
