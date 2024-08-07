@@ -179,8 +179,7 @@ function handleMainButtonClick(button) {
     }
 
 
-    // Dodaj check, da izbriše optional datetime-current-area, ce je prazen (da ne hardcodaš logike po if elsih)
-    // hideEmptyCurrentDatetimeDiv()
+    placeMainBelowNavbar()
 
 }
 
