@@ -24,7 +24,7 @@ const PROBASE_URL = 'https://meteo.arso.gov.si/uploads/probase/www/'
 defaultImageOrder = {
     'analizaGrid': ['radarImage', 'satelliteImageEU', 'satelliteImageSLO'],
     'napovedGrid': ['AladinRainImage', 'AladinTempImage', 'AladinWind0Image', 'AladinWind700Image', 'AladinWind1500Image'],
-    'casovniPresekGrid': ['rainProfile', 'windProfile', 'cloudProfile', 'humidityProfile', 'temperatureProfile'],
+    'casovniPresekGrid': ['rainProfile', 'windProfile', 'cloudProfile', 'humidityProfile', 'temperatureProfile', 'verticalSampling'],
     'probabilityGrid': ['rain6hProbability', 'rain24hProbability', 'cloudProbability', 'tempProbablity', 'windSpeedProbability', 'windDirProbability']
 }
 
@@ -451,6 +451,10 @@ function updateCasovniPresek() {
 
     // Profil vlage
     document.getElementById('humidityProfile').src = PROBASE_URL + 'model/aladin/point/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_rh-va_' + placeToJadralciCode[place] + '.png';
+
+    // Vertikalna sondaža
+    document.getElementById('verticalSampling').src = PROBASE_URL + 'model/aladin/point/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_' + placeToJadralciCode[place] + '_pstemp_012.png';
+
 
 }
 
