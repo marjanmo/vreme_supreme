@@ -453,8 +453,8 @@ function updateCasovniPresek() {
     document.getElementById('humidityProfile').src = PROBASE_URL + 'model/aladin/point/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_rh-va_' + placeToJadralciCode[place] + '.png';
 
     // Vertikalna sondaža
-    document.getElementById('verticalSampling').src = PROBASE_URL + 'model/aladin/point/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_' + placeToJadralciCode[place] + '_pstemp_012.png';
-
+    // document.getElementById('verticalSampling').src = PROBASE_URL + 'model/aladin/point/as_' + utcDateToCommonString(lastAladinSimulationGuessUtc) + '_' + placeToJadralciCode[place] + '_pstemp_012.png';
+    document.getElementById('verticalSampling').src = PROBASE_URL + 'observ/upper/sigps_ljubljana-bezigrad_zoom.png';
 
 }
 
